@@ -4,9 +4,23 @@
 
     class Account extends Base
     {
-        public function current($short = false)
+        /**
+         * Данные по аккаунту
+         *
+         * Получение информации по аккаунту в котором произведена авторизация:
+         * название, оплаченный период, пользователи аккаунта и их права,
+         * справочники дополнительных полей контактов и сделок, справочник статусов сделок,
+         * справочник типов событий, справочник типов задач и другие параметры аккаунта.
+         *
+         * @link https://developers.amocrm.ru/rest_api/accounts_current.php
+         *
+         * @param bool $short
+         *
+         * @return mixed
+         */
+        public function apiCurrent($short = false)
         {
-            $result = $this->get('/private/api/v2/json/accounts/current');
+            $result = $this->getRequest('/private/api/v2/json/accounts/current');
 
             return $short ? $this->getShorted($result['account']) : $result['account'];
         }

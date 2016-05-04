@@ -42,9 +42,20 @@
             return $this->getParams;
         }
 
-        public function addPost($name, $value)
+        public function hasGet()
         {
-            $this->postParams[$name] = $value;
+            return count($this->getParams);
+        }
+
+        public function addPost($name, $value = null)
+        {
+            if (is_array($name) AND $value === null) {
+                $this->postParams = array_merge($this->postParams, $name);
+            } else {
+                $this->postParams[$name] = $value;
+            }
+
+            return $this;
         }
 
         public function getPost($key = null)

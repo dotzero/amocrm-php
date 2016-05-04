@@ -76,6 +76,11 @@
                 unset($this->values[$offset]);
             }
         }
+        
+        public function getValues()
+        {
+            return $this->values;
+        }
 
         public function addCustomField($id, $value, $enum = false)
         {
