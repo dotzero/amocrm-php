@@ -108,6 +108,24 @@
             $this->assertTrue($mock->apiUpdate(1, 'now'));
         }
 
+        public function testApiLinks()
+        {
+            $mock = $this->getMockBuilder('\AmoCRM\Contact')
+                ->setConstructorArgs([new \AmoCRM\ParamsBag()])
+                ->setMethods(['apiLinks'])
+                ->getMock();
+
+            $this->assertInstanceOf('\AmoCRM\Contact', $mock);
+
+            $mock->expects($this->any())->method('apiLinks')
+                ->with($this->isType('array'))
+                ->will($this->returnValue([]));
+
+            $this->assertEquals([], $mock->apiLinks([
+                'limit_rows' => 4
+            ]));
+        }
+
         public function fieldsProvider()
         {
             return [

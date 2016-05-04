@@ -138,4 +138,11 @@
 
             return isset($response['contacts']['contacts']) ? true : false;
         }
+
+        public function apiLinks($parameters, $modified = null)
+        {
+            $response = $this->getRequest('/private/api/v2/json/contacts/links', $parameters, $modified);
+
+            return isset($response['links']) ? $response['links'] : [];
+        }
     }
