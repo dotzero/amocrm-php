@@ -81,11 +81,11 @@
             $mock->expects($this->any())->method('apiAdd')
                 ->will($this->returnValueMap([
                     // last arg is return value
-                    [[], [100]],
+                    [[], 100],
                     [[$mock, $mock], [100, 200]],
                 ]));
 
-            $this->assertCount(1, $mock->apiAdd());
+            $this->assertEquals(100, $mock->apiAdd());
             $this->assertCount(2, $mock->apiAdd([$mock, $mock]));
         }
 
