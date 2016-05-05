@@ -1,88 +1,174 @@
 <?php
 
-    namespace AmoCRM\Request;
+namespace AmoCRM\Request;
 
-    class ParamsBag
+/**
+ * Class ParamsBag
+ *
+ * Класс для хранения аргументов
+ *
+ * @package AmoCRM\Request
+ * @version 0.1.0
+ * @author dotzero <mail@dotzero.ru>
+ * @link http://www.dotzero.ru/
+ * @link https://github.com/dotzero/amocrm-php
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+class ParamsBag
+{
+    /**
+     * @var array Список значений параметров для авторизации
+     */
+    private $authParams = [];
+
+    /**
+     * @var array Список значений GET параметров
+     */
+    private $getParams = [];
+
+    /**
+     * @var array Список значений POST параметров
+     */
+    private $postParams = [];
+
+    /**
+     * Добавление значений параметров для авторизации
+     *
+     * @param string $name Название параметра
+     * @param mixed $value Значение параметра
+     * @return $this
+     */
+    public function addAuth($name, $value)
     {
-        private $authParams = [];
-        private $getParams  = [];
-        private $postParams = [];
+        $this->authParams[$name] = $value;
 
-        public function addAuth($name, $value)
-        {
-            $this->authParams[$name] = $value;
-        }
-
-        public function getAuth($key = null)
-        {
-            if ($key !== null) {
-                return isset($this->authParams[$key]) ? $this->authParams[$key] : null;
-            }
-
-            return $this->authParams;
-        }
-
-        public function addGet($name, $value = null)
-        {
-            if (is_array($name) AND $value === null) {
-                $this->getParams = array_merge($this->getParams, $name);
-            } else {
-                $this->getParams[$name] = $value;
-            }
-
-            return $this;
-        }
-
-        public function getGet($key = null)
-        {
-            if ($key !== null) {
-                return isset($this->getParams[$key]) ? $this->getParams[$key] : null;
-            }
-
-            return $this->getParams;
-        }
-
-        public function hasGet()
-        {
-            return count($this->getParams);
-        }
-
-        public function clearGet()
-        {
-            $this->getParams = [];
-            
-            return $this;
-        }
-
-        public function addPost($name, $value = null)
-        {
-            if (is_array($name) AND $value === null) {
-                $this->postParams = array_merge($this->postParams, $name);
-            } else {
-                $this->postParams[$name] = $value;
-            }
-
-            return $this;
-        }
-
-        public function getPost($key = null)
-        {
-            if ($key !== null) {
-                return isset($this->postParams[$key]) ? $this->postParams[$key] : null;
-            }
-
-            return $this->postParams;
-        }
-
-        public function hasPost()
-        {
-            return count($this->postParams);
-        }
-
-        public function clearPost()
-        {
-            $this->postParams = [];
-
-            return $this;
-        }
+        return $this;
     }
+
+    /**
+     * Получение параметра для авторизации по ключу или список параметров
+     *
+     * @param string $name Название параметра
+     * @return array|null Значение параметра или список параметров
+     */
+    public function getAuth($name = null)
+    {
+        if ($name !== null) {
+            return isset($this->authParams[$name]) ? $this->authParams[$name] : null;
+        }
+
+        return $this->authParams;
+    }
+
+    /**
+     * Добавление значений GET параметров
+     *
+     * @param string $name Название параметра
+     * @param mixed $value Значение параметра
+     * @return $this
+     */
+    public function addGet($name, $value = null)
+    {
+        if (is_array($name) AND $value === null) {
+            $this->getParams = array_merge($this->getParams, $name);
+        } else {
+            $this->getParams[$name] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Получение GET параметра по ключу или список параметров
+     *
+     * @param string $name Название параметра
+     * @return array|null Значение параметра или список параметров
+     */
+    public function getGet($key = null)
+    {
+        if ($key !== null) {
+            return isset($this->getParams[$key]) ? $this->getParams[$key] : null;
+        }
+
+        return $this->getParams;
+    }
+
+    /**
+     * Получение количества GET параметров
+     *
+     * @return int количество GET параметров
+     */
+    public function hasGet()
+    {
+        return count($this->getParams);
+    }
+
+    /**
+     * Очистка всех GET параметров
+     *
+     * @return $this
+     */
+    public function clearGet()
+    {
+        $this->getParams = [];
+
+        return $this;
+    }
+
+    /**
+     * Добавление значений POST параметров
+     *
+     * @param string $name Название параметра
+     * @param mixed $value Значение параметра
+     * @return $this
+     */
+    public function addPost($name, $value = null)
+    {
+        if (is_array($name) AND $value === null) {
+            $this->postParams = array_merge($this->postParams, $name);
+        } else {
+            $this->postParams[$name] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Получение POST параметра по ключу или список параметров
+     *
+     * @param string $name Название параметра
+     * @return array|null Значение параметра или список параметров
+     */
+    public function getPost($name = null)
+    {
+        if ($name !== null) {
+            return isset($this->postParams[$name]) ? $this->postParams[$name] : null;
+        }
+
+        return $this->postParams;
+    }
+
+    /**
+     * Получение количества POST параметров
+     *
+     * @return int количество POST параметров
+     */
+    public function hasPost()
+    {
+        return count($this->postParams);
+    }
+
+    /**
+     * Очистка всех POST параметров
+     *
+     * @return $this
+     */
+    public function clearPost()
+    {
+        $this->postParams = [];
+
+        return $this;
+    }
+}
