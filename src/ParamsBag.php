@@ -47,6 +47,13 @@
             return count($this->getParams);
         }
 
+        public function clearGet()
+        {
+            $this->getParams = [];
+            
+            return $this;
+        }
+
         public function addPost($name, $value = null)
         {
             if (is_array($name) AND $value === null) {
@@ -70,5 +77,12 @@
         public function hasPost()
         {
             return count($this->postParams);
+        }
+
+        public function clearPost()
+        {
+            $this->postParams = [];
+
+            return $this;
         }
     }
