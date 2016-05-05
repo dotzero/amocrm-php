@@ -1,6 +1,6 @@
 # AmoCRM
 
-[![Build Status](https://travis-ci.org/dotzero/ypaginator-php.svg?branch=master)](https://travis-ci.org/dotzero/ypaginator-php)
+[![Build Status](https://travis-ci.org/dotzero/amocrm-php.svg?branch=master)](https://travis-ci.org/dotzero/amocrm-php)
 
 Клиент для работы с API сервиса [amoCRM](https://www.amocrm.ru/)
 
