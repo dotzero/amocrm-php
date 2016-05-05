@@ -22,6 +22,9 @@
                 throw new ResourceException('Resource not exists: ' . $name);
             }
 
+            // Чистим GET и POST от предыдущих вызовов
+            $this->parameters->clearGet()->clearPost();
+
             return new $classname($this->parameters);
         }
     }
