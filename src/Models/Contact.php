@@ -7,7 +7,7 @@
      *
      * Класс модель для работы с Контактами
      *
-     * @package AmoCRM
+     * @package AmoCRM\Models
      * @version 0.1.0
      * @author dotzero <mail@dotzero.ru>
      * @link http://www.dotzero.ru/
