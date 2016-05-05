@@ -21,7 +21,7 @@
             $classname = '\\AmoCRM\\Models\\' . ucfirst($name);
 
             if (!class_exists($classname)) {
-                throw new ResourceException('Resource not exists: ' . $name);
+                throw new ModelException('Model not exists: ' . $name);
             }
 
             // Чистим GET и POST от предыдущих вызовов
