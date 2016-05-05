@@ -2,8 +2,24 @@
 
     namespace AmoCRM;
 
+    /**
+     * Class Contact
+     *
+     * Класс модель для работы с Контактами
+     *
+     * @package AmoCRM
+     * @version 0.1.0
+     * @author dotzero <mail@dotzero.ru>
+     * @link http://www.dotzero.ru/
+     *
+     * For the full copyright and license information, please view the LICENSE
+     * file that was distributed with this source code.
+     */
     class Contact extends Base
     {
+        /**
+         * @var array Список доступный полей для модели (исключая кастомные поля)
+         */
         protected $fields = [
             'name',
             'request_id',
@@ -15,6 +31,12 @@
             'tags',
         ];
 
+        /**
+         * Сеттер для даты создания контакта
+         *
+         * @param string $date Дата в произвольном формате
+         * @return $this
+         */
         public function setDateCreate($date)
         {
             $this->values['date_create'] = strtotime($date);
@@ -22,6 +44,12 @@
             return $this;
         }
 
+        /**
+         * Сеттер для даты последнего изменения контакта
+         *
+         * @param string $date Дата в произвольном формате
+         * @return $this
+         */
         public function setLastModified($date)
         {
             $this->values['last_modified'] = strtotime($date);
@@ -29,6 +57,12 @@
             return $this;
         }
 
+        /**
+         * Сеттер для списка связанных сделок контакта
+         *
+         * @param int|array $value Номер связанной сделки или список сделок
+         * @return $this
+         */
         public function setLinkedLeadsId($value)
         {
             if (!is_array($value)) {
@@ -40,6 +74,12 @@
             return $this;
         }
 
+        /**
+         * Сеттер для списка тегов контакта
+         *
+         * @param int|array $value Название тегов через запятую или массив тегов
+         * @return $this
+         */
         public function setTags($value)
         {
             if (!is_array($value)) {
@@ -58,10 +98,8 @@
          * Ограничение по возвращаемым на одной странице (offset) данным - 500 контактов.
          *
          * @link https://developers.amocrm.ru/rest_api/contacts_list.php
-         *
-         * @param null|array  $parameters
+         * @param array  $parameters
          * @param null|string $modified
-         *
          * @return array
          */
         public function apiList($parameters, $modified = null)
@@ -74,14 +112,11 @@
         /**
          * Добавление контактов
          *
-         * Метод позволяет добавлять контакты по одному или пакетно,
-         * а также обновлять данные по уже существующим контактам.
+         * Метод позволяет добавлять контакты по одному или пакетно
          *
          * @link https://developers.amocrm.ru/rest_api/contacts_set.php
-         *
          * @param array $contacts
-         *
-         * @return array
+         * @return int|array
          */
         public function apiAdd($contacts = [])
         {
@@ -101,44 +136,56 @@
 
             $response = $this->postRequest('/private/api/v2/json/contacts/set', $parameters);
 
-            $result = [];
             if (isset($response['contacts']['add'])) {
                 $result = array_map(function ($item) {
                     return $item['id'];
                 }, $response['contacts']['add']);
+            } else {
+                return false;
             }
 
-            return $result;
+            return count($contacts) == 1 ? array_shift($result) : $result;
         }
 
         /**
          * Обновление контактов
          *
-         * Метод позволяет добавлять контакты по одному или пакетно,
-         * а также обновлять данные по уже существующим контактам.
+         * Метод позволяет обновлять данные по уже существующим контактам
          *
          * @link https://developers.amocrm.ru/rest_api/contacts_set.php
-         *
-         * @param array $contacts
+         * @param int    $id
+         * @param string $modified
+         * @return bool
          */
         public function apiUpdate($id, $modified = 'now')
         {
             $parameters = [
                 'contacts' => [
-                    'update' => [
-                        array_merge(
-                            ['id' => $id, 'last_modified' => strtotime($modified),],
-                            $this->getValues()
-                        ),
-                    ],
+                    'update' => [],
                 ],
             ];
 
+            $contact = $this->getValues();
+            $contact['id'] = $id;
+            $contact['last_modified'] = strtotime($modified);
+
+            $parameters['contacts']['update'][] = $contact;
+
             $response = $this->postRequest('/private/api/v2/json/contacts/set', $parameters);
 
-            return isset($response['contacts']['contacts']) ? true : false;
+            return isset($response['contacts']) ? true : false;
         }
 
+        /**
+         * Связи между сделками и контактами
+         *
+         * Метод для получения списка связей между сделками и контактами
+         *
+         * @link https://developers.amocrm.ru/rest_api/contacts_links.php
+         * @param array $parameters
+         * @param null $modified
+         * @return array
+         */
         public function apiLinks($parameters, $modified = null)
         {
             $response = $this->getRequest('/private/api/v2/json/contacts/links', $parameters, $modified);
