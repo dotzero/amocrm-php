@@ -6,7 +6,7 @@
 
         public function setUp()
         {
-            $this->fields = new \AmoCRM\Fields();
+            $this->fields = new \AmoCRM\Helpers\Fields();
 
             $this->fields->add('key1', 'value1');
             $this->fields->add('key2', 'value2');

@@ -1,6 +1,8 @@
 <?php
 
-    namespace AmoCRM;
+    namespace AmoCRM\Models;
+    
+    use AmoCRM\Request\Request;
 
     class Base extends Request implements \ArrayAccess
     {

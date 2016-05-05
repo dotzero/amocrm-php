@@ -6,8 +6,8 @@
 
         public function setUp()
         {
-            $paramsBag   = new \AmoCRM\ParamsBag();
-            $this->model = new \AmoCRM\Contact($paramsBag);
+            $paramsBag   = new \AmoCRM\Request\ParamsBag();
+            $this->model = new \AmoCRM\Models\Contact($paramsBag);
         }
 
         /**
@@ -48,12 +48,12 @@
 
         public function testApiList()
         {
-            $mock = $this->getMockBuilder('\AmoCRM\Contact')
-                ->setConstructorArgs([new \AmoCRM\ParamsBag()])
+            $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
+                ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
                 ->setMethods(['apiList'])
                 ->getMock();
 
-            $this->assertInstanceOf('\AmoCRM\Contact', $mock);
+            $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
 
             $mock->expects($this->once())->method('apiList')
                 ->with($this->isType('array'))
@@ -68,12 +68,12 @@
 
         public function testApiAdd()
         {
-            $mock = $this->getMockBuilder('\AmoCRM\Contact')
-                ->setConstructorArgs([new \AmoCRM\ParamsBag()])
+            $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
+                ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
                 ->setMethods(['apiAdd'])
                 ->getMock();
 
-            $this->assertInstanceOf('\AmoCRM\Contact', $mock);
+            $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
 
             $mock['name'] = 'ФИО';
             $mock['company_name'] = 'ООО Тестовая компания';
@@ -91,12 +91,12 @@
 
         public function testApiUpdate()
         {
-            $mock = $this->getMockBuilder('\AmoCRM\Contact')
-                ->setConstructorArgs([new \AmoCRM\ParamsBag()])
+            $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
+                ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
                 ->setMethods(['apiUpdate'])
                 ->getMock();
 
-            $this->assertInstanceOf('\AmoCRM\Contact', $mock);
+            $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
 
             $mock['name'] = 'ФИО';
             $mock['company_name'] = 'ООО Тестовая компания';
@@ -110,12 +110,12 @@
 
         public function testApiLinks()
         {
-            $mock = $this->getMockBuilder('\AmoCRM\Contact')
-                ->setConstructorArgs([new \AmoCRM\ParamsBag()])
+            $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
+                ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
                 ->setMethods(['apiLinks'])
                 ->getMock();
 
-            $this->assertInstanceOf('\AmoCRM\Contact', $mock);
+            $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
 
             $mock->expects($this->any())->method('apiLinks')
                 ->with($this->isType('array'))

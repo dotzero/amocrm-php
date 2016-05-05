@@ -2,6 +2,8 @@
 
     namespace AmoCRM;
 
+    use AmoCRM\Request\ParamsBag;
+
     class Client
     {
         private $parameters = null;
@@ -16,7 +18,7 @@
 
         public function __get($name)
         {
-            $classname = '\\AmoCRM\\' . ucfirst($name);
+            $classname = '\\AmoCRM\\Models\\' . ucfirst($name);
 
             if (!class_exists($classname)) {
                 throw new ResourceException('Resource not exists: ' . $name);

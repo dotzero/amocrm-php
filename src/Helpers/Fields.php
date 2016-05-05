@@ -1,6 +1,6 @@
 <?php
 
-    namespace AmoCRM;
+    namespace AmoCRM\Helpers;
 
     class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
     {

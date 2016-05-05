@@ -1,6 +1,6 @@
 <?php
 
-    namespace AmoCRM;
+    namespace AmoCRM\Models;
 
     /**
      * Class Company
