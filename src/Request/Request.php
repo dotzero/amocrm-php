@@ -2,6 +2,9 @@
 
     namespace AmoCRM\Request;
 
+    use AmoCRM\Exception;
+    use AmoCRM\NetworkException;
+
     class Request
     {
         private $debug = false;
