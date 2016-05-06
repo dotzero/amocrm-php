@@ -15,6 +15,14 @@
 $ composer require dotzero/amocrm
 ```
 
+или добавить
+
+```json
+"dotzero/amocrm": ">=0.1.0"
+```
+
+в секцию `require` файла composer.json.
+
 ## Быстрый старт
 
 ```php
@@ -95,6 +103,11 @@ try {
     * `apiList($parameters, $modified = null)` - Метод для получения списка задач с возможностью фильтрации и постраничной выборки
     * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
     * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
+
+## Интеграция с фреймворками
+
+- Yii Framework 1.x [yii-amocrm](https://github.com/dotzero/yii-amocrm)
+- Yii Framework 2.x [yii2-amocrm](https://github.com/dotzero/yii2-amocrm)
 
 ## Тестирование
 
