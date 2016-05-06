@@ -71,7 +71,7 @@ class Request
      */
     protected function getRequest($url, $parameters = [], $modified = null)
     {
-        if ($parameters) {
+        if (!empty($parameters)) {
             $this->parameters->addGet($parameters);
         }
 
@@ -89,7 +89,7 @@ class Request
      */
     protected function postRequest($url, $parameters = [])
     {
-        if ($parameters) {
+        if (!empty($parameters)) {
             $this->parameters->addPost($parameters);
         }
 

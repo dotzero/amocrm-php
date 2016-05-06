@@ -65,13 +65,13 @@ class ParamsBag
     /**
      * Добавление значений GET параметров
      *
-     * @param string $name Название параметра
+     * @param string|array $name Название параметра
      * @param mixed $value Значение параметра
      * @return $this
      */
     public function addGet($name, $value = null)
     {
-        if (is_array($name) AND $value === null) {
+        if (is_array($name) && $value === null) {
             $this->getParams = array_merge($this->getParams, $name);
         } else {
             $this->getParams[$name] = $value;
@@ -86,10 +86,10 @@ class ParamsBag
      * @param string $name Название параметра
      * @return array|null Значение параметра или список параметров
      */
-    public function getGet($key = null)
+    public function getGet($name = null)
     {
-        if ($key !== null) {
-            return isset($this->getParams[$key]) ? $this->getParams[$key] : null;
+        if ($name !== null) {
+            return isset($this->getParams[$name]) ? $this->getParams[$name] : null;
         }
 
         return $this->getParams;
@@ -120,13 +120,13 @@ class ParamsBag
     /**
      * Добавление значений POST параметров
      *
-     * @param string $name Название параметра
+     * @param string|array $name Название параметра
      * @param mixed $value Значение параметра
      * @return $this
      */
     public function addPost($name, $value = null)
     {
-        if (is_array($name) AND $value === null) {
+        if (is_array($name) && $value === null) {
             $this->postParams = array_merge($this->postParams, $name);
         } else {
             $this->postParams[$name] = $value;
