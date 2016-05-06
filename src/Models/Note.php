@@ -33,6 +33,52 @@ class Note extends Base
     ];
 
     /**
+     * @link https://developers.amocrm.ru/rest_api/notes_type.php
+     * @type array Типы примечаний
+     */
+    protected $types = [
+        self::DEAL_CREATED => 'Сделка создана',
+        self::CONTACT_CREATED => 'Контакт создан',
+        self::DEAL_STATUS_CHANGED => 'Статус сделки изменен',
+        self::COMMON => 'Обычное примечание',
+        self::ATTACHMENT => 'Файл',
+        self::CALL => 'Звонок приходящий от iPhone-приложений',
+        self::EMAIL_MESSAGE => 'Письмо',
+        self::EMAIL_ATTACHMENT => 'Письмо с файлом',
+        self::CALL_IN => 'Входящий звонок',
+        self::CALL_OUT => 'Исходящий звонок',
+        self::COMPANY_CREATED => 'Компания создана',
+        self::TASK_RESULT => 'Результат по задаче',
+        self::SMS_IN => 'Входящее смс',
+        self::SMS_OUT => 'Исходящее смс',
+    ];
+
+    const DEAL_CREATED = 1;
+    const CONTACT_CREATED = 2;
+    const DEAL_STATUS_CHANGED = 3;
+    const COMMON = 4;
+    const ATTACHMENT = 5;
+    const CALL = 6;
+    const EMAIL_MESSAGE = 7;
+    const EMAIL_ATTACHMENT = 8;
+    const CALL_IN = 10;
+    const CALL_OUT = 11;
+    const COMPANY_CREATED = 12;
+    const TASK_RESULT = 13;
+    const SMS_IN = 102;
+    const SMS_OUT = 103;
+
+    /**
+     * @const int Типа задачи Контакт
+     */
+    const TYPE_CONTACT = 1;
+
+    /**
+     * @const int Типа задачи Сделка
+     */
+    const TYPE_LEAD = 2;
+
+    /**
      * Сеттер для даты создания примечания
      *
      * @param string $date Дата в произвольном формате

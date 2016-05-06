@@ -34,6 +34,16 @@ class Task extends Base
     ];
 
     /**
+     * @const int Типа задачи Контакт
+     */
+    const TYPE_CONTACT = 1;
+
+    /**
+     * @const int Типа задачи Сделка
+     */
+    const TYPE_LEAD = 2;
+
+    /**
      * Сеттер для даты создания задачи
      *
      * @param string $date Дата в произвольном формате
