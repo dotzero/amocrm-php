@@ -60,12 +60,12 @@ try {
 
 ## Список доступных моделей
 
-- [Аккаунт](https://developers.amocrm.ru/rest_api/#account)
-- [Контакт](https://developers.amocrm.ru/rest_api/#contact)
-- [Сделка](https://developers.amocrm.ru/rest_api/#lead)
-- [Компания](https://developers.amocrm.ru/rest_api/#company)
-- [Задача](https://developers.amocrm.ru/rest_api/#tasks)
-- [Событие](https://developers.amocrm.ru/rest_api/#event)
+- Account ([документация](https://developers.amocrm.ru/rest_api/#account))
+- Contact ([документация](https://developers.amocrm.ru/rest_api/#contact))
+- Lead ([документация](https://developers.amocrm.ru/rest_api/#lead))
+- Company ([документация](https://developers.amocrm.ru/rest_api/#company))
+- Task ([документация](https://developers.amocrm.ru/rest_api/#tasks))
+- Note ([документация](https://developers.amocrm.ru/rest_api/#event))
 
 ## Описание моделей и методов
 
@@ -104,10 +104,46 @@ try {
     * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
     * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
 
+## Описание хелпера
+
+Для хранения ID полей можно воспользоваться хелпером `Fields`
+
+```php
+try {
+    $amo = new \AmoCRM\Client(getenv('DOMAIN'), getenv('LOGIN'), getenv('HASH'));
+
+    // Для хранения ID полей можно воспользоваться хелпером \AmoCRM\Helpers\Fields
+    $amo->fields->StatusId = 10525225;
+    $amo->fields->ResponsibleUserId = 697344;
+
+    // Добавление сделок с использованием хелпера
+    $lead = $amo->lead;
+    $lead['name'] = 'Тестовая сделка';
+    $lead['status_id'] = $amo->fields->StatusId;
+    $lead['price'] = 3000;
+    $lead['responsible_user_id'] = $amo->fields->ResponsibleUserId;
+    $lead->apiAdd();
+
+    // Также можно просто использовать хелпер без клиента
+    $fields = new \AmoCRM\Helpers\Fields();
+
+    // Как объект
+    $fields->StatusId = 10525225;
+    $fields->ResponsibleUserId = 697344;
+
+    // Или как массив
+    $fields['StatusId'] = 10525225;
+    $fields['ResponsibleUserId'] = 697344;
+
+} catch (\AmoCRM\Exception $e) {
+    printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
+}
+```
+
 ## Интеграция с фреймворками
 
-- Yii Framework 1.x [yii-amocrm](https://github.com/dotzero/yii-amocrm)
-- Yii Framework 2.x [yii2-amocrm](https://github.com/dotzero/yii2-amocrm)
+- Yii Framework 1.x ([yii-amocrm](https://github.com/dotzero/yii-amocrm))
+- Yii Framework 2.x ([yii2-amocrm](https://github.com/dotzero/yii2-amocrm))
 
 ## Тестирование
 

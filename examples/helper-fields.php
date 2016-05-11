@@ -5,7 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 try {
     $amo = new \AmoCRM\Client(getenv('DOMAIN'), getenv('LOGIN'), getenv('HASH'));
 
-    // Для хранения ID полей можно воскользоваться хелпером \AmoCRM\Helpers\Fields
+    // Для хранения ID полей можно воспользоваться хелпером \AmoCRM\Helpers\Fields
     $amo->fields->StatusId = 10525225;
     $amo->fields->ResponsibleUserId = 697344;
 
