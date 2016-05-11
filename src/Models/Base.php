@@ -151,7 +151,7 @@ class Base extends Request implements \ArrayAccess
      */
     protected function checkId($id)
     {
-        if (intval($id) != $id OR $id < 1) {
+        if (intval($id) != $id || $id < 1) {
             throw new Exception('Id must be integer and positive');
         }
 
