@@ -12,9 +12,9 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
-  - composer self-update
+  - travis_retry composer self-update && composer --version
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer install --prefer-dist --no-interaction
+  - travis_retry composer install --prefer-dist --no-interaction
 
 before_script:
   - |
