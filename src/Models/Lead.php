@@ -107,7 +107,7 @@ class Lead extends Base
                 return $item['id'];
             }, $response['leads']['add']);
         } else {
-            return false;
+            return [];
         }
 
         return count($leads) == 1 ? array_shift($result) : $result;

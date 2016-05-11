@@ -141,7 +141,7 @@ class Company extends Base
                 return $item['id'];
             }, $response['contacts']['add']);
         } else {
-            return false;
+            return [];
         }
 
         return count($companies) == 1 ? array_shift($result) : $result;

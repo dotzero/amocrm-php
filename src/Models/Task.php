@@ -135,7 +135,7 @@ class Task extends Base
                 return $item['id'];
             }, $response['tasks']['add']);
         } else {
-            return false;
+            return [];
         }
 
         return count($tasks) == 1 ? array_shift($result) : $result;

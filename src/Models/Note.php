@@ -154,7 +154,7 @@ class Note extends Base
                 return $item['id'];
             }, $response['notes']['add']);
         } else {
-            return false;
+            return [];
         }
 
         return count($notes) == 1 ? array_shift($result) : $result;

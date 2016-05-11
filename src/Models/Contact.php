@@ -142,7 +142,7 @@ class Contact extends Base
                 return $item['id'];
             }, $response['contacts']['add']);
         } else {
-            return false;
+            return [];
         }
 
         return count($contacts) == 1 ? array_shift($result) : $result;
