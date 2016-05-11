@@ -3,6 +3,7 @@
 namespace AmoCRM;
 
 use AmoCRM\Request\ParamsBag;
+use AmoCRM\Helpers\Fields;
 
 /**
  * Class Client
@@ -27,6 +28,11 @@ use AmoCRM\Request\ParamsBag;
 class Client
 {
     /**
+     * @var Fields|null Экземпляр Fields для хранения номеров полей
+     */
+    public $fields = null;
+
+    /**
      * @var ParamsBag|null Экземпляр ParamsBag для хранения аргументов
      */
     private $parameters = null;
@@ -44,6 +50,8 @@ class Client
         $this->parameters->addAuth('domain', $domain);
         $this->parameters->addAuth('login', $login);
         $this->parameters->addAuth('apikey', $apikey);
+
+        $this->fields = new Fields();
     }
 
     /**
