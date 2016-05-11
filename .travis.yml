@@ -13,6 +13,7 @@ cache:
 
 before_script:
   - composer self-update
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - composer install --prefer-dist --no-interaction
 
 before_script:
@@ -22,7 +23,7 @@ before_script:
     fi
 
 script:
-  - vendor/bin/phpunit --verbose $PHPUNIT_FLAGS
+  - phpunit --verbose $PHPUNIT_FLAGS
 
 after_script:
   - |
