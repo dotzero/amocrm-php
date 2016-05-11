@@ -2,7 +2,7 @@ imports:
     - php
 
 tools:
-    external_code_coverage: true
+    external_code_coverage:
         timeout: 2100 # Timeout in seconds.
     # disable copy paste detector and similarity analyzer as they have no real value
     # and a huge bunch of false-positives
