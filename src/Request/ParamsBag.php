@@ -102,7 +102,7 @@ class ParamsBag
      */
     public function hasGet()
     {
-        return count($this->getParams);
+        return count($this->getParams) ? true : false;
     }
 
     /**
@@ -157,7 +157,7 @@ class ParamsBag
      */
     public function hasPost()
     {
-        return count($this->postParams);
+        return count($this->postParams) ? true : false;
     }
 
     /**
