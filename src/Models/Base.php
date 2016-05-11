@@ -2,6 +2,7 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Exception;
 use AmoCRM\Request\Request;
 
 /**
@@ -139,6 +140,22 @@ class Base extends Request implements \ArrayAccess
         $this->values['custom_fields'][] = $field;
 
         return $this;
+    }
+
+    /**
+     * Проверяет ID на валидность
+     *
+     * @param mixed $id ID
+     * @return bool
+     * @throws Exception
+     */
+    protected function checkId($id)
+    {
+        if (intval($id) != $id OR $id < 1) {
+            throw new Exception('Id must be integer and positive');
+        }
+
+        return true;
     }
 
     /**

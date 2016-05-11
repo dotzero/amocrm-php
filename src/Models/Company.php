@@ -156,9 +156,12 @@ class Company extends Base
      * @param int $id Уникальный идентификатор компании
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
+     * @throws \AmoCRM\Exception
      */
     public function apiUpdate($id, $modified = 'now')
     {
+        $this->checkId($id);
+
         $parameters = [
             'contacts' => [
                 'update' => [],

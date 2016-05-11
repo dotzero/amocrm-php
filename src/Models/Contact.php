@@ -157,9 +157,12 @@ class Contact extends Base
      * @param int $id Уникальный идентификатор контакта
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
+     * @throws \AmoCRM\Exception
      */
     public function apiUpdate($id, $modified = 'now')
     {
+        $this->checkId($id);
+
         $parameters = [
             'contacts' => [
                 'update' => [],

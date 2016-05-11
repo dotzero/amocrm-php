@@ -151,9 +151,12 @@ class Task extends Base
      * @param string $text Текст задачи
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
+     * @throws \AmoCRM\Exception
      */
     public function apiUpdate($id, $text, $modified = 'now')
     {
+        $this->checkId($id);
+
         $parameters = [
             'tasks' => [
                 'update' => [],

@@ -122,9 +122,12 @@ class Lead extends Base
      * @param int $id Уникальный идентификатор сделки
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
+     * @throws \AmoCRM\Exception
      */
     public function apiUpdate($id, $modified = 'now')
     {
+        $this->checkId($id);
+
         $parameters = [
             'leads' => [
                 'update' => [],
