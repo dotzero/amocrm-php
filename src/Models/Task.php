@@ -8,7 +8,7 @@ namespace AmoCRM\Models;
  * Класс модель для работы с Задачами
  *
  * @package AmoCRM\Models
- * @version 0.1.0
+ * @version 0.3.0
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
  * @link https://github.com/dotzero/amocrm-php
