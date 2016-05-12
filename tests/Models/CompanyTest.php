@@ -1,5 +1,29 @@
 <?php
 
+class CompanyMock extends \AmoCRM\Models\Company
+{
+    protected function getRequest($url, $parameters = [], $modified = null)
+    {
+        return ['contacts' => []];
+    }
+
+    protected function postRequest($url, $parameters = [])
+    {
+        return [
+            'contacts' => [
+                'add' => [
+                    ['id' => 100],
+                    ['id' => 200]
+                ],
+                'update' => [
+                    ['id' => 100],
+                    ['id' => 200]
+                ]
+            ]
+        ];
+    }
+}
+
 class CompanyTest extends PHPUnit_Framework_TestCase
 {
     private $model = null;
@@ -7,7 +31,7 @@ class CompanyTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new \AmoCRM\Models\Company($paramsBag);
+        $this->model = new CompanyMock($paramsBag);
     }
 
     /**
@@ -48,18 +72,7 @@ class CompanyTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Company')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiList'])
-            ->getMock();
-
-        $this->assertInstanceOf('\AmoCRM\Models\Company', $mock);
-
-        $mock->expects($this->once())->method('apiList')
-            ->with($this->isType('array'))
-            ->will($this->returnValue([]));
-
-        $result = $mock->apiList([
+        $result = $this->model->apiList([
             'query' => 'test',
         ]);
 
@@ -68,42 +81,26 @@ class CompanyTest extends PHPUnit_Framework_TestCase
 
     public function testApiAdd()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Company')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiAdd'])
-            ->getMock();
+        $this->model['name'] = 'ООО Тестовая компания';
 
-        $this->assertInstanceOf('\AmoCRM\Models\Company', $mock);
-
-        $mock['name'] = 'ООО Тестовая компания';
-
-        $mock->expects($this->any())->method('apiAdd')
-            ->will($this->returnValueMap([
-                // last arg is return value
-                [[], 100],
-                [[$mock, $mock], [100, 200]],
-            ]));
-
-        $this->assertEquals(100, $mock->apiAdd());
-        $this->assertCount(2, $mock->apiAdd([$mock, $mock]));
+        $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
     }
 
     public function testApiUpdate()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Company')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiUpdate'])
-            ->getMock();
+        $this->model['name'] = 'ООО Тестовая компания';
 
-        $this->assertInstanceOf('\AmoCRM\Models\Company', $mock);
+        $this->assertTrue($this->model->apiUpdate(1));
+        $this->assertTrue($this->model->apiUpdate(1, 'now'));
+    }
 
-        $mock['name'] = 'ООО Тестовая компания';
-
-        $mock->expects($this->any())->method('apiUpdate')
-            ->will($this->returnValue(true));
-
-        $this->assertTrue($mock->apiUpdate(1));
-        $this->assertTrue($mock->apiUpdate(1, 'now'));
+    /**
+     * @expectedException \AmoCRM\Exception
+     */
+    public function testApiUpdateBad()
+    {
+        $this->model->apiUpdate('foo', 'bar');
     }
 
     public function fieldsProvider()

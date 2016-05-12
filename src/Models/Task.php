@@ -172,8 +172,6 @@ class Task extends Base
 
         $response = $this->postRequest('/private/api/v2/json/tasks/set', $parameters);
 
-        print_r($response);
-
         return isset($response['tasks']) ? true : false;
     }
 }

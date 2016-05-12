@@ -1,5 +1,29 @@
 <?php
 
+class ContactMock extends \AmoCRM\Models\Contact
+{
+    protected function getRequest($url, $parameters = [], $modified = null)
+    {
+        return ['contacts' => []];
+    }
+
+    protected function postRequest($url, $parameters = [])
+    {
+        return [
+            'contacts' => [
+                'add' => [
+                    ['id' => 100],
+                    ['id' => 200]
+                ],
+                'update' => [
+                    ['id' => 100],
+                    ['id' => 200]
+                ]
+            ]
+        ];
+    }
+}
+
 class ContactTest extends PHPUnit_Framework_TestCase
 {
     private $model = null;
@@ -7,7 +31,7 @@ class ContactTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new \AmoCRM\Models\Contact($paramsBag);
+        $this->model = new ContactMock($paramsBag);
     }
 
     /**
@@ -48,18 +72,7 @@ class ContactTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiList'])
-            ->getMock();
-
-        $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
-
-        $mock->expects($this->once())->method('apiList')
-            ->with($this->isType('array'))
-            ->will($this->returnValue([]));
-
-        $result = $mock->apiList([
+        $result = $this->model->apiList([
             'query' => 'test',
         ]);
 
@@ -68,62 +81,29 @@ class ContactTest extends PHPUnit_Framework_TestCase
 
     public function testApiAdd()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiAdd'])
-            ->getMock();
+        $this->model['name'] = 'ФИО';
+        $this->model['company_name'] = 'ООО Тестовая компания';
 
-        $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
-
-        $mock['name'] = 'ФИО';
-        $mock['company_name'] = 'ООО Тестовая компания';
-
-        $mock->expects($this->any())->method('apiAdd')
-            ->will($this->returnValueMap([
-                // last arg is return value
-                [[], 100],
-                [[$mock, $mock], [100, 200]],
-            ]));
-
-        $this->assertEquals(100, $mock->apiAdd());
-        $this->assertCount(2, $mock->apiAdd([$mock, $mock]));
+        $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
     }
 
     public function testApiUpdate()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiUpdate'])
-            ->getMock();
+        $this->model['name'] = 'ФИО';
+        $this->model['company_name'] = 'ООО Тестовая компания';
 
-        $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
-
-        $mock['name'] = 'ФИО';
-        $mock['company_name'] = 'ООО Тестовая компания';
-
-        $mock->expects($this->any())->method('apiUpdate')
-            ->will($this->returnValue(true));
-
-        $this->assertTrue($mock->apiUpdate(1));
-        $this->assertTrue($mock->apiUpdate(1, 'now'));
+        $this->assertTrue($this->model->apiUpdate(1));
+        $this->assertTrue($this->model->apiUpdate(1, 'now'));
     }
 
     public function testApiLinks()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Contact')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiLinks'])
-            ->getMock();
-
-        $this->assertInstanceOf('\AmoCRM\Models\Contact', $mock);
-
-        $mock->expects($this->any())->method('apiLinks')
-            ->with($this->isType('array'))
-            ->will($this->returnValue([]));
-
-        $this->assertEquals([], $mock->apiLinks([
+        $result = $this->model->apiLinks([
             'limit_rows' => 4
-        ]));
+        ]);
+
+        $this->assertEquals([], $result);
     }
 
     public function fieldsProvider()

@@ -1,5 +1,13 @@
 <?php
 
+class AccountMock extends \AmoCRM\Models\Account
+{
+    protected function getRequest($url, $parameters = [], $modified = null)
+    {
+        return ['account' => []];
+    }
+}
+
 class AccountTest extends PHPUnit_Framework_TestCase
 {
     private $model = null;
@@ -7,22 +15,47 @@ class AccountTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new \AmoCRM\Models\Account($paramsBag);
+        $this->model = new AccountMock($paramsBag);
     }
 
     public function testApiCurrent()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Account')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiCurrent'])
-            ->getMock();
+        $this->assertEquals([], $this->model->apiCurrent());
+    }
 
-        $this->assertInstanceOf('\AmoCRM\Models\Account', $mock);
+    public function testGetShorted()
+    {
+        $keys = ['id' => [], 'name' => [], 'login' => [], 'type_id' => [], 'enums' => []];
 
-        $mock->expects($this->atLeastOnce())->method('apiCurrent')
-            ->will($this->returnValue([]));
+        $expected = [
+            'users' => $keys,
+            'leads_statuses' => $keys,
+            'note_types' => $keys,
+            'task_types' => $keys,
+            'custom_fields' => [$keys],
+            'pipelines' => $keys,
+        ];
 
-        $this->assertEquals([], $mock->apiCurrent());
-        $this->assertEquals([], $mock->apiCurrent(true));
+        $actual = $this->invokeMethod($this->model, 'getShorted', [$expected]);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Call protected/private method of a class.
+     *
+     * @param object &$object Instantiated object that we will run method on.
+     * @param string $methodName Method name to call
+     * @param array $parameters Array of parameters to pass into method.
+     *
+     * @return mixed Method return.
+     */
+    public function invokeMethod(&$object, $methodName, array $parameters = array())
+    {
+        $reflection = new \ReflectionClass(get_class($object));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+
+        return $method->invokeArgs($object, $parameters);
     }
 }

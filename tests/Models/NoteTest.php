@@ -1,5 +1,29 @@
 <?php
 
+class NoteMock extends \AmoCRM\Models\Note
+{
+    protected function getRequest($url, $parameters = [], $modified = null)
+    {
+        return ['notes' => []];
+    }
+
+    protected function postRequest($url, $parameters = [])
+    {
+        return [
+            'notes' => [
+                'add' => [
+                    ['id' => 100],
+                    ['id' => 200]
+                ],
+                'update' => [
+                    ['id' => 100],
+                    ['id' => 200]
+                ]
+            ]
+        ];
+    }
+}
+
 class NoteTest extends PHPUnit_Framework_TestCase
 {
     private $model = null;
@@ -7,7 +31,7 @@ class NoteTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new \AmoCRM\Models\Note($paramsBag);
+        $this->model = new NoteMock($paramsBag);
     }
 
     /**
@@ -22,18 +46,7 @@ class NoteTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Note')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiList'])
-            ->getMock();
-
-        $this->assertInstanceOf('\AmoCRM\Models\Note', $mock);
-
-        $mock->expects($this->once())->method('apiList')
-            ->with($this->isType('array'))
-            ->will($this->returnValue([]));
-
-        $result = $mock->apiList([
+        $result = $this->model->apiList([
             'query' => 'test',
         ]);
 
@@ -42,48 +55,24 @@ class NoteTest extends PHPUnit_Framework_TestCase
 
     public function testApiAdd()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Note')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiAdd'])
-            ->getMock();
+        $this->model['element_id'] = 100;
+        $this->model['element_type'] = 1;
+        $this->model['note_type'] = 4;
+        $this->model['text'] = 'Текст примечания';
 
-        $this->assertInstanceOf('\AmoCRM\Models\Note', $mock);
-
-        $mock['element_id'] = 100;
-        $mock['element_type'] = 1;
-        $mock['note_type'] = 4;
-        $mock['text'] = 'Текст примечания';
-
-        $mock->expects($this->any())->method('apiAdd')
-            ->will($this->returnValueMap([
-                // last arg is return value
-                [[], 100],
-                [[$mock, $mock], [100, 200]],
-            ]));
-
-        $this->assertEquals(100, $mock->apiAdd());
-        $this->assertCount(2, $mock->apiAdd([$mock, $mock]));
+        $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
     }
 
     public function testApiUpdate()
     {
-        $mock = $this->getMockBuilder('\AmoCRM\Models\Note')
-            ->setConstructorArgs([new \AmoCRM\Request\ParamsBag()])
-            ->setMethods(['apiUpdate'])
-            ->getMock();
+        $this->model['element_id'] = 100;
+        $this->model['element_type'] = 1;
+        $this->model['note_type'] = 4;
+        $this->model['text'] = 'Текст примечания';
 
-        $this->assertInstanceOf('\AmoCRM\Models\Note', $mock);
-
-        $mock->expects($this->any())->method('apiUpdate')
-            ->will($this->returnValue(true));
-
-        $mock['element_id'] = 100;
-        $mock['element_type'] = 1;
-        $mock['note_type'] = 4;
-        $mock['text'] = 'Текст примечания';
-
-        $this->assertTrue($mock->apiUpdate(1));
-        $this->assertTrue($mock->apiUpdate(1, 'now'));
+        $this->assertTrue($this->model->apiUpdate(1));
+        $this->assertTrue($this->model->apiUpdate(1, 'now'));
     }
 
     public function fieldsProvider()
