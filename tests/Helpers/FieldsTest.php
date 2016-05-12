@@ -2,6 +2,9 @@
 
 class FieldsTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|\AmoCRM\Helpers\Fields
+     */
     private $fields = null;
 
     public function setUp()
@@ -28,6 +31,7 @@ class FieldsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('value1', $this->fields->key1);
         $this->assertEquals('value1', $this->fields->get('key1'));
         $this->assertEquals('value1', $this->fields->offsetGet('key1'));
+        $this->assertEquals(null, $this->fields->offsetGet('not exist'));
     }
 
     public function testExists()

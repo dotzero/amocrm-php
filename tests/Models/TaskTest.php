@@ -26,6 +26,9 @@ class TaskMock extends \AmoCRM\Models\Task
 
 class TaskTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|TaskMock
+     */
     private $model = null;
 
     public function setUp()

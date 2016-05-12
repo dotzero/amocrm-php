@@ -26,6 +26,9 @@ class ContactMock extends \AmoCRM\Models\Contact
 
 class ContactTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|ContactMock
+     */
     private $model = null;
 
     public function setUp()

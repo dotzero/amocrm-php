@@ -26,6 +26,9 @@ class NoteMock extends \AmoCRM\Models\Note
 
 class NoteTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|NoteMock
+     */
     private $model = null;
 
     public function setUp()

@@ -26,6 +26,9 @@ class CompanyMock extends \AmoCRM\Models\Company
 
 class CompanyTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|CompanyMock
+     */
     private $model = null;
 
     public function setUp()

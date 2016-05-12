@@ -10,6 +10,9 @@ class AccountMock extends \AmoCRM\Models\Account
 
 class AccountTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|AccountMock
+     */
     private $model = null;
 
     public function setUp()

@@ -26,6 +26,9 @@ class LeadMock extends \AmoCRM\Models\Lead
 
 class LeadTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|LeadMock
+     */
     private $model = null;
 
     public function setUp()
