@@ -52,7 +52,7 @@ try {
     $contact->debug(true); // Режим отладки
     $contact['name'] = 'ФИО 3';
 
-    $contact->apiUpdate($id, 'now');
+    $contact->apiUpdate((int)$id, 'now');
 
     // Связи между сделками и контактами
     print_r($amo->contact->apiLinks([

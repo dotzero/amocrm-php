@@ -58,7 +58,7 @@ try {
     $note['note_type'] = 4;
     $note['text'] = 'Апдейт примечания';
 
-    $note->apiUpdate($id, 'now');
+    $note->apiUpdate((int)$id, 'now');
 
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());

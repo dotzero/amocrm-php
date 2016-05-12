@@ -131,7 +131,7 @@ class Task extends Base
         $response = $this->postRequest('/private/api/v2/json/tasks/set', $parameters);
 
         if (isset($response['tasks']['add'])) {
-            $result = array_map(function ($item) {
+            $result = array_map(function($item) {
                 return $item['id'];
             }, $response['tasks']['add']);
         } else {

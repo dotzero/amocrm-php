@@ -55,7 +55,7 @@ try {
     $lead->debug(true); // Режим отладки
     $lead['name'] = 'Тестовая сделка 3';
 
-    $lead->apiUpdate($id, 'now');
+    $lead->apiUpdate((int)$id, 'now');
 
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s', $e->getCode(), $e->getMessage());

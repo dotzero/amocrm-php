@@ -52,7 +52,7 @@ try {
     $company->debug(true); // Режим отладки
     $company['name'] = 'ООО Тестовая компания 3';
 
-    $company->apiUpdate($id, 'now');
+    $company->apiUpdate((int)$id, 'now');
 
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());

@@ -10,6 +10,9 @@ try {
         // $domain Поддомен amoCRM
         // $id Id объекта связаного с уведомленим
         // $data Поля возвращаемые уведомлением
+        print_r($domain);
+        print_r($id);
+        print_r($data);
     });
 
     // Добавление обработчка на несколько уведомлений
@@ -17,6 +20,9 @@ try {
         // $domain Поддомен amoCRM
         // $id Id объекта связаного с уведомленим
         // $data Поля возвращаемые уведомлением
+        print_r($domain);
+        print_r($id);
+        print_r($data);
     });
 
     // Добавление обработчка как метод класса
@@ -31,9 +37,12 @@ try {
 
 class Callbacks
 {
-    static public function event($domain, $id, $data)
+    public static function event($domain, $id, $data)
     {
         echo 'Fired ' . __METHOD__;
+        print_r($domain);
+        print_r($id);
+        print_r($data);
         // $domain Поддомен amoCRM
         // $id Id объекта связаного с уведомленим
         // $data Поля возвращаемые уведомлением
