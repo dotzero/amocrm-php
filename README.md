@@ -141,6 +141,50 @@ try {
 }
 ```
 
+## Webhooks
+
+[WebHooks](https://developers.amocrm.ru/rest_api/webhooks.php) – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта, в разделе «API».
+
+### Список доступных уведомлений
+
+- Контакты
+    - `contacts-add` - Создание контакта
+    - `contacts-update` - Изменение контакта
+    - `contacts-delete` - Удаление контакта
+
+- Компании
+    - `companies-add` - Создание компании
+    - `companies-update` - Изменение компании
+    - `companies-delete` - Удаление компании
+
+- Сделки
+    - `leads-add` - Создание сделки
+    - `leads-update` - Изменение сделки
+    - `leads-delete` - Удаление сделки
+    - `leads-status` - Смена статуса сделки
+    - `leads-responsible` - Смена ответственного сделки
+
+Обратите внимание, что при смене статуса сделки или при смене ответственного сделки, AmoCRM одновременно посылает информацию и об общем изменении сделки, то есть код для **leads-status** и **leads-responsible** всегда будет выполняться вместе с **leads-update.**
+
+```php
+try {
+    $listener = new \AmoCRM\Webhooks();
+
+    // Добавление обработчка на уведомление contacts->add
+    $listener->on('contacts-add', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связаного с уведомленим
+        // $data Поля возвращаемые уведомлением
+    });
+
+    // Вызов обработчика уведомлений
+    $listener->listen();
+
+} catch (\AmoCRM\Exception $e) {
+    printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
+}
+```
+
 ## Интеграция с фреймворками
 
 - Yii Framework 1.x ([yii-amocrm](https://github.com/dotzero/yii-amocrm))
