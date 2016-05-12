@@ -105,7 +105,7 @@ class Request
      * @throws Exception
      * @throws NetworkException
      */
-    private function request($url, $modified = null)
+    protected function request($url, $modified = null)
     {
         $headers = ['Content-Type: application/json'];
 
