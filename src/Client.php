@@ -35,7 +35,7 @@ class Client
     /**
      * @var ParamsBag|null Экземпляр ParamsBag для хранения аргументов
      */
-    private $parameters = null;
+    public $parameters = null;
 
     /**
      * Client constructor
