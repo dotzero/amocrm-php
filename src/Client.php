@@ -11,7 +11,7 @@ use AmoCRM\Helpers\Fields;
  * Основной класс для получения доступа к моделям amoCRM API
  *
  * @package AmoCRM
- * @version 0.3.0
+ * @version 0.3.1
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
  * @link https://github.com/dotzero/amocrm-php

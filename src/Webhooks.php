@@ -12,7 +12,7 @@ namespace AmoCRM;
  * рабочие правила в настройках своего аккаунта, в разделе «API».
  *
  * @package AmoCRM
- * @version 0.3.0
+ * @version 0.3.1
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
  * @link https://github.com/dotzero/amocrm-php
