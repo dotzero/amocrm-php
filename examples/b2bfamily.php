@@ -18,10 +18,10 @@ try {
 
     // Отправить письмо и прикрепить его к сделке
     $b2b->mail(6003277, [
-        'to' => 'loki.dz@gmail.com',
+        'to' => 'mail@example.com',
         'type' => 'message',
         'subject' => 'Тест b2bfamily',
-        'text' => 'Тигр, тигр, тигр',
+        'text' => 'Тестовое сообщение',
         'events' => [
             'trigger' => 'message_open',
             'not_open_timeout' => 1
