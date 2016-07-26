@@ -168,7 +168,11 @@ class Request
         if (!isset($result['response'])) {
             return false;
         } elseif (floor($info['http_code'] / 100) >= 3) {
-            throw new Exception($result['response']['error'], $result['response']['error_code']);
+            $code = 0;
+            if (isset($result['error_code']) && $result['error_code'] > 0) {
+                $code = $result['error_code'];
+            }
+            throw new Exception($result['response']['error'], $code);
         }
 
         return $result['response'];
