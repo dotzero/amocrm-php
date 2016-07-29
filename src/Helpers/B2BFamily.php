@@ -130,11 +130,11 @@ class B2BFamily
     /**
      * Отправка письма через B2BFamily с привязкой к сделке в amoCRM
      *
-     * @param $lead_id
-     * @param $params
+     * @param integer $lead_id Номер сделки в amoCRM
+     * @param array $params Список дополнительных параметров
      * @return mixed
      */
-    public function mail($lead_id, $params)
+    public function mail($lead_id = 0, $params)
     {
         if ($this->apikey === null) {
             $this->login();
@@ -142,19 +142,22 @@ class B2BFamily
 
         $parameters = array_merge($params, [
             'apikey' => $this->apikey,
-            'custom_data' => [
-                'userDomainAmo' => $this->parameters->getAuth('domain'),
-                'userLoginAmo' => $this->parameters->getAuth('login'),
-                'userHashAmo' => $this->parameters->getAuth('apikey'),
-                'userTypeAmo' => 2,
-                'userIdAmo' => $lead_id,
-            ],
             'notification_settings' => [
                 'sms_enable' => false,
                 'email_enable' => false,
                 'webhook_enable' => true,
             ]
         ]);
+
+        if ($lead_id !== 0) {
+            $parameters['custom_data'] = [
+                'userDomainAmo' => $this->parameters->getAuth('domain'),
+                'userLoginAmo' => $this->parameters->getAuth('login'),
+                'userHashAmo' => $this->parameters->getAuth('apikey'),
+                'userTypeAmo' => 2,
+                'userIdAmo' => $lead_id,
+            ];
+        }
 
         return $this->request(self::METHOD_POST, '/mail', $parameters);
     }
