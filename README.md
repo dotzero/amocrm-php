@@ -105,7 +105,7 @@ try {
     * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
     * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
 
-## Описание хелпера
+## Описание хелпера Fields
 
 Для хранения ID полей можно воспользоваться хелпером `Fields`
 
@@ -137,6 +137,42 @@ try {
     $fields['ResponsibleUserId'] = 697344;
 
 } catch (\AmoCRM\Exception $e) {
+    printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
+}
+```
+
+## Описание хелпера B2BFamily
+
+Хелпер для отправки письма через B2BFamily с привязкой к сделке в amoCRM
+
+```php
+try {
+    $amo = new \AmoCRM\Client(getenv('DOMAIN'), getenv('LOGIN'), getenv('HASH'));
+
+    $b2b = new \AmoCRM\Helpers\B2BFamily(
+        $amo,
+        getenv('B2B_APPKEY'),
+        getenv('B2B_SECRET'),
+        getenv('B2B_EMAIL'),
+        getenv('B2B_PASSWORD')
+    );
+
+    // Подписать клиента AmoCrm на Webhooks
+    $b2b->subscribe();
+
+    // Отправить письмо и прикрепить его к сделке
+    $b2b->mail(6003277, [
+        'to' => 'mail@example.com',
+        'type' => 'message',
+        'subject' => 'Тест b2bfamily',
+        'text' => 'Тестовое сообщение',
+        'events' => [
+            'trigger' => 'message_open',
+            'not_open_timeout' => 1
+        ]
+    ]);
+
+} catch (\AmoCRM\Helpers\B2BFamilyException $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }
 ```
