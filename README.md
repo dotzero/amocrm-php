@@ -50,6 +50,10 @@ try {
     $contact->addCustomField(448, [
         ['+79261112233', 'WORK'],
     ]);
+    $contact->addCustomMultiField(426106, [
+        1237755,
+        1237757
+    ]);
 
     // Добавление нового контакта и получение его ID
     print_r($contact->apiAdd());

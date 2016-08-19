@@ -143,6 +143,31 @@ class Base extends Request implements \ArrayAccess
     }
 
     /**
+     * Добавление кастомного поля типа мультиселект модели
+     *
+     * @param int $id Уникальный идентификатор заполняемого дополнительного поля
+     * @param mixed $values Значения заполняемого дополнительного поля типа мультиселект
+     * @return $this
+     */
+    public function addCustomMultiField($id, $values)
+    {
+        $field = [
+            'id' => $id,
+            'values' => [],
+        ];
+
+        if (!is_array($values)) {
+            $values = [$values];
+        }
+
+        $field['values'] = $values;
+
+        $this->values['custom_fields'][] = $field;
+
+        return $this;
+    }
+
+    /**
      * Проверяет ID на валидность
      *
      * @param mixed $id ID

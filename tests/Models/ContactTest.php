@@ -56,6 +56,8 @@ class ContactTest extends PHPUnit_Framework_TestCase
             ['415.374.3278', 'OTHER'],
             ['415.374.3279', 'FAX'],
         ]);
+        $this->model->addCustomMultiField(400, 100);
+        $this->model->addCustomMultiField(500, [200, 300]);
 
         $this->assertArrayHasKey('id', $this->model['custom_fields'][0]);
         $this->assertArrayHasKey('values', $this->model['custom_fields'][0]);
@@ -71,6 +73,17 @@ class ContactTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('id', $this->model['custom_fields'][2]);
         $this->assertArrayHasKey('values', $this->model['custom_fields'][2]);
         $this->assertCount(3, $this->model['custom_fields'][2]['values']);
+
+        $this->assertArrayHasKey('id', $this->model['custom_fields'][3]);
+        $this->assertArrayHasKey('values', $this->model['custom_fields'][3]);
+        $this->assertCount(1, $this->model['custom_fields'][3]['values']);
+        $this->assertContains(100, $this->model['custom_fields'][3]['values']);
+
+        $this->assertArrayHasKey('id', $this->model['custom_fields'][4]);
+        $this->assertArrayHasKey('values', $this->model['custom_fields'][4]);
+        $this->assertCount(2, $this->model['custom_fields'][4]['values']);
+        $this->assertContains(200, $this->model['custom_fields'][4]['values']);
+        $this->assertContains(300, $this->model['custom_fields'][4]['values']);
     }
 
     public function testApiList()
