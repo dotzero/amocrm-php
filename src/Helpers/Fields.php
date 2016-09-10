@@ -8,7 +8,7 @@ namespace AmoCRM\Helpers;
  * Хелпер для хранения идентификаторов полей amoCRM API
  *
  * @package AmoCRM\Helpers
- * @version 0.3.1
+ * @version 0.3.2
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
  * @link https://github.com/dotzero/amocrm-php

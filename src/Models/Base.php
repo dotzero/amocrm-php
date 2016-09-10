@@ -11,7 +11,7 @@ use AmoCRM\Request\Request;
  * Базовый класс всех моделей
  *
  * @package AmoCRM\Models
- * @version 0.3.1
+ * @version 0.3.2
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
  * @link https://github.com/dotzero/amocrm-php
