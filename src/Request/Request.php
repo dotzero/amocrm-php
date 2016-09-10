@@ -169,8 +169,8 @@ class Request
             return false;
         } elseif (floor($info['http_code'] / 100) >= 3) {
             $code = 0;
-            if (isset($result['error_code']) && $result['error_code'] > 0) {
-                $code = $result['error_code'];
+            if (isset($result['response']['error_code']) && $result['response']['error_code'] > 0) {
+                $code = $result['response']['error_code'];
             }
             throw new Exception($result['response']['error'], $code);
         }
