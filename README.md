@@ -47,12 +47,22 @@ try {
     $contact['responsible_user_id'] = 697344;
     $contact['company_name'] = 'ООО Тестовая компания';
     $contact['tags'] = ['тест1', 'тест2'];
-    $contact->addCustomField(448, [
-        ['+79261112233', 'WORK'],
-    ]);
-    $contact->addCustomMultiField(426106, [
+
+    // Добавление кастомного поля
+    $contact->addCustomField(100, 'Значение');
+
+    // Добавление кастомного поля с типом "мультисписок"
+    $contact->addCustomMultiField(200, [
         1237755,
         1237757
+    ]);
+
+    // Добавление ENUM кастомного поля
+    $contact->addCustomField(300, '+79261112233', 'WORK');
+
+    // Добавление ENUM кастомного поля с типом "мультисписок"
+    $contact->addCustomField(400, [
+        ['+79261112233', 'WORK'],
     ]);
 
     // Добавление нового контакта и получение его ID
