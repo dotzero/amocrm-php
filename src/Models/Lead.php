@@ -29,6 +29,8 @@ class Lead extends Base
         'price',
         'responsible_user_id',
         'request_id',
+        'tags',
+        'visitor_uid',
     ];
 
     /**
@@ -53,6 +55,23 @@ class Lead extends Base
     public function setLastModified($date)
     {
         $this->values['last_modified'] = strtotime($date);
+
+        return $this;
+    }
+
+    /**
+     * Сеттер для списка тегов сделки
+     *
+     * @param int|array $value Название тегов через запятую или массив тегов
+     * @return $this
+     */
+    public function setTags($value)
+    {
+        if (!is_array($value)) {
+            $value = [$value];
+        }
+
+        $this->values['tags'] = implode(',', $value);
 
         return $this;
     }

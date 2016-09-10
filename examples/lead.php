@@ -30,6 +30,8 @@ try {
     $lead['status_id'] = 10525225;
     $lead['price'] = 3000;
     $lead['responsible_user_id'] = 697344;
+    $lead['tags'] = ['тест1', 'тест2'];
+    $lead['visitor_uid'] = '12345678-52d2-44c2-9e16-ba0052d9f6d6';
     $lead->addCustomField(167379, [
         [388733, 'Стартап'],
     ]);
