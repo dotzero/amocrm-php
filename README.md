@@ -239,6 +239,7 @@ try {
 
 - Yii Framework 1.x ([yii-amocrm](https://github.com/dotzero/yii-amocrm))
 - Yii Framework 2.x ([yii2-amocrm](https://github.com/dotzero/yii2-amocrm))
+- Laravel 5.x ([laravel-amocrm](https://github.com/dotzero/laravel-amocrm))
 
 ## Тестирование
 
