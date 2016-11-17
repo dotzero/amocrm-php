@@ -60,6 +60,9 @@ try {
     // Добавление ENUM кастомного поля
     $contact->addCustomField(300, '+79261112233', 'WORK');
 
+    // Добавление кастомного поля c SUBTYPE поля
+    $contact->addCustomField(300, '+79261112233', false, 'subtype');
+
     // Добавление ENUM кастомного поля с типом "мультисписок"
     $contact->addCustomField(400, [
         ['+79261112233', 'WORK'],
