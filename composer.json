@@ -1,6 +1,6 @@
 {
     "name": "dotzero/amocrm",
-    "description": "A PHP5 library provides an interface to the amoCRM",
+    "description": "Удобный и быстрый клиент для работы с API amoCRM",
     "license": "MIT",
     "keywords": ["amocrm", "crm", "api"],
     "authors": [
