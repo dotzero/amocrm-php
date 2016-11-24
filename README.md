@@ -84,6 +84,7 @@ try {
 - Company ([документация](https://developers.amocrm.ru/rest_api/#company))
 - Task ([документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Note ([документация](https://developers.amocrm.ru/rest_api/#event))
+- Widgets ([документация](https://developers.amocrm.ru/rest_api/#widgets))
 
 ## Описание моделей и методов
 
@@ -121,6 +122,12 @@ try {
     * `apiList($parameters, $modified = null)` - Метод для получения списка задач с возможностью фильтрации и постраничной выборки
     * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
     * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
+
+- Модель `widgets` для работы с Виджетами
+
+    * `apiList($parameters = [])` - Метод для получения списка доступных для установки виджетов
+    * `apiInstall($parameters)` - Метод позволяет включать виджеты по одному или пакетно
+    * `apiUninstall($parameters)` - Метод позволяет выключать виджеты по одному или пакетно
 
 ## Описание хелпера Fields
 
