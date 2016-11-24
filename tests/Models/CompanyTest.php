@@ -2,13 +2,25 @@
 
 class CompanyMock extends \AmoCRM\Models\Company
 {
+    public $mockUrl;
+    public $mockParameters;
+    public $mockModified;
+
     protected function getRequest($url, $parameters = [], $modified = null)
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = $modified;
+
         return ['contacts' => []];
     }
 
     protected function postRequest($url, $parameters = [])
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = null;
+
         return [
             'contacts' => [
                 'add' => [
@@ -75,19 +87,54 @@ class CompanyTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $result = $this->model->apiList([
+        $parameters = [
             'query' => 'test',
-        ]);
+        ];
+
+        $result = $this->model->apiList($parameters);
 
         $this->assertEquals([], $result);
+        $this->assertEquals('/private/api/v2/json/company/list', $this->model->mockUrl);
+        $this->assertEquals($parameters, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiAdd()
     {
+        $expected = [
+            'contacts' => [
+                'add' => [
+                    [
+                        'name' => 'ООО Тестовая компания',
+                    ]
+                ]
+            ]
+        ];
+
         $this->model['name'] = 'ООО Тестовая компания';
 
         $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertEquals('/private/api/v2/json/company/set', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
+
+        $expected = [
+            'contacts' => [
+                'add' => [
+                    [
+                        'name' => 'ООО Тестовая компания',
+                    ],
+                    [
+                        'name' => 'ООО Тестовая компания',
+                    ]
+                ]
+            ]
+        ];
+
         $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
+        $this->assertEquals('/private/api/v2/json/company/set', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiUpdate()
@@ -95,7 +142,14 @@ class CompanyTest extends PHPUnit_Framework_TestCase
         $this->model['name'] = 'ООО Тестовая компания';
 
         $this->assertTrue($this->model->apiUpdate(1));
+        $this->assertEquals('/private/api/v2/json/company/set', $this->model->mockUrl);
+        $this->assertEquals(1, $this->model->mockParameters['contacts']['update'][0]['id']);
+        $this->assertEquals('ООО Тестовая компания', $this->model->mockParameters['contacts']['update'][0]['name']);
+
         $this->assertTrue($this->model->apiUpdate(1, 'now'));
+        $this->assertEquals('/private/api/v2/json/company/set', $this->model->mockUrl);
+        $this->assertEquals(1, $this->model->mockParameters['contacts']['update'][0]['id']);
+        $this->assertEquals('ООО Тестовая компания', $this->model->mockParameters['contacts']['update'][0]['name']);
     }
 
     /**

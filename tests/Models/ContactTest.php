@@ -2,13 +2,25 @@
 
 class ContactMock extends \AmoCRM\Models\Contact
 {
+    public $mockUrl;
+    public $mockParameters;
+    public $mockModified;
+
     protected function getRequest($url, $parameters = [], $modified = null)
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = $modified;
+
         return ['contacts' => []];
     }
 
     protected function postRequest($url, $parameters = [])
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = null;
+
         return [
             'contacts' => [
                 'add' => [
@@ -88,20 +100,58 @@ class ContactTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $result = $this->model->apiList([
+        $parameters = [
             'query' => 'test',
-        ]);
+        ];
+
+        $result = $this->model->apiList($parameters);
 
         $this->assertEquals([], $result);
+        $this->assertEquals('/private/api/v2/json/contacts/list', $this->model->mockUrl);
+        $this->assertEquals($parameters, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiAdd()
     {
+        $expected = [
+            'contacts' => [
+                'add' => [
+                    [
+                        'name' => 'ФИО',
+                        'company_name' => 'ООО Тестовая компания',
+                    ]
+                ]
+            ]
+        ];
+
         $this->model['name'] = 'ФИО';
         $this->model['company_name'] = 'ООО Тестовая компания';
 
         $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertEquals('/private/api/v2/json/contacts/set', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
+
+        $expected = [
+            'contacts' => [
+                'add' => [
+                    [
+                        'name' => 'ФИО',
+                        'company_name' => 'ООО Тестовая компания',
+                    ],
+                    [
+                        'name' => 'ФИО',
+                        'company_name' => 'ООО Тестовая компания',
+                    ]
+                ]
+            ]
+        ];
+
         $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
+        $this->assertEquals('/private/api/v2/json/contacts/set', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiUpdate()
@@ -110,16 +160,28 @@ class ContactTest extends PHPUnit_Framework_TestCase
         $this->model['company_name'] = 'ООО Тестовая компания';
 
         $this->assertTrue($this->model->apiUpdate(1));
+        $this->assertEquals('/private/api/v2/json/contacts/set', $this->model->mockUrl);
+        $this->assertEquals(1, $this->model->mockParameters['contacts']['update'][0]['id']);
+        $this->assertEquals('ФИО', $this->model->mockParameters['contacts']['update'][0]['name']);
+
         $this->assertTrue($this->model->apiUpdate(1, 'now'));
+        $this->assertEquals('/private/api/v2/json/contacts/set', $this->model->mockUrl);
+        $this->assertEquals(1, $this->model->mockParameters['contacts']['update'][0]['id']);
+        $this->assertEquals('ФИО', $this->model->mockParameters['contacts']['update'][0]['name']);
     }
 
     public function testApiLinks()
     {
-        $result = $this->model->apiLinks([
+        $parameters = [
             'limit_rows' => 4
-        ]);
+        ];
+
+        $result = $this->model->apiLinks($parameters);
 
         $this->assertEquals([], $result);
+        $this->assertEquals('/private/api/v2/json/contacts/links', $this->model->mockUrl);
+        $this->assertEquals($parameters, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function fieldsProvider()
