@@ -28,11 +28,12 @@ class Account extends Base
      *
      * @link https://developers.amocrm.ru/rest_api/accounts_current.php
      * @param bool $short Краткий формат, только основные поля
+     * @param array $parameters Массив параметров к amoCRM API
      * @return array Ответ amoCRM API
      */
-    public function apiCurrent($short = false)
+    public function apiCurrent($short = false, $parameters = [])
     {
-        $result = $this->getRequest('/private/api/v2/json/accounts/current');
+        $result = $this->getRequest('/private/api/v2/json/accounts/current', $parameters);
 
         return $short ? $this->getShorted($result['account']) : $result['account'];
     }

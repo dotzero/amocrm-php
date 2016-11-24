@@ -2,8 +2,16 @@
 
 class AccountMock extends \AmoCRM\Models\Account
 {
+    public $mockUrl;
+    public $mockParameters;
+    public $mockModified;
+
     protected function getRequest($url, $parameters = [], $modified = null)
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = $modified;
+
         return ['account' => []];
     }
 }
@@ -23,7 +31,16 @@ class AccountTest extends PHPUnit_Framework_TestCase
 
     public function testApiCurrent()
     {
-        $this->assertEquals([], $this->model->apiCurrent());
+        $parameters = [
+            'free_users' => 'Y'
+        ];
+
+        $result = $this->model->apiCurrent(false, $parameters);
+
+        $this->assertEquals([], $result);
+        $this->assertEquals('/private/api/v2/json/accounts/current', $this->model->mockUrl);
+        $this->assertEquals($parameters, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testGetShorted()
