@@ -2,13 +2,25 @@
 
 class LeadMock extends \AmoCRM\Models\Lead
 {
+    public $mockUrl;
+    public $mockParameters;
+    public $mockModified;
+
     protected function getRequest($url, $parameters = [], $modified = null)
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = $modified;
+
         return ['leads' => []];
     }
 
     protected function postRequest($url, $parameters = [])
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = null;
+
         return [
             'leads' => [
                 'add' => [
@@ -75,19 +87,54 @@ class LeadTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $result = $this->model->apiList([
+        $parameters = [
             'query' => 'test',
-        ]);
+        ];
+
+        $result = $this->model->apiList($parameters);
 
         $this->assertEquals([], $result);
+        $this->assertEquals('/private/api/v2/json/leads/list', $this->model->mockUrl);
+        $this->assertEquals($parameters, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiAdd()
     {
+        $expected = [
+            'leads' => [
+                'add' => [
+                    [
+                        'name' => 'Тестовая сделка',
+                    ]
+                ]
+            ]
+        ];
+
         $this->model['name'] = 'Тестовая сделка';
 
         $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertEquals('/private/api/v2/json/leads/set', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
+
+        $expected = [
+            'leads' => [
+                'add' => [
+                    [
+                        'name' => 'Тестовая сделка',
+                    ],
+                    [
+                        'name' => 'Тестовая сделка',
+                    ]
+                ]
+            ]
+        ];
+
         $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
+        $this->assertEquals('/private/api/v2/json/leads/set', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiUpdate()
@@ -95,7 +142,14 @@ class LeadTest extends PHPUnit_Framework_TestCase
         $this->model['name'] = 'Тестовая сделка';
 
         $this->assertTrue($this->model->apiUpdate(1));
+        $this->assertEquals('/private/api/v2/json/leads/set', $this->model->mockUrl);
+        $this->assertEquals(1, $this->model->mockParameters['leads']['update'][0]['id']);
+        $this->assertEquals('Тестовая сделка', $this->model->mockParameters['leads']['update'][0]['name']);
+
         $this->assertTrue($this->model->apiUpdate(1, 'now'));
+        $this->assertEquals('/private/api/v2/json/leads/set', $this->model->mockUrl);
+        $this->assertEquals(1, $this->model->mockParameters['leads']['update'][0]['id']);
+        $this->assertEquals('Тестовая сделка', $this->model->mockParameters['leads']['update'][0]['name']);
     }
 
     public function fieldsProvider()
@@ -106,6 +160,7 @@ class LeadTest extends PHPUnit_Framework_TestCase
             ['date_create', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
             ['last_modified', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
             ['status_id', 100, 100],
+            ['pipeline_id', 100, 100],
             ['price', 300000, 300000],
             ['responsible_user_id', 100, 100],
             ['request_id', 100, 100],

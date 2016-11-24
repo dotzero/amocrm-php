@@ -26,6 +26,7 @@ class Lead extends Base
         'date_create',
         'last_modified',
         'status_id',
+        'pipeline_id',
         'price',
         'responsible_user_id',
         'request_id',
