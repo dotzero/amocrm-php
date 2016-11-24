@@ -2,13 +2,25 @@
 
 class NoteMock extends \AmoCRM\Models\Note
 {
+    public $mockUrl;
+    public $mockParameters;
+    public $mockModified;
+
     protected function getRequest($url, $parameters = [], $modified = null)
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = $modified;
+
         return ['notes' => []];
     }
 
     protected function postRequest($url, $parameters = [])
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = null;
+
         return [
             'notes' => [
                 'add' => [
@@ -49,11 +61,16 @@ class NoteTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $result = $this->model->apiList([
+        $parameters = [
             'query' => 'test',
-        ]);
+        ];
+
+        $result = $this->model->apiList($parameters);
 
         $this->assertEquals([], $result);
+        $this->assertEquals('/private/api/v2/json/notes/list', $this->model->mockUrl);
+        $this->assertEquals($parameters, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiAdd()
@@ -64,7 +81,12 @@ class NoteTest extends PHPUnit_Framework_TestCase
         $this->model['text'] = 'Текст примечания';
 
         $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertEquals('/private/api/v2/json/notes/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
+
         $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
+        $this->assertEquals('/private/api/v2/json/notes/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiUpdate()
@@ -75,7 +97,12 @@ class NoteTest extends PHPUnit_Framework_TestCase
         $this->model['text'] = 'Текст примечания';
 
         $this->assertTrue($this->model->apiUpdate(1));
+        $this->assertEquals('/private/api/v2/json/notes/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
+
         $this->assertTrue($this->model->apiUpdate(1, 'now'));
+        $this->assertEquals('/private/api/v2/json/notes/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function fieldsProvider()

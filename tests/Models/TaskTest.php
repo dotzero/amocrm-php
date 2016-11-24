@@ -2,13 +2,25 @@
 
 class TaskMock extends \AmoCRM\Models\Task
 {
+    public $mockUrl;
+    public $mockParameters;
+    public $mockModified;
+
     protected function getRequest($url, $parameters = [], $modified = null)
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = $modified;
+
         return ['tasks' => []];
     }
 
     protected function postRequest($url, $parameters = [])
     {
+        $this->mockUrl = $url;
+        $this->mockParameters = $parameters;
+        $this->mockModified = null;
+
         return [
             'tasks' => [
                 'add' => [
@@ -49,11 +61,16 @@ class TaskTest extends PHPUnit_Framework_TestCase
 
     public function testApiList()
     {
-        $result = $this->model->apiList([
+        $parameters = [
             'query' => 'test',
-        ]);
+        ];
+
+        $result = $this->model->apiList($parameters);
 
         $this->assertEquals([], $result);
+        $this->assertEquals('/private/api/v2/json/tasks/list', $this->model->mockUrl);
+        $this->assertEquals($parameters, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiAdd()
@@ -67,7 +84,12 @@ class TaskTest extends PHPUnit_Framework_TestCase
         $this->model['complete_till'] = '+1 DAY';
 
         $this->assertEquals(100, $this->model->apiAdd());
+        $this->assertEquals('/private/api/v2/json/tasks/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
+
         $this->assertCount(2, $this->model->apiAdd([$this->model, $this->model]));
+        $this->assertEquals('/private/api/v2/json/tasks/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
     }
 
     public function testApiUpdate()
@@ -75,7 +97,12 @@ class TaskTest extends PHPUnit_Framework_TestCase
         $this->model['text'] = "Текст\nзадачи";
 
         $this->assertTrue($this->model->apiUpdate(1, 'апдейт'));
+        $this->assertEquals('/private/api/v2/json/tasks/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
+
         $this->assertTrue($this->model->apiUpdate(1, 'апдейт', 'now'));
+        $this->assertEquals('/private/api/v2/json/tasks/set', $this->model->mockUrl);
+        $this->assertNull($this->model->mockModified);
     }
 
     /**
