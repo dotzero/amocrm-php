@@ -11,7 +11,7 @@ use AmoCRM\NetworkException;
  * Класс отправляющий запросы к API amoCRM используя cURL
  *
  * @package AmoCRM\Request
- * @version 0.3.5
+ * @version 0.3.6
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
  * @link https://github.com/dotzero/amocrm-php
