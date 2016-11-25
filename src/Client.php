@@ -21,6 +21,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Lead $lead
  * @property \AmoCRM\Models\Note $note
  * @property \AmoCRM\Models\Task $task
+ * @property \AmoCRM\Models\Pipelines $pipelines
  * @property \AmoCRM\Models\Widgets $widgets
  *
  * For the full copyright and license information, please view the LICENSE

@@ -84,6 +84,7 @@ try {
 - Company ([документация](https://developers.amocrm.ru/rest_api/#company))
 - Task ([документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Note ([документация](https://developers.amocrm.ru/rest_api/#event))
+- Pipelines ([документация](https://developers.amocrm.ru/rest_api/#pipelines))
 - Widgets ([документация](https://developers.amocrm.ru/rest_api/#widgets))
 
 ## Описание моделей и методов
@@ -122,6 +123,13 @@ try {
     * `apiList($parameters, $modified = null)` - Метод для получения списка задач с возможностью фильтрации и постраничной выборки
     * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
     * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
+
+- Модель `pipelines` для работы с Списком воронок и этапов продаж
+
+    * `apiList($id = null)` - Метод для получения списка воронок и этапов продаж
+    * `apiAdd($pipelines = [])` - Метод позволяет добавлять воронки и этапов продаж по одной или пакетно
+    * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим воронкам и этапам продаж
+    * `addStatusField($parameters, $id = null)` - Добавление этапов воронки
 
 - Модель `widgets` для работы с Виджетами
 
