@@ -55,7 +55,7 @@ class Widgets extends Base
 
         $response = $this->postRequest('/private/api/v2/json/widgets/set', $parameters);
 
-        return isset($response['widgets']) ? $response['widgets'] : [];
+        return isset($response['widgets']['install']) ? $response['widgets']['install'] : [];
     }
 
     /**
@@ -79,6 +79,6 @@ class Widgets extends Base
 
         $response = $this->postRequest('/private/api/v2/json/widgets/set', $parameters);
 
-        return isset($response['widgets']) ? $response['widgets'] : [];
+        return isset($response['widgets']['uninstall']) ? $response['widgets']['uninstall'] : [];
     }
 }

@@ -24,12 +24,16 @@ class PipelinesMock extends \AmoCRM\Models\Pipelines
         return [
             'pipelines' => [
                 'add' => [
-                    ['id' => 100],
-                    ['id' => 200]
+                    'pipelines' => [
+                        ['id' => 100],
+                        ['id' => 200]
+                    ]
                 ],
                 'update' => [
-                    ['id' => 100],
-                    ['id' => 200]
+                    'pipelines' => [
+                        ['id' => 100],
+                        ['id' => 200]
+                    ]
                 ]
             ]
         ];
