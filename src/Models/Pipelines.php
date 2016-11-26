@@ -173,8 +173,8 @@ class Pipelines extends Base
      * Для этапов успешно/неуспешно завершенно (id 142/143 соответственно)
      * возможно передать только поле name
      *
-     * @param mixed $parameters Значения заполняемого дополнительного поля типа мультиселект
-     * @param int $id Уникальный идентификатор заполняемого дополнительного поля
+     * @param mixed $parameters Параметры этапа воронки
+     * @param int $id Уникальный идентификатор этапа воронки
      * @return $this
      */
     public function addStatusField($parameters, $id = null)
