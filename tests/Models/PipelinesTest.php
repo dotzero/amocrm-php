@@ -181,6 +181,17 @@ class PipelinesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Воронка', $this->model->mockParameters['pipelines']['update'][0]['name']);
     }
 
+    public function testApiDelete()
+    {
+        $this->model->apiDelete(1);
+        $this->assertEquals('/private/api/v2/json/pipelines/delete', $this->model->mockUrl);
+        $this->assertEquals(['id' => 1], $this->model->mockParameters);
+
+        $this->model->apiDelete([1, 2]);
+        $this->assertEquals('/private/api/v2/json/pipelines/delete', $this->model->mockUrl);
+        $this->assertEquals(['id' => [1, 2]], $this->model->mockParameters);
+    }
+
     public function fieldsProvider()
     {
         return [

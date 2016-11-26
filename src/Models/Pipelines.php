@@ -141,6 +141,31 @@ class Pipelines extends Base
     }
 
     /**
+     * Удаление воронок
+     *
+     * Метод позволяет удалять воронки по одной или пакетно
+     *
+     * Удаление последней воронки в аккаунте невозможно,
+     * при удалении последней воронки выдается ошибка
+     * "Impossible to delete last pipeline"
+     *
+     * @link https://developers.amocrm.ru/rest_api/pipelines/delete.php
+     * @param int $id Уникальный идентификатор воронки
+     * @return array Ответ amoCRM API
+     * @throws \AmoCRM\Exception
+     */
+    public function apiDelete($id)
+    {
+        $parameters = [
+            'id' => $id
+        ];
+
+        $response = $this->postRequest('/private/api/v2/json/pipelines/delete', $parameters);
+
+        return $response;
+    }
+
+    /**
      * Добавление этапов воронки, необходимо передать хотя бы один этап,
      * кроме успешно/неуспешно завершенного.
      *
