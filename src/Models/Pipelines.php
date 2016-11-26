@@ -99,10 +99,10 @@ class Pipelines extends Base
 
         $response = $this->postRequest('/private/api/v2/json/pipelines/set', $parameters);
 
-        if (isset($response['pipelines']['add'])) {
+        if (isset($response['pipelines']['add']['pipelines'])) {
             $result = array_map(function ($item) {
                 return $item['id'];
-            }, $response['pipelines']['add']);
+            }, $response['pipelines']['add']['pipelines']);
         } else {
             return [];
         }
