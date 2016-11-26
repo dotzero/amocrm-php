@@ -11,7 +11,6 @@ use AmoCRM\Request\ParamsBag;
  * Хелпер для отправки письма через B2BFamily с привязкой к сделке в amoCRM
  *
  * @package AmoCRM\Helpers
- * @version 0.3.6
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
  * @link https://github.com/dotzero/amocrm-php
