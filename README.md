@@ -78,14 +78,14 @@ try {
 
 ## Список доступных моделей
 
-- Account ([документация](https://developers.amocrm.ru/rest_api/#account))
-- Contact ([документация](https://developers.amocrm.ru/rest_api/#contact))
-- Lead ([документация](https://developers.amocrm.ru/rest_api/#lead))
-- Company ([документация](https://developers.amocrm.ru/rest_api/#company))
-- Task ([документация](https://developers.amocrm.ru/rest_api/#tasks))
-- Note ([документация](https://developers.amocrm.ru/rest_api/#event))
-- Pipelines ([документация](https://developers.amocrm.ru/rest_api/#pipelines))
-- Widgets ([документация](https://developers.amocrm.ru/rest_api/#widgets))
+- Account ([пример](examples/account.php), [документация](https://developers.amocrm.ru/rest_api/#account))
+- Contact ([пример](examples/contact.php), [документация](https://developers.amocrm.ru/rest_api/#contact))
+- Lead ([пример](examples/lead.php), [документация](https://developers.amocrm.ru/rest_api/#lead))
+- Company ([пример](examples/company.php), [документация](https://developers.amocrm.ru/rest_api/#company))
+- Task ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
+- Note ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
+- Pipelines ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
+- Widgets ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
 
 ## Описание моделей и методов
 
