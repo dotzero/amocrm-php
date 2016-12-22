@@ -1,6 +1,6 @@
 <?php
 
-class WebhooksTest extends PHPUnit_Framework_TestCase
+class WebhooksListenerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var null|\AmoCRM\Webhooks

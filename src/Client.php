@@ -22,6 +22,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Task $task
  * @property \AmoCRM\Models\Pipelines $pipelines
  * @property \AmoCRM\Models\Widgets $widgets
+ * @property \AmoCRM\Models\WebHooks $webhooks
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.

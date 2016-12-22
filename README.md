@@ -86,6 +86,7 @@ try {
 - Note ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
 - Pipelines ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
 - Widgets ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
+- WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
 
 ## Описание моделей и методов
 
@@ -137,6 +138,12 @@ try {
     * `apiList($parameters = [])` - Метод для получения списка доступных для установки виджетов
     * `apiInstall($parameters)` - Метод позволяет включать виджеты по одному или пакетно
     * `apiUninstall($parameters)` - Метод позволяет выключать виджеты по одному или пакетно
+
+- Модель `webhooks` для работы с WebHooks
+
+    * `apiList()` - Метод для получения списка WebHooks
+    * `apiSubscribe($url, $events = [])` - Метод для добавления WebHooks
+    * `apiUnsubscribe($url, $events = [])` - Метод для удаления WebHooks
 
 ## Описание хелпера Fields
 
