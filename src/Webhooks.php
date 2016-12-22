@@ -31,6 +31,7 @@ class Webhooks
      *
      * @param string|array $events Код события или массив событий
      * @param callback $callback Callback-функция
+     * @return $this
      * @throws Exception
      */
     public function on($events, $callback)
@@ -50,6 +51,8 @@ class Webhooks
 
             $this->hooks[$event][] = $callback;
         }
+
+        return $this;
     }
 
     /**
@@ -59,7 +62,7 @@ class Webhooks
      */
     public function listen()
     {
-        if (!isset($_POST['account']['subdomain'])) {
+        if (!isset($_POST['account']['subdomain']) || empty($this->hooks)) {
             return false;
         }
 

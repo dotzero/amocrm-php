@@ -2,7 +2,11 @@
 
 class WebhooksTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|\AmoCRM\Webhooks
+     */
     private $listener = null;
+    private $fired = false;
 
     private $fixtureAdd = [
         'contacts' => [
@@ -47,7 +51,7 @@ class WebhooksTest extends PHPUnit_Framework_TestCase
     public function testOn()
     {
         $this->listener->on('contacts-add', function ($domain, $id, $data) {
-
+            // pass
         });
         $this->assertAttributeCount(1, 'hooks', $this->listener);
 
@@ -65,29 +69,45 @@ class WebhooksTest extends PHPUnit_Framework_TestCase
 
     public function testListenOne()
     {
-        $this->assertFalse($this->listener->listen());
-
+        $this->fired = false;
         $_POST = $this->fixtureAdd;
 
-        $this->listener->on('contacts-add', [$this, 'addCallback']);
-        $this->listener->listen();
+        $this->listener
+            ->on('contacts-add', [$this, 'addCallback'])
+            ->listen();
+
+        $this->assertTrue($this->fired);
     }
 
     public function testListenMulti()
     {
+        $this->fired = false;
         $_POST = $this->fixtureAdd;
 
-        $this->listener->on('contacts-add', [$this, 'addCallback']);
-        $this->listener->listen();
+        $this->listener
+            ->on('contacts-add', [$this, 'addCallback'])
+            ->listen();
 
+        $this->assertTrue($this->fired);
+
+        $this->fired = false;
         $_POST = $this->fixtureDelete;
 
-        $this->listener->on(['contacts-delete', 'contacts-update'], [$this, 'updateCallback']);
-        $this->listener->listen();
+        $this->listener
+            ->on(['contacts-delete', 'contacts-update'], [$this, 'updateCallback'])
+            ->listen();
+
+        $this->assertTrue($this->fired);
+    }
+
+    public function testEmptyListen()
+    {
+        $this->assertFalse($this->listener->listen());
     }
 
     public function addCallback($domain, $id, $data)
     {
+        $this->fired = true;
         $this->assertEquals('example', $domain);
         $this->assertEquals(12254016, $id);
         $this->assertNotEmpty($data);
@@ -96,6 +116,7 @@ class WebhooksTest extends PHPUnit_Framework_TestCase
 
     public function updateCallback($domain, $id, $data)
     {
+        $this->fired = true;
         $this->assertEquals('example', $domain);
         $this->assertEquals(12254016, $id);
         $this->assertNotEmpty($data);
