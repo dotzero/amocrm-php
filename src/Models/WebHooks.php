@@ -18,9 +18,17 @@ namespace AmoCRM\Models;
 class WebHooks extends Base
 {
     /**
+     * @var array Список доступный полей для модели (исключая кастомные поля)
+     */
+    protected $fields = [
+        'url',
+        'events',
+    ];
+
+    /**
      * @var array Список всех доступных событий
      */
-    public $events = [
+    public $events_list = [
         'add_lead', // Добавить сделку
         'add_contact', // Добавить контакт
         'add_company', // Добавить компанию
@@ -45,6 +53,25 @@ class WebHooks extends Base
     ];
 
     /**
+     * Сеттер для списка событий
+     *
+     * @param string|array $value Название события или массив событий
+     * @return $this
+     */
+    public function setEvents($value)
+    {
+        if (empty($value)) {
+            $value = $this->events_list;
+        } elseif (!is_array($value)) {
+            $value = [$value];
+        }
+
+        $this->values['events'] = $value;
+
+        return $this;
+    }
+
+    /**
      * Список WebHooks
      *
      * Метод для получения списка WebHooks.
@@ -65,27 +92,29 @@ class WebHooks extends Base
      * Метод для добавления WebHooks.
      *
      * @link https://developers.amocrm.ru/rest_api/webhooks/subscribe.php
-     * @param string $url URL на который необходимо присылать уведомления, должен соответствоать стандарту RFC 2396
-     * @param string|array $events Список событий, при которых должны отправляться WebHooks
+     * @param null|string $url URL на который необходимо присылать уведомления, должен соответствоать стандарту RFC 2396
+     * @param array|string $events Список событий, при которых должны отправляться WebHooks
      * @return array Ответ amoCRM API
      * @throws \AmoCRM\Exception
      */
-    public function apiSubscribe($url, $events = [])
+    public function apiSubscribe($url = null, $events = [])
     {
-        if (!is_array($events)) {
-            $events = [$events];
-        } elseif (empty($events)) {
-            $events = $this->events;
+        $parameters = [
+            'url' => $url,
+            'events' => $events,
+        ];
+
+        if ($url === null) {
+            $parameters = $this->getValues();
+        } elseif (!is_array($parameters['events'])) {
+            $parameters['events'] = [$events];
+        } elseif (empty($parameters['events'])) {
+            $parameters['events'] = $this->events_list;
         }
 
         $parameters = [
             'webhooks' => [
-                'subscribe' => [
-                    [
-                        'url' => $url,
-                        'events' => $events,
-                    ]
-                ],
+                'subscribe' => [$parameters],
             ],
         ];
 
@@ -104,27 +133,29 @@ class WebHooks extends Base
      * Метод для удаления WebHooks.
      *
      * @link https://developers.amocrm.ru/rest_api/webhooks/unsubscribe.php
-     * @param string $url URL на который необходимо присылать уведомления, должен соответствоать стандарту RFC 2396
-     * @param string|array $events Список событий, от которых необходимо отписать WebHook
+     * @param null|string $url URL на который необходимо присылать уведомления, должен соответствоать стандарту RFC 2396
+     * @param array|string $events Список событий, от которых необходимо отписать WebHook
      * @return array Ответ amoCRM API
      * @throws \AmoCRM\Exception
      */
-    public function apiUnsubscribe($url, $events = [])
+    public function apiUnsubscribe($url = null, $events = [])
     {
-        if (!is_array($events)) {
-            $events = [$events];
-        } elseif (empty($events)) {
-            $events = $this->events;
+        $parameters = [
+            'url' => $url,
+            'events' => $events,
+        ];
+
+        if ($url === null) {
+            $parameters = $this->getValues();
+        } elseif (!is_array($parameters['events'])) {
+            $parameters['events'] = [$events];
+        } elseif (empty($parameters['events'])) {
+            $parameters['events'] = $this->events_list;
         }
 
         $parameters = [
             'webhooks' => [
-                'unsubscribe' => [
-                    [
-                        'url' => $url,
-                        'events' => $events,
-                    ]
-                ],
+                'unsubscribe' => [$parameters],
             ],
         ];
 

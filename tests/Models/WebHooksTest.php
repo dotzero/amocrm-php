@@ -60,6 +60,16 @@ class WebHooksTest extends PHPUnit_Framework_TestCase
         $this->model = new WebHooksMock($paramsBag);
     }
 
+    /**
+     * @dataProvider fieldsProvider
+     */
+    public function testFields($field, $value, $expected)
+    {
+        $this->model[$field] = $value;
+
+        $this->assertEquals($this->model[$field], $expected);
+    }
+
     public function testApiList()
     {
         $result = $this->model->apiList();
@@ -71,7 +81,7 @@ class WebHooksTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->model->mockModified);
     }
 
-    public function testApiSubscribeOne()
+    public function testApiSubscribe()
     {
         $expected = [
             'webhooks' => [
@@ -85,6 +95,30 @@ class WebHooksTest extends PHPUnit_Framework_TestCase
         ];
 
         $result = $this->model->apiSubscribe('http://example.com/', 'status_lead');
+
+        $this->assertEquals(1, $result);
+        $this->assertEquals('/private/api/v2/json/webhooks/subscribe', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
+    }
+
+    public function testApiSubscribeModel()
+    {
+        $expected = [
+            'webhooks' => [
+                'subscribe' => [
+                    [
+                        'url' => 'http://example.com/',
+                        'events' => ['status_lead'],
+                    ]
+                ]
+            ]
+        ];
+
+        $this->model['url'] = 'http://example.com/';
+        $this->model['events'] = 'status_lead';
+
+        $result = $this->model->apiSubscribe();
 
         $this->assertEquals(1, $result);
         $this->assertEquals('/private/api/v2/json/webhooks/subscribe', $this->model->mockUrl);
@@ -121,7 +155,7 @@ class WebHooksTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->model->mockModified);
     }
 
-    public function testApiUnsubscribeOne()
+    public function testApiUnsubscribe()
     {
         $expected = [
             'webhooks' => [
@@ -135,6 +169,30 @@ class WebHooksTest extends PHPUnit_Framework_TestCase
         ];
 
         $result = $this->model->apiUnsubscribe('http://example.com/', 'status_lead');
+
+        $this->assertEquals(1, $result);
+        $this->assertEquals('/private/api/v2/json/webhooks/unsubscribe', $this->model->mockUrl);
+        $this->assertEquals($expected, $this->model->mockParameters);
+        $this->assertNull($this->model->mockModified);
+    }
+
+    public function testApiUnsubscribeModel()
+    {
+        $expected = [
+            'webhooks' => [
+                'unsubscribe' => [
+                    [
+                        'url' => 'http://example.com/',
+                        'events' => ['status_lead'],
+                    ]
+                ]
+            ]
+        ];
+
+        $this->model['url'] = 'http://example.com/';
+        $this->model['events'] = 'status_lead';
+
+        $result = $this->model->apiUnsubscribe();
 
         $this->assertEquals(1, $result);
         $this->assertEquals('/private/api/v2/json/webhooks/unsubscribe', $this->model->mockUrl);
@@ -169,5 +227,54 @@ class WebHooksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/private/api/v2/json/webhooks/unsubscribe', $this->model->mockUrl);
         $this->assertEquals($expected, $this->model->mockParameters);
         $this->assertNull($this->model->mockModified);
+    }
+
+    public function fieldsProvider()
+    {
+        return [
+            // field, value, expected
+            ['url', 'http://example.com/', 'http://example.com/'],
+            ['events', 'status_lead', ['status_lead']],
+            [
+                'events',
+                [
+                    'add_contact',
+                    'update_contact',
+                    'delete_contact'
+                ],
+                [
+                    'add_contact',
+                    'update_contact',
+                    'delete_contact'
+                ]
+            ],
+            [
+                'events',
+                null,
+                [
+                    'add_lead', // Добавить сделку
+                    'add_contact', // Добавить контакт
+                    'add_company', // Добавить компанию
+                    'add_customer', // Добавить покупателя
+                    'update_lead', // Изменить сделку
+                    'update_contact', // Изменить контакт
+                    'update_company', // Изменить компанию
+                    'update_customer', // Изменить покупателя
+                    'delete_lead', // Удалить сделку
+                    'delete_contact', // Удалить контакт
+                    'delete_company', // Удалить компанию
+                    'delete_customer', // Удалить покупателя
+                    'status_lead', // Смена статуса сделки
+                    'responsible_lead', // Смена отв-го сделки
+                    'restore_contact', // Восстановить контакт
+                    'restore_company', // Восстановить компанию
+                    'restore_lead', // Восстановить сделку
+                    'note_lead', // Примечание в сделке
+                    'note_contact', // Примечание в контакте
+                    'note_company', // Примечание в компании
+                    'note_customer', // Примечание в покупателе
+                ]
+            ],
+        ];
     }
 }
