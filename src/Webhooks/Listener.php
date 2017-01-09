@@ -101,8 +101,6 @@ class Listener
 
         $post = $_POST;
         $domain = $post['account']['subdomain'];
-        $id = isset($data['id']) ? $data['id'] : null;
-
         unset($post['account']);
 
         foreach ($post as $entityName => $entityData) {
@@ -118,7 +116,10 @@ class Listener
                             break;
                     }
 
-                    $this->fireCallback($actionName . '_' . $type, $domain, $id, $data);
+                    $callback = $actionName . '_' . $type;
+                    $id = isset($data['id']) ? $data['id'] : null;
+
+                    $this->fireCallback($callback, $domain, $id, $data);
                 }
             }
         }
