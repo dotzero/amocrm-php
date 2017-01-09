@@ -164,6 +164,7 @@ class LeadTest extends PHPUnit_Framework_TestCase
             ['price', 300000, 300000],
             ['responsible_user_id', 100, 100],
             ['request_id', 100, 100],
+            ['linked_company_id', 100, 100],
             ['tags', 'Tag', 'Tag'],
             ['tags', ['Tag 1', 'Tag 2'], 'Tag 1,Tag 2'],
             ['visitor_uid', '12345678-52d2-44c2-9e16-ba0052d9f6d6', '12345678-52d2-44c2-9e16-ba0052d9f6d6']

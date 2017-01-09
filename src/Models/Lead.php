@@ -29,6 +29,7 @@ class Lead extends Base
         'price',
         'responsible_user_id',
         'request_id',
+        'linked_company_id',
         'tags',
         'visitor_uid',
     ];
