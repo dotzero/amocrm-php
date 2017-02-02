@@ -49,6 +49,19 @@ class Unsorted extends Base
     const TYPE_FORMS = 'forms';
 
     /**
+     * Сеттер для даты создания заявки
+     *
+     * @param string $date Дата в произвольном формате
+     * @return $this
+     */
+    public function setDateCreate($date)
+    {
+        $this->values['date_create'] = strtotime($date);
+
+        return $this;
+    }
+
+    /**
      * Список неразобранных заявок
      *
      * Метод для получения списка неразобранных заявок с возможностью фильтрации и постраничной выборки.
@@ -60,7 +73,7 @@ class Unsorted extends Base
      */
     public function apiList($parameters = [])
     {
-        $response = $this->getRequest('/api/unsorted/list', $parameters);
+        $response = $this->getRequest('/api/unsorted/list/', $parameters);
 
         return isset($response['unsorted']) ? $response['unsorted'] : [];
     }
@@ -149,7 +162,7 @@ class Unsorted extends Base
         ];
 
         $response = $this->postRequest('/api/unsorted/decline/', $parameters);
-        print_r($response);
+
         if (isset($response['unsorted']['decline']['data'])) {
             $result = array_keys($response['unsorted']['decline']['data']);
         } else {
@@ -169,7 +182,7 @@ class Unsorted extends Base
      * @param array $values Массив неразобранных заявок для пакетного добавления
      * @return int|array Уникальный идентификатор заявки или массив при пакетном добавлении
      */
-    public function apiAdd($type, $values)
+    public function apiAdd($type, $values = [])
     {
         if (empty($values)) {
             $values = [$this];
