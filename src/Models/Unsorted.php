@@ -120,7 +120,7 @@ class Unsorted extends Base
             ],
         ];
 
-        if ($status_id) {
+        if ($status_id !== null) {
             $parameters['unsorted']['status_id'] = $status_id;
         }
 
