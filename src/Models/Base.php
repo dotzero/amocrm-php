@@ -106,8 +106,8 @@ class Base extends Request implements \ArrayAccess
      *
      * @param int $id Уникальный идентификатор заполняемого дополнительного поля
      * @param mixed $value Значение заполняемого дополнительного поля
-     * @param string $enum Тип дополнительного поля
-     * @param string $subtype Тип подтипа поля
+     * @param mixed $enum Тип дополнительного поля
+     * @param mixed $subtype Тип подтипа поля
      * @return $this
      */
     public function addCustomField($id, $value, $enum = false, $subtype = false)
