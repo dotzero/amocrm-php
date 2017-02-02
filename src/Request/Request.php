@@ -21,6 +21,11 @@ use AmoCRM\NetworkException;
 class Request
 {
     /**
+     * @var bool Использовать устаревшую схему авторизации
+     */
+    protected $v1 = false;
+
+    /**
      * @var bool Флаг вывода отладочной информации
      */
     private $debug = false;
@@ -112,10 +117,17 @@ class Request
             $headers[] = 'IF-MODIFIED-SINCE: ' . (new \DateTime($modified))->format(\DateTime::RFC1123);
         }
 
-        $query = http_build_query(array_merge($this->parameters->getGet(), [
-            'USER_LOGIN' => $this->parameters->getAuth('login'),
-            'USER_HASH' => $this->parameters->getAuth('apikey'),
-        ]));
+        if ($this->v1 === false) {
+            $query = http_build_query(array_merge($this->parameters->getGet(), [
+                'USER_LOGIN' => $this->parameters->getAuth('login'),
+                'USER_HASH' => $this->parameters->getAuth('apikey'),
+            ]));
+        } else {
+            $query = http_build_query(array_merge($this->parameters->getGet(), [
+                'login' => $this->parameters->getAuth('login'),
+                'api_key' => $this->parameters->getAuth('apikey'),
+            ]));
+        }
 
         $endpoint = sprintf('https://%s.amocrm.ru%s?%s', $this->parameters->getAuth('domain'), $url, $query);
 
@@ -171,7 +183,11 @@ class Request
             if (isset($result['response']['error_code']) && $result['response']['error_code'] > 0) {
                 $code = $result['response']['error_code'];
             }
-            throw new Exception($result['response']['error'], $code);
+            if ($this->v1 === false) {
+                throw new Exception($result['response']['error'], $code);
+            } else {
+                throw new Exception(json_encode($result['response']), $code);
+            }
         }
 
         return $result['response'];
