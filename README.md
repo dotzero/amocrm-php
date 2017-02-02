@@ -85,6 +85,7 @@ try {
 - Task ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Note ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
 - Pipelines ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
+- Unsorted ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
 - Widgets ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
 - WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
 
@@ -132,6 +133,18 @@ try {
     * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим воронкам и этапам продаж
     * `apiDelete($id)` - Метод позволяет удалять воронки по одной или пакетно
     * `addStatusField($parameters, $id = null)` - Добавление этапов воронки
+
+- Модель `unsorted` для работы со Списоком неразобранных заявок
+
+    * `apiList($parameters = [])` - Метод для получения списка неразобранных заявок с возможностью фильтрации и постраничной выборки
+    * `apiGetAllSummary()` - Метод для получения аггрегированной информации о неразобранных заявках
+    * `apiAccept($uids, $user_id, $status_id = null)` - Метод для принятия неразобранных заявок
+    * `apiDecline($uids, $user_id)` - Метод для отклонения неразобранных заявок
+    * `apiAddSip($sip = [])` - Добавление неразобранных заявок с типом SIP
+    * `apiAddMail($mails = [])` - Добавление неразобранных заявок с типом MAIL
+    * `apiAddForms($forms = [])` - Добавление неразобранных заявок с типом FORMS
+    * `addDataLead($values)` - Добавление сделки которая будет создана после одобрения заявки
+    * `addDataContact($values)` - Добавление контакта или компании которая будет создана после одобрения заявки
 
 - Модель `widgets` для работы с Виджетами
 
@@ -223,31 +236,34 @@ try {
 
 ### Список доступных уведомлений
 
-- Контакты
-    - `contacts-add` - Создание контакта
-    - `contacts-update` - Изменение контакта
-    - `contacts-delete` - Удаление контакта
-
-- Компании
-    - `companies-add` - Создание компании
-    - `companies-update` - Изменение компании
-    - `companies-delete` - Удаление компании
-
-- Сделки
-    - `leads-add` - Создание сделки
-    - `leads-update` - Изменение сделки
-    - `leads-delete` - Удаление сделки
-    - `leads-status` - Смена статуса сделки
-    - `leads-responsible` - Смена ответственного сделки
-
-Обратите внимание, что при смене статуса сделки или при смене ответственного сделки, AmoCRM одновременно посылает информацию и об общем изменении сделки, то есть код для **leads-status** и **leads-responsible** всегда будет выполняться вместе с **leads-update.**
+- `add_lead` - Добавить сделку
+- `add_contact` - Добавить контакт
+- `add_company` - Добавить компанию
+- `add_customer` - Добавить покупателя
+- `update_lead` - Изменить сделку
+- `update_contact` - Изменить контакт
+- `update_company` - Изменить компанию
+- `update_customer` - Изменить покупателя
+- `delete_lead` - Удалить сделку
+- `delete_contact` - Удалить контакт
+- `delete_company` - Удалить компанию
+- `delete_customer` - Удалить покупателя
+- `status_lead` - Смена статуса сделки
+- `responsible_lead` - Смена отв-го сделки
+- `restore_contact` - Восстановить контакт
+- `restore_company` - Восстановить компанию
+- `restore_lead` - Восстановить сделку
+- `note_lead` - Примечание в сделке
+- `note_contact` - Примечание в контакте
+- `note_company` - Примечание в компании
+- `note_customer` - Примечание в покупателе
 
 ```php
 try {
-    $listener = new \AmoCRM\Webhooks();
+    $listener = new \AmoCRM\Webhooks\Listener();
 
     // Добавление обработчка на уведомление contacts->add
-    $listener->on('contacts-add', function ($domain, $id, $data) {
+    $listener->on('add_contact', function ($domain, $id, $data) {
         // $domain Поддомен amoCRM
         // $id Id объекта связаного с уведомленим
         // $data Поля возвращаемые уведомлением
