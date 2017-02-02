@@ -11,6 +11,7 @@ namespace AmoCRM;
  * произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними
  * рабочие правила в настройках своего аккаунта, в разделе «API».
  *
+ * @deprecated В пользу \AmoCRM\Webhooks\Listener
  * @package AmoCRM
  * @author dotzero <mail@dotzero.ru>
  * @link http://www.dotzero.ru/
