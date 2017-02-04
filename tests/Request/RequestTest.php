@@ -69,7 +69,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         ]);
 
         $this->assertCount(2, $actual);
-        $this->assertContains('IF-MODIFIED-SINCE: Mon, 02 Jan 2017 12:30:00 +0300', $actual);
+        $this->assertRegExp('/^IF-MODIFIED-SINCE: Mon, 02 Jan 2017 12:30:00/ui', $actual[1], $actual[1]);
     }
 
     /**
