@@ -118,18 +118,13 @@ class Request
     }
 
     /**
-     * Выполнить HTTP запрос и вернуть тело ответа
+     * Подготавливает URL для HTTP запроса
      *
      * @param string $url Запрашиваемый URL
-     * @param null|string $modified Значение заголовка IF-MODIFIED-SINCE
-     * @return mixed
-     * @throws Exception
-     * @throws NetworkException
+     * @return string
      */
-    protected function request($url, $modified = null)
+    protected function prepareEndpoint($url)
     {
-        $headers = $this->prepareHeaders($modified);
-
         if ($this->v1 === false) {
             $query = http_build_query(array_merge($this->parameters->getGet(), [
                 'USER_LOGIN' => $this->parameters->getAuth('login'),
@@ -142,7 +137,22 @@ class Request
             ]));
         }
 
-        $endpoint = sprintf('https://%s.amocrm.ru%s?%s', $this->parameters->getAuth('domain'), $url, $query);
+        return sprintf('https://%s.amocrm.ru%s?%s', $this->parameters->getAuth('domain'), $url, $query);
+    }
+
+    /**
+     * Выполнить HTTP запрос и вернуть тело ответа
+     *
+     * @param string $url Запрашиваемый URL
+     * @param null|string $modified Значение заголовка IF-MODIFIED-SINCE
+     * @return mixed
+     * @throws Exception
+     * @throws NetworkException
+     */
+    protected function request($url, $modified = null)
+    {
+        $headers = $this->prepareHeaders($modified);
+        $endpoint = $this->prepareEndpoint($url);
 
         if ($this->debug) {
             printf('[DEBUG] url: %s' . PHP_EOL, $endpoint);

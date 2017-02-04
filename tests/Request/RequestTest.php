@@ -2,6 +2,11 @@
 
 class RequestMock extends \AmoCRM\Request\Request
 {
+    public function v1($value)
+    {
+        $this->v1 = $value;
+    }
+
     protected function request($url, $modified = null)
     {
         return [];
@@ -10,11 +15,17 @@ class RequestMock extends \AmoCRM\Request\Request
 
 class RequestTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var null|RequestMock
+     */
     private $request = null;
 
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
+        $paramsBag->addAuth('domain', 'example');
+        $paramsBag->addAuth('login', 'login@domain');
+        $paramsBag->addAuth('apikey', 'hash');
         $this->request = new RequestMock($paramsBag);
     }
 
@@ -67,6 +78,23 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testIncorrectPrepareHeaders()
     {
         $this->invokeMethod($this->request, 'prepareHeaders', ['foobar']);
+    }
+
+    public function testPrepareEndpointV1()
+    {
+        $this->request->v1(true);
+        $expected = 'https://example.amocrm.ru/foo/?login=login%40domain&api_key=hash';
+        $actual = $this->invokeMethod($this->request, 'prepareEndpoint', ['/foo/']);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testPrepareEndpointV2()
+    {
+        $expected = 'https://example.amocrm.ru/foo/?USER_LOGIN=login%40domain&USER_HASH=hash';
+        $actual = $this->invokeMethod($this->request, 'prepareEndpoint', ['/foo/']);
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
