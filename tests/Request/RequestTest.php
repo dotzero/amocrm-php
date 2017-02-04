@@ -46,6 +46,29 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $actual);
     }
 
+    public function testPrepareHeaders()
+    {
+        $actual = $this->invokeMethod($this->request, 'prepareHeaders');
+
+        $this->assertCount(1, $actual);
+        $this->assertContains('Content-Type: application/json', $actual);
+
+        $actual = $this->invokeMethod($this->request, 'prepareHeaders', [
+            '2017-01-02 12:30:00'
+        ]);
+
+        $this->assertCount(2, $actual);
+        $this->assertContains('IF-MODIFIED-SINCE: Mon, 02 Jan 2017 12:30:00 +0300', $actual);
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testIncorrectPrepareHeaders()
+    {
+        $this->invokeMethod($this->request, 'prepareHeaders', ['foobar']);
+    }
+
     /**
      * Call protected/private method of a class.
      *
@@ -55,7 +78,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      *
      * @return mixed Method return.
      */
-    public function invokeMethod(&$object, $methodName, array $parameters = array())
+    public function invokeMethod(&$object, $methodName, array $parameters = [])
     {
         $reflection = new \ReflectionClass(get_class($object));
         $method = $reflection->getMethod($methodName);

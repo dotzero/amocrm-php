@@ -101,6 +101,23 @@ class Request
     }
 
     /**
+     * Подготавливает список заголовков HTTP
+     *
+     * @param null|string $modified Значение заголовка IF-MODIFIED-SINCE
+     * @return array
+     */
+    protected function prepareHeaders($modified = null)
+    {
+        $headers = ['Content-Type: application/json'];
+
+        if ($modified !== null) {
+            $headers[] = 'IF-MODIFIED-SINCE: ' . (new \DateTime($modified))->format(\DateTime::RFC1123);
+        }
+
+        return $headers;
+    }
+
+    /**
      * Выполнить HTTP запрос и вернуть тело ответа
      *
      * @param string $url Запрашиваемый URL
@@ -111,11 +128,7 @@ class Request
      */
     protected function request($url, $modified = null)
     {
-        $headers = ['Content-Type: application/json'];
-
-        if ($modified !== null) {
-            $headers[] = 'IF-MODIFIED-SINCE: ' . (new \DateTime($modified))->format(\DateTime::RFC1123);
-        }
+        $headers = $this->prepareHeaders($modified);
 
         if ($this->v1 === false) {
             $query = http_build_query(array_merge($this->parameters->getGet(), [
