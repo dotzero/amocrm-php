@@ -97,6 +97,71 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testParseResponseEmpty()
+    {
+        $actual = $this->invokeMethod($this->request, 'parseResponse', [null, null]);
+        $this->assertFalse($actual);
+    }
+
+    /**
+     * @expectedException \AmoCRM\Exception
+     * @expectedExceptionCode 101
+     * @expectedExceptionMessage Аккаунт не найден
+     */
+    public function testParseResponseWithError()
+    {
+        $response = json_encode([
+            'response' => [
+                'error_code' => '101',
+                'error' => 'Аккаунт не найден',
+            ]
+        ]);
+        $info = [
+            'http_code' => 400
+        ];
+
+        $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
+    }
+
+    /**
+     * @expectedException \AmoCRM\Exception
+     * @expectedExceptionCode 0
+     * @expectedExceptionMessage Аккаунт не найден
+     */
+    public function testParseResponseWithoutCode()
+    {
+        $response = json_encode([
+            'response' => [
+                'error' => 'Аккаунт не найден',
+            ]
+        ]);
+        $info = [
+            'http_code' => 400
+        ];
+
+        $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
+    }
+
+    /**
+     * @expectedException \AmoCRM\Exception
+     * @expectedExceptionCode 0
+     * @expectedExceptionMessage {"foo":"bar"}
+     */
+    public function testParseResponseWithErrorV1()
+    {
+        $response = json_encode([
+            'response' => [
+                'foo' => 'bar',
+            ]
+        ]);
+        $info = [
+            'http_code' => 400
+        ];
+
+        $this->request->v1(true);
+        $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
+    }
+
     /**
      * Call protected/private method of a class.
      *

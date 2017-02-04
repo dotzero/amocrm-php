@@ -197,7 +197,20 @@ class Request
             throw new NetworkException($error, $errno);
         }
 
-        $result = json_decode($result, true);
+        return $this->parseResponse($result, $info);
+    }
+
+    /**
+     * Парсит HTTP ответ, валидирует и возвращает тело
+     *
+     * @param string $response HTTP ответ
+     * @param array $info Результат функции curl_getinfo
+     * @return mixed
+     * @throws Exception
+     */
+    protected function parseResponse($response, $info)
+    {
+        $result = json_decode($response, true);
 
         if (!isset($result['response'])) {
             return false;
@@ -209,7 +222,7 @@ class Request
             if ($this->v1 === false) {
                 throw new Exception($result['response']['error'], $code);
             } else {
-                throw new Exception(json_encode($result['response']), $code);
+                throw new Exception(json_encode($result['response']));
             }
         }
 
