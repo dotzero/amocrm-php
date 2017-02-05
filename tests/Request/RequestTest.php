@@ -57,7 +57,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $actual);
     }
 
-    public function testPrepareHeaders()
+        public function testPrepareHeaders()
     {
         $actual = $this->invokeMethod($this->request, 'prepareHeaders');
 
@@ -95,6 +95,22 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $actual = $this->invokeMethod($this->request, 'prepareEndpoint', ['/foo/']);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testParseResponse()
+    {
+        $response = json_encode([
+            'response' => [
+                'foo' => 'bar',
+            ]
+        ]);
+        $info = [
+            'http_code' => 200
+        ];
+
+        $actual = $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
+        $this->assertArrayHasKey('foo', $actual);
+        $this->assertEquals('bar', $actual['foo']);
     }
 
     public function testParseResponseEmpty()
