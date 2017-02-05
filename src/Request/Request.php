@@ -154,15 +154,8 @@ class Request
         $headers = $this->prepareHeaders($modified);
         $endpoint = $this->prepareEndpoint($url);
 
-        if ($this->debug) {
-            printf('[DEBUG] url: %s' . PHP_EOL, $endpoint);
-            printf('[DEBUG] headers: %s' . PHP_EOL, print_r($headers, 1));
-            if ($this->parameters->hasPost()) {
-                printf('[DEBUG] post: %s' . PHP_EOL, json_encode([
-                    'request' => $this->parameters->getPost(),
-                ]));
-            }
-        }
+        $this->printDebug('url', $endpoint);
+        $this->printDebug('headers', $headers);
 
         $ch = curl_init();
 
@@ -173,10 +166,12 @@ class Request
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         if ($this->parameters->hasPost()) {
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            $fields = json_encode([
                 'request' => $this->parameters->getPost(),
-            ]));
+            ]);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+            $this->printDebug('post params', $fields);
         }
 
         $result = curl_exec($ch);
@@ -186,14 +181,12 @@ class Request
 
         curl_close($ch);
 
-        if ($this->debug) {
-            printf('[DEBUG] curl_exec: %s' . PHP_EOL, $result);
-            printf('[DEBUG] curl_getinfo: %s' . PHP_EOL, print_r($info, 1));
-            printf('[DEBUG] curl_error: %s' . PHP_EOL, $error);
-            printf('[DEBUG] curl_errno: %s' . PHP_EOL, $errno);
-        }
+        $this->printDebug('curl_exec', $result);
+        $this->printDebug('curl_getinfo', $info);
+        $this->printDebug('curl_error', $error);
+        $this->printDebug('curl_errno', $errno);
 
-        if ($error) {
+        if ($result === false && !empty($error)) {
             throw new NetworkException($error, $errno);
         }
 
@@ -227,5 +220,32 @@ class Request
         }
 
         return $result['response'];
+    }
+
+    /**
+     * Вывода отладочной информации
+     *
+     * @param string $key Заголовок отладочной информации
+     * @param mixed $value Значение отладочной информации
+     * @param bool $return Возврат строки вместо вывода
+     * @return mixed
+     */
+    protected function printDebug($key = '', $value = null, $return = false)
+    {
+        if ($this->debug !== true) {
+            return false;
+        }
+
+        if (!is_string($value)) {
+            $value = print_r($value, true);
+        }
+
+        $line = sprintf('[DEBUG] %s: %s', $key, $value);
+
+        if ($return === false) {
+            return print_r($line . PHP_EOL);
+        }
+
+        return $line;
     }
 }
