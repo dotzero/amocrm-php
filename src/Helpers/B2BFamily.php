@@ -225,7 +225,3 @@ class B2BFamily
         ]));
     }
 }
-
-class B2BFamilyException extends \Exception
-{
-}
