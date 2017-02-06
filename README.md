@@ -19,7 +19,7 @@ $ composer require dotzero/amocrm
 или добавить
 
 ```json
-"dotzero/amocrm": ">=0.3.0"
+"dotzero/amocrm": "~0.3.10"
 ```
 
 в секцию `require` файла composer.json.
