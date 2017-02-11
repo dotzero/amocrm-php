@@ -123,7 +123,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * Возвращает внешний итератор
      *
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
-     * @return Traversable Экземпляр объекта, использующего Iterator или Traversable
+     * @return \Traversable Экземпляр объекта, использующего Iterator или Traversable
      */
     public function getIterator()
     {

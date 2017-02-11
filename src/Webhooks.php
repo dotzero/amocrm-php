@@ -31,7 +31,7 @@ class Webhooks
      * Добавление события на уведомление в список событий
      *
      * @param string|array $events Код события или массив событий
-     * @param callback $callback Callback-функция
+     * @param callback|callable $callback Callback-функция
      * @return $this
      * @throws Exception
      */
