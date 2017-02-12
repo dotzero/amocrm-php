@@ -12,7 +12,18 @@ class AccountMock extends \AmoCRM\Models\Account
         $this->mockParameters = $parameters;
         $this->mockModified = $modified;
 
-        return ['account' => []];
+        return ['account' => [
+            'users' => [
+                [
+                    'id' => 1,
+                    'login' => 'mail@example.com',
+                ],
+                [
+                    'id' => 2,
+                    'login' => 'foo@bar.com',
+                ]
+            ]
+        ]];
     }
 }
 
@@ -26,6 +37,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
+        $paramsBag->addAuth('login', 'mail@example.com');
         $this->model = new AccountMock($paramsBag);
     }
 
@@ -37,10 +49,23 @@ class AccountTest extends PHPUnit_Framework_TestCase
 
         $result = $this->model->apiCurrent(false, $parameters);
 
-        $this->assertEquals([], $result);
+        $this->assertNotEmpty($result);
         $this->assertEquals('/private/api/v2/json/accounts/current', $this->model->mockUrl);
         $this->assertEquals($parameters, $this->model->mockParameters);
         $this->assertNull($this->model->mockModified);
+    }
+
+    public function testGetUserByLogin()
+    {
+        $actual = $this->model->getUserByLogin();
+        $this->assertNotEmpty($actual);
+        $this->assertArrayHasKey('id', $actual);
+        $this->assertEquals('mail@example.com', $actual['login']);
+
+        $actual = $this->model->getUserByLogin('foo@bar.com');
+        $this->assertNotEmpty($actual);
+        $this->assertArrayHasKey('id', $actual);
+        $this->assertEquals('foo@bar.com', $actual['login']);
     }
 
     public function testGetShorted()
@@ -70,7 +95,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
      *
      * @return mixed Method return.
      */
-    public function invokeMethod(&$object, $methodName, array $parameters = array())
+    public function invokeMethod(&$object, $methodName, array $parameters = [])
     {
         $reflection = new \ReflectionClass(get_class($object));
         $method = $reflection->getMethod($methodName);

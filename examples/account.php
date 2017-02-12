@@ -16,6 +16,12 @@ try {
     // Краткий формат (если полный не влезает в буффер консоли)
     print_r($amo->account->apiCurrent(true));
 
+    // Возвращает сведения о пользователе по его логину.
+    print_r($amo->account->getUserByLogin('mail@example.com'));
+
+    // Если не указывать логин, вернутся сведения о владельце API ключа.
+    print_r($amo->account->getUserByLogin());
+
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

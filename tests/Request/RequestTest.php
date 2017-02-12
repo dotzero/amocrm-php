@@ -36,6 +36,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(true, 'debug', $this->request);
     }
 
+    public function testGetParameters()
+    {
+        $actual = $this->invokeMethod($this->request, 'getParameters');
+        $this->assertInstanceOf('\AmoCRM\Request\ParamsBag', $actual);
+    }
+
     public function testGetRequest()
     {
         $actual = $this->invokeMethod($this->request, 'getRequest', [

@@ -64,6 +64,16 @@ class Request
     }
 
     /**
+     * Возвращает экземпляр ParamsBag для хранения аргументов
+     *
+     * @return ParamsBag|null
+     */
+    protected function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
      * Выполнить HTTP GET запрос и вернуть тело ответа
      *
      * @param string $url Запрашиваемый URL
