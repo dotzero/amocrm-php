@@ -17,6 +17,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Account $account
  * @property \AmoCRM\Models\Company $company
  * @property \AmoCRM\Models\Contact $contact
+ * @property \AmoCRM\Models\Customer $customer
  * @property \AmoCRM\Models\CustomersPeriods $customers_periods
  * @property \AmoCRM\Models\Lead $lead
  * @property \AmoCRM\Models\Note $note
