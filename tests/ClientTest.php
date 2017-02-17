@@ -39,9 +39,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             ['account', '\AmoCRM\Models\Account'],
             ['company', '\AmoCRM\Models\Company'],
             ['contact', '\AmoCRM\Models\Contact'],
+            ['customers_periods', '\AmoCRM\Models\CustomersPeriods'],
             ['lead', '\AmoCRM\Models\Lead'],
             ['note', '\AmoCRM\Models\Note'],
             ['task', '\AmoCRM\Models\Task'],
+            ['pipelines', '\AmoCRM\Models\Pipelines'],
+            ['unsorted', '\AmoCRM\Models\Unsorted'],
+            ['widgets', '\AmoCRM\Models\Widgets'],
+            ['webhooks', '\AmoCRM\Models\WebHooks'],
         ];
     }
 }
