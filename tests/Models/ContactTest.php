@@ -36,7 +36,7 @@ class ContactMock extends \AmoCRM\Models\Contact
     }
 }
 
-class ContactTest extends PHPUnit_Framework_TestCase
+class ContactTest extends TestCase
 {
     /**
      * @var null|ContactMock

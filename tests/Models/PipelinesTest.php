@@ -40,7 +40,7 @@ class PipelinesMock extends \AmoCRM\Models\Pipelines
     }
 }
 
-class PipelinesTest extends PHPUnit_Framework_TestCase
+class PipelinesTest extends TestCase
 {
     /**
      * @var null|PipelinesMock

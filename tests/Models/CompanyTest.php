@@ -36,7 +36,7 @@ class CompanyMock extends \AmoCRM\Models\Company
     }
 }
 
-class CompanyTest extends PHPUnit_Framework_TestCase
+class CompanyTest extends TestCase
 {
     /**
      * @var null|CompanyMock

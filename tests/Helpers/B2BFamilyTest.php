@@ -8,7 +8,7 @@ class B2BFamilyMock extends \AmoCRM\Helpers\B2BFamily
     }
 }
 
-class B2BFamilyTest extends PHPUnit_Framework_TestCase
+class B2BFamilyTest extends TestCase
 {
     /**
      * @var null|\AmoCRM\Helpers\B2BFamily

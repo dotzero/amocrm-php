@@ -1,24 +1,21 @@
 <?php
 
-class AbstractModelMock extends \AmoCRM\Models\AbstractModel
-{
-    protected $fields = [
-        'foo',
-        'bar',
-    ];
-}
-
-class AbstractModelTest extends PHPUnit_Framework_TestCase
+class AbstractModelTest extends TestCase
 {
     /**
-     * @var null|AbstractModelMock
+     * @var null|\AmoCRM\Models\AbstractModel
      */
     private $model = null;
 
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new AbstractModelMock($paramsBag);
+
+        $this->model = $this->getMockForAbstractClass(\AmoCRM\Models\AbstractModel::class, [$paramsBag]);
+        $this->setProtectedProperty($this->model, 'fields', [
+            'foo',
+            'bar',
+        ]);
     }
 
     public function testOffsetExists()

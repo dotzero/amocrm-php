@@ -1,6 +1,6 @@
 <?php
 
-class FieldsTest extends PHPUnit_Framework_TestCase
+class FieldsTest extends TestCase
 {
     /**
      * @var null|\AmoCRM\Helpers\Fields

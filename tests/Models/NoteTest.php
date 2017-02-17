@@ -36,7 +36,7 @@ class NoteMock extends \AmoCRM\Models\Note
     }
 }
 
-class NoteTest extends PHPUnit_Framework_TestCase
+class NoteTest extends TestCase
 {
     /**
      * @var null|NoteMock

@@ -36,7 +36,7 @@ class TaskMock extends \AmoCRM\Models\Task
     }
 }
 
-class TaskTest extends PHPUnit_Framework_TestCase
+class TaskTest extends TestCase
 {
     /**
      * @var null|TaskMock

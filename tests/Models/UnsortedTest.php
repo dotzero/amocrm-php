@@ -33,7 +33,7 @@ class UnsortedMock extends \AmoCRM\Models\Unsorted
     }
 }
 
-class UnsortedTest extends PHPUnit_Framework_TestCase
+class UnsortedTest extends TestCase
 {
     /**
      * @var null|UnsortedMock

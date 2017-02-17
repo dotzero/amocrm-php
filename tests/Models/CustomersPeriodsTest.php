@@ -32,7 +32,7 @@ class CustomersPeriodsMock extends \AmoCRM\Models\CustomersPeriods
     }
 }
 
-class CustomersPeriodsTest extends PHPUnit_Framework_TestCase
+class CustomersPeriodsTest extends TestCase
 {
     /**
      * @var null|CustomersPeriodsMock

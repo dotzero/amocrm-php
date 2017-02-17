@@ -25,7 +25,7 @@ class WidgetsMock extends \AmoCRM\Models\Widgets
     }
 }
 
-class WidgetsTest extends PHPUnit_Framework_TestCase
+class WidgetsTest extends TestCase
 {
     /**
      * @var null|WidgetsMock

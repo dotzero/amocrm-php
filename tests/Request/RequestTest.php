@@ -13,7 +13,7 @@ class RequestMock extends \AmoCRM\Request\Request
     }
 }
 
-class RequestTest extends PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
     /**
      * @var null|RequestMock
@@ -202,23 +202,5 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         $actual = $this->invokeMethod($this->request, 'printDebug');
         $this->assertFalse($actual);
-    }
-
-    /**
-     * Call protected/private method of a class.
-     *
-     * @param object &$object Instantiated object that we will run method on.
-     * @param string $methodName Method name to call
-     * @param array $parameters Array of parameters to pass into method.
-     *
-     * @return mixed Method return.
-     */
-    public function invokeMethod(&$object, $methodName, array $parameters = [])
-    {
-        $reflection = new \ReflectionClass(get_class($object));
-        $method = $reflection->getMethod($methodName);
-        $method->setAccessible(true);
-
-        return $method->invokeArgs($object, $parameters);
     }
 }

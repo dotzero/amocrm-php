@@ -1,6 +1,6 @@
 <?php
 
-class ParamsBagTest extends PHPUnit_Framework_TestCase
+class ParamsBagTest extends TestCase
 {
     private $params = null;
 

@@ -47,7 +47,7 @@ class WebHooksMock extends \AmoCRM\Models\WebHooks
     }
 }
 
-class WebHooksTest extends PHPUnit_Framework_TestCase
+class WebHooksTest extends TestCase
 {
     /**
      * @var null|WebHooksMock

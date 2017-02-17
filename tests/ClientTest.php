@@ -1,6 +1,6 @@
 <?php
 
-class ClientTest extends PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     private $amo = null;
 

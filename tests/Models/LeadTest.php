@@ -36,7 +36,7 @@ class LeadMock extends \AmoCRM\Models\Lead
     }
 }
 
-class LeadTest extends PHPUnit_Framework_TestCase
+class LeadTest extends TestCase
 {
     /**
      * @var null|LeadMock

@@ -1,6 +1,6 @@
 <?php
 
-class ListenerTest extends PHPUnit_Framework_TestCase
+class ListenerTest extends TestCase
 {
     /**
      * @var null|\AmoCRM\Webhooks\Listener

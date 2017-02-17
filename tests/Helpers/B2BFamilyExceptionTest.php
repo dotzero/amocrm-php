@@ -1,6 +1,6 @@
 <?php
 
-class B2BFamilyExceptionTest extends PHPUnit_Framework_TestCase
+class B2BFamilyExceptionTest extends TestCase
 {
     /**
      * @expectedException \AmoCRM\Helpers\B2BFamilyException
