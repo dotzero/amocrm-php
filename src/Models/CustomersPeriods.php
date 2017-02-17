@@ -55,6 +55,10 @@ class CustomersPeriods extends Base
      */
     public function apiSet($periods = [])
     {
+        if (empty($periods)) {
+            $periods = [$this];
+        }
+
         $parameters = [
             'customers_periods' => [
                 'update' => [],
@@ -62,13 +66,16 @@ class CustomersPeriods extends Base
         ];
 
         foreach ($periods AS $period) {
-            $parameters['customers_periods']['update'][] = $period->getValues();
+            if ($period instanceof self) {
+                $period = $period->getValues();
+            }
+            $parameters['customers_periods']['update'][] = $period;
         }
 
         $response = $this->postRequest('/private/api/v2/json/customers_periods/set', $parameters);
 
         if (isset($response['customers_periods']['set'])) {
-            $result = array_map(function($item) {
+            $result = array_map(function ($item) {
                 return $item['id'];
             }, $response['customers_periods']['set']);
         } else {

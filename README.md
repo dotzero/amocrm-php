@@ -83,6 +83,7 @@ try {
 - Contact ([пример](examples/contact.php), [документация](https://developers.amocrm.ru/rest_api/#contact))
 - Lead ([пример](examples/lead.php), [документация](https://developers.amocrm.ru/rest_api/#lead))
 - Company ([пример](examples/company.php), [документация](https://developers.amocrm.ru/rest_api/#company))
+- CustomersPeriods ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
 - Task ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Note ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
 - Pipelines ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
@@ -109,6 +110,11 @@ try {
     * `apiList($parameters, $modified = null)` - Метод для получения списка компаний с возможностью фильтрации и постраничной выборки
     * `apiAdd($companies = [])` - Метод позволяет добавлять компании по одной или пакетно
     * `apiUpdate($id, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим компаниям
+
+- Модель `customers_periods` для работы с Компаниями
+
+    * `apiList()` - Метод для получения списка периодов
+    * `apiSet($periods = [])` - Метод позволяет изменять данные по периодам
 
 - Модель `lead` для работы со Сделками
 
