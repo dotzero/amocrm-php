@@ -6,9 +6,9 @@ use AmoCRM\Exception;
 use AmoCRM\Request\Request;
 
 /**
- * Class Base
+ * Class AbstractModel
  *
- * Базовый класс всех моделей
+ * Абстрактный класс для всех моделей
  *
  * @package AmoCRM\Models
  * @author dotzero <mail@dotzero.ru>
@@ -18,7 +18,7 @@ use AmoCRM\Request\Request;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Base extends Request implements \ArrayAccess
+abstract class AbstractModel extends Request implements \ArrayAccess
 {
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)

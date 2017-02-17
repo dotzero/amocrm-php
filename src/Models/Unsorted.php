@@ -15,7 +15,7 @@ namespace AmoCRM\Models;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Unsorted extends Base
+class Unsorted extends AbstractModel
 {
     /**
      * @var bool Использовать устаревшую схему авторизации
@@ -271,7 +271,7 @@ class Unsorted extends Base
         }
 
         foreach ($values as $value) {
-            if ($value instanceof Base) {
+            if ($value instanceof AbstractModel) {
                 $this->values['data'][$type][] = $value->getValues();
             }
         }

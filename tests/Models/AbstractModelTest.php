@@ -1,6 +1,6 @@
 <?php
 
-class BaseMock extends \AmoCRM\Models\Base
+class AbstractModelMock extends \AmoCRM\Models\AbstractModel
 {
     protected $fields = [
         'foo',
@@ -8,17 +8,17 @@ class BaseMock extends \AmoCRM\Models\Base
     ];
 }
 
-class BaseTest extends PHPUnit_Framework_TestCase
+class AbstractModelTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var null|BaseMock
+     * @var null|AbstractModelMock
      */
     private $model = null;
 
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new BaseMock($paramsBag);
+        $this->model = new AbstractModelMock($paramsBag);
     }
 
     public function testOffsetExists()

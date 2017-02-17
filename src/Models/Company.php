@@ -15,7 +15,7 @@ namespace AmoCRM\Models;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Company extends Base
+class Company extends AbstractModel
 {
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
