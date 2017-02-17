@@ -17,6 +17,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Account $account
  * @property \AmoCRM\Models\Company $company
  * @property \AmoCRM\Models\Contact $contact
+ * @property \AmoCRM\Models\CustomersPeriods $customers_periods
  * @property \AmoCRM\Models\Lead $lead
  * @property \AmoCRM\Models\Note $note
  * @property \AmoCRM\Models\Task $task
@@ -66,7 +67,7 @@ class Client
      */
     public function __get($name)
     {
-        $classname = '\\AmoCRM\\Models\\' . ucfirst($name);
+        $classname = '\\AmoCRM\\Models\\' . $this->toCamelCase($name);
 
         if (!class_exists($classname)) {
             throw new ModelException('Model not exists: ' . $name);
@@ -76,5 +77,16 @@ class Client
         $this->parameters->clearGet()->clearPost();
 
         return new $classname($this->parameters);
+    }
+
+    /**
+     * Приведение under_score к CamelCase
+     *
+     * @param string $string Строка
+     * @return string Строка
+     */
+    private function toCamelCase($string)
+    {
+        return str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
     }
 }
