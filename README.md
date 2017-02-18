@@ -79,17 +79,18 @@ try {
 
 ## Список доступных моделей
 
-- Account ([пример](examples/account.php), [документация](https://developers.amocrm.ru/rest_api/#account))
-- Contact ([пример](examples/contact.php), [документация](https://developers.amocrm.ru/rest_api/#contact))
-- Lead ([пример](examples/lead.php), [документация](https://developers.amocrm.ru/rest_api/#lead))
-- Company ([пример](examples/company.php), [документация](https://developers.amocrm.ru/rest_api/#company))
-- CustomersPeriods ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
-- Task ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
-- Note ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
-- Pipelines ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
-- Unsorted ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
-- Widgets ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
+- Аккаунт ([пример](examples/account.php), [документация](https://developers.amocrm.ru/rest_api/#account))
+- Контакт ([пример](examples/contact.php), [документация](https://developers.amocrm.ru/rest_api/#contact))
+- Сделка ([пример](examples/lead.php), [документация](https://developers.amocrm.ru/rest_api/#lead))
+- Компания ([пример](examples/company.php), [документация](https://developers.amocrm.ru/rest_api/#company))
+- Покупатель ([пример](examples/customer.php), [документация](https://developers.amocrm.ru/rest_api/#customer))
+- Периоды покупателей ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
+- Задача ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
+- Событие ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
+- Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
+- Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
 - WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
+- Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
 
 ## Описание моделей и методов
 
@@ -110,6 +111,12 @@ try {
     * `apiList($parameters, $modified = null)` - Метод для получения списка компаний с возможностью фильтрации и постраничной выборки
     * `apiAdd($companies = [])` - Метод позволяет добавлять компании по одной или пакетно
     * `apiUpdate($id, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим компаниям
+
+- Модель `customer` для работы с Покупателями
+
+    * `apiList($parameters)` - Метод для получения покупателей аккаунта
+    * `apiAdd($customers = [])` - Метод позволяет добавлять покупателей по одному или пакетно
+    * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим покупателям
 
 - Модель `customers_periods` для работы с Компаниями
 
