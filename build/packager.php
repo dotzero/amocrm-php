@@ -24,6 +24,5 @@ $packager->createZip(__DIR__ . '/artifacts/amocrm.zip');
 $packager->createPhar(__DIR__ . '/artifacts/amocrm.phar');
 
 $packager->startSection('test-phar');
-$packager->exec('php ' . __DIR__ . '/test-phar.php');
+echo $packager->exec('php ' . __DIR__ . '/test_phar.php');
 $packager->endSection();
-

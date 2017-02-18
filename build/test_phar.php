@@ -1,5 +1,4 @@
 <?php
-
 require __DIR__ . '/artifacts/amocrm.phar';
 
 $models = [
@@ -14,11 +13,12 @@ $models = [
     ['pipelines', '\AmoCRM\Models\Pipelines'],
     ['unsorted', '\AmoCRM\Models\Unsorted'],
     ['widgets', '\AmoCRM\Models\Widgets'],
-    ['webhooks', '\AmoCRM\Models\WebHooks'],
+    ['web_hooks', '\AmoCRM\Models\WebHooks'],
 ];
 
 $amo = new \AmoCRM\Client('example', 'login', 'hash');
 
 foreach ($models as $model) {
+    echo $amo->{$model[0]} . "\n";
     assert($amo->{$model[0]} instanceof $model[1]);
 }
