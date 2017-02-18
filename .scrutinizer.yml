@@ -3,6 +3,7 @@ imports:
 
 filter:
     excluded_paths:
+        - "build/"
         - "examples/"
         - "tests/"
 

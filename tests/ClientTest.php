@@ -39,6 +39,7 @@ class ClientTest extends TestCase
             ['account', '\AmoCRM\Models\Account'],
             ['company', '\AmoCRM\Models\Company'],
             ['contact', '\AmoCRM\Models\Contact'],
+            ['customer', '\AmoCRM\Models\Customer'],
             ['customers_periods', '\AmoCRM\Models\CustomersPeriods'],
             ['lead', '\AmoCRM\Models\Lead'],
             ['note', '\AmoCRM\Models\Note'],

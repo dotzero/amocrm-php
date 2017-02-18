@@ -22,14 +22,11 @@ Thumbs.db
 # composer vendor dir
 /vendor
 
-# composer itself is not needed
-composer.phar
-
 # composer.lock is not needed
 composer.lock
 
-# local phpunit config
+# build artifacts
+build/artifacts
+*.phar
+*.zip
 /phpunit.xml
-
-# phpunit itself is not needed
-phpunit.phar
