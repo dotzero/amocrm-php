@@ -31,6 +31,16 @@ abstract class AbstractModel extends Request implements \ArrayAccess
     protected $values = [];
 
     /**
+     * Возвращает называние Модели
+     *
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return static::class;
+    }
+
+    /**
      * Определяет, существует ли заданное поле модели
      *
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php

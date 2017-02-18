@@ -12,11 +12,12 @@ class ClientTest extends TestCase
     /**
      * @dataProvider modelsProvider
      */
-    public function testGetModel($model, $expected)
+    public function testGetModel($name, $expected)
     {
-        $model = $this->amo->{$model};
+        $model = $this->amo->{$name};
 
         $this->assertInstanceOf($expected, $model);
+        $this->assertEquals($expected, (string)$model);
     }
 
     /**
@@ -36,18 +37,18 @@ class ClientTest extends TestCase
     {
         return [
             // model name, expected
-            ['account', '\AmoCRM\Models\Account'],
-            ['company', '\AmoCRM\Models\Company'],
-            ['contact', '\AmoCRM\Models\Contact'],
-            ['customer', '\AmoCRM\Models\Customer'],
-            ['customers_periods', '\AmoCRM\Models\CustomersPeriods'],
-            ['lead', '\AmoCRM\Models\Lead'],
-            ['note', '\AmoCRM\Models\Note'],
-            ['task', '\AmoCRM\Models\Task'],
-            ['pipelines', '\AmoCRM\Models\Pipelines'],
-            ['unsorted', '\AmoCRM\Models\Unsorted'],
-            ['widgets', '\AmoCRM\Models\Widgets'],
-            ['webhooks', '\AmoCRM\Models\WebHooks'],
+            ['account', 'AmoCRM\Models\Account'],
+            ['company', 'AmoCRM\Models\Company'],
+            ['contact', 'AmoCRM\Models\Contact'],
+            ['customer', 'AmoCRM\Models\Customer'],
+            ['customers_periods', 'AmoCRM\Models\CustomersPeriods'],
+            ['lead', 'AmoCRM\Models\Lead'],
+            ['note', 'AmoCRM\Models\Note'],
+            ['task', 'AmoCRM\Models\Task'],
+            ['pipelines', 'AmoCRM\Models\Pipelines'],
+            ['unsorted', 'AmoCRM\Models\Unsorted'],
+            ['widgets', 'AmoCRM\Models\Widgets'],
+            ['webhooks', 'AmoCRM\Models\WebHooks'],
         ];
     }
 }
