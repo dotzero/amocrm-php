@@ -1,6 +1,6 @@
 <?php
 
-class TestCase extends PHPUnit_Framework_TestCase
+abstract class TestCase extends PHPUnit_Framework_TestCase
 {
     /**
      * Sets a protected property on a given object via reflection
