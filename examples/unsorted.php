@@ -44,6 +44,12 @@ try {
     // Добавление контакта или компании которая будет создана после одобрения заявки.
     $contact = $amo->contact;
     $contact['name'] = 'Create contact from this data';
+
+    // Примечания, которые появятся в контакте после принятия неразобранного
+    $note = $amo->note;
+    $note['text'] = 'foobar';
+    $this->model['notes'] = $note;
+
     $unsorted->addDataContact($contact);
 
     //  Добавление неразобранных заявок с типом MAIL

@@ -29,6 +29,7 @@ class Contact extends AbstractModel
         'linked_leads_id',
         'company_name',
         'tags',
+        'notes',
     ];
 
     /**
@@ -92,6 +93,32 @@ class Contact extends AbstractModel
     }
 
     /**
+     * Сеттер для списка примечаний, которые появятся в контакте
+     * после принятия неразобранного
+     *
+     * @param array|Note $value Примечание или массив примечаний
+     * @return $this
+     */
+    public function setNotes($value)
+    {
+        $this->values['notes'] = [];
+
+        if ($value instanceof Note) {
+            $value = [$value];
+        }
+
+        foreach ($value as $note) {
+            if ($note instanceof Note) {
+                $note = $note->getValues();
+            }
+
+            $this->values['notes'][] = $note;
+        }
+
+        return $this;
+    }
+
+    /**
      * Список контактов
      *
      * Метод для получения списка контактов с возможностью фильтрации и постраничной выборки.
@@ -137,7 +164,7 @@ class Contact extends AbstractModel
         $response = $this->postRequest('/private/api/v2/json/contacts/set', $parameters);
 
         if (isset($response['contacts']['add'])) {
-            $result = array_map(function($item) {
+            $result = array_map(function ($item) {
                 return $item['id'];
             }, $response['contacts']['add']);
         } else {

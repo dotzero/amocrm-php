@@ -98,6 +98,19 @@ class ContactTest extends TestCase
         $this->assertContains(300, $this->model['custom_fields'][4]['values']);
     }
 
+    public function testSetNotes()
+    {
+        $paramsBag = new \AmoCRM\Request\ParamsBag();
+        $note = new \AmoCRM\Models\Note($paramsBag);
+        $note['text'] = 'foobar';
+
+        $this->model['notes'] = $note;
+        $this->assertEquals($this->model['notes'], [$note->getValues()]);
+
+        $this->model['notes'] = [$note, $note];
+        $this->assertEquals($this->model['notes'], [$note->getValues(), $note->getValues()]);
+    }
+
     public function testApiList()
     {
         $parameters = [
@@ -198,6 +211,7 @@ class ContactTest extends TestCase
             ['company_name', 'Компания', 'Компания'],
             ['tags', 'Tag', 'Tag'],
             ['tags', ['Tag 1', 'Tag 2'], 'Tag 1,Tag 2'],
+            //['notes', ['text' => 'foo'], [['text' => 'foo']]],
         ];
     }
 }
