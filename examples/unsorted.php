@@ -48,7 +48,7 @@ try {
     // Примечания, которые появятся в контакте после принятия неразобранного
     $note = $amo->note;
     $note['text'] = 'foobar';
-    $this->model['notes'] = $note;
+    $contact['notes'] = $note;
 
     $unsorted->addDataContact($contact);
 
