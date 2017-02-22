@@ -211,7 +211,6 @@ class ContactTest extends TestCase
             ['company_name', 'Компания', 'Компания'],
             ['tags', 'Tag', 'Tag'],
             ['tags', ['Tag 1', 'Tag 2'], 'Tag 1,Tag 2'],
-            //['notes', ['text' => 'foo'], [['text' => 'foo']]],
         ];
     }
 }
