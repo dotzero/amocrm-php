@@ -87,6 +87,7 @@ try {
 - Периоды покупателей ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
 - Задача ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Событие ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
+- Дополнительные поля ([пример](examples/custom_field.php), [документация](https://developers.amocrm.ru/rest_api/#fields))
 - Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
 - Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
 - WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
@@ -140,6 +141,11 @@ try {
     * `apiList($parameters, $modified = null)` - Метод для получения списка задач с возможностью фильтрации и постраничной выборки
     * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
     * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
+
+- Модель `custom_field` для работы с Дополнительными полями
+
+    * `apiAdd($fields = [])` - Метод позволяет добавлять дополнительные поля по одному или пакетно
+    * `apiDelete($id, $origin)` - Метод позволяет удалять дополнительные поля
 
 - Модель `pipelines` для работы с Списком воронок и этапов продаж
 

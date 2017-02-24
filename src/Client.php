@@ -22,11 +22,11 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Lead $lead
  * @property \AmoCRM\Models\Note $note
  * @property \AmoCRM\Models\Task $task
+ * @property \AmoCRM\Models\CustomField $custom_field
  * @property \AmoCRM\Models\Pipelines $pipelines
  * @property \AmoCRM\Models\Unsorted $unsorted
  * @property \AmoCRM\Models\Widgets $widgets
  * @property \AmoCRM\Models\WebHooks $webhooks
- * @property \AmoCRM\Models\CustomField $custom_field
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.

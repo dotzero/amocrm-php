@@ -16,24 +16,6 @@ namespace AmoCRM\Models;
  */
 class CustomField extends AbstractModel
 {
-
-    const TYPE_TEXT = 1;
-    const TYPE_NUMERIC = 2;
-    const TYPE_CHECKBOX = 3;
-    const TYPE_SELECT = 4;
-    const TYPE_MULTISELECT = 5;
-    const TYPE_DATE = 6;
-    const TYPE_URL = 7;
-    const TYPE_MULTITEXT = 8;
-    const TYPE_TEXTAREA = 9;
-    const TYPE_RADIOBUTTON = 10;
-
-
-    const ENTITY_CONTACT = 1;
-    const ENTITY_LEAD = 2;
-    const ENTITY_COMPANY = 3;
-
-
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -46,6 +28,45 @@ class CustomField extends AbstractModel
         'origin'
     ];
 
+    const TYPE_TEXT = 1;
+    const TYPE_NUMERIC = 2;
+    const TYPE_CHECKBOX = 3;
+    const TYPE_SELECT = 4;
+    const TYPE_MULTISELECT = 5;
+    const TYPE_DATE = 6;
+    const TYPE_URL = 7;
+    const TYPE_MULTITEXT = 8;
+    const TYPE_TEXTAREA = 9;
+    const TYPE_RADIOBUTTON = 10;
+
+    /**
+     * @const int Типа сущности Контакт
+     */
+    const ENTITY_CONTACT = 1;
+
+    /**
+     * @const int Типа сущности Сделка
+     */
+    const ENTITY_LEAD = 2;
+
+    /**
+     * @const int Типа сущности Компания
+     */
+    const ENTITY_COMPANY = 3;
+
+    /**
+     * Сеттер для флага, указывающего на то,
+     * должно ли поле быть редактируемым в веб-интерфейсе
+     *
+     * @param string $value Значение флага
+     * @return $this
+     */
+    public function setDisabled($value)
+    {
+        $this->values['disabled'] = (bool)$value ? 1 : 0;
+
+        return $this;
+    }
 
     /**
      * Добавление дополнительных полей
@@ -53,10 +74,8 @@ class CustomField extends AbstractModel
      * Метод позволяет добавлять дополнительные поля по одному или пакетно
      *
      * @link https://developers.amocrm.ru/rest_api/fields_set.php
-     *
      * @param $fields array Массив дополнительных полей для пакетного добавления
-     *
-     * @return int|array Уникальный идентификатор контакта или массив при пакетном добавлении
+     * @return int|array Уникальный идентификатор поля или массив при пакетном добавлении
      */
     public function apiAdd($fields = [])
     {
@@ -90,15 +109,12 @@ class CustomField extends AbstractModel
     /**
      * Удаление дополнительных полей
      *
-     * Метод позволяет удалять дополнительные поля по одной
+     * Метод позволяет удалять дополнительные поля
      *
      * @link https://developers.amocrm.ru/rest_api/fields_set.php
-     *
-     * @param $id int Уникальный идентификатор воронки
-     *
+     * @param $id int Уникальный идентификатор дополнительного поля
      * @param $origin string Уникальный идентификатор сервиса заданный при создании параметром origin
-     *
-     * @return array Ответ amoCRM API
+     * @return bool Флаг успешности выполнения запроса
      */
     public function apiDelete($id, $origin)
     {
@@ -115,6 +131,6 @@ class CustomField extends AbstractModel
 
         $response = $this->postRequest('/private/api/v2/json/fields/set', $parameters);
 
-        return $response;
+        return isset($response['fields']['delete']) ? true : false;
     }
 }
