@@ -26,6 +26,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Unsorted $unsorted
  * @property \AmoCRM\Models\Widgets $widgets
  * @property \AmoCRM\Models\WebHooks $webhooks
+ * @property \AmoCRM\Models\CustomField $custom_field
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
