@@ -9,6 +9,8 @@
 
 Клиент для работы с API сервиса [amoCRM](https://www.amocrm.ru/)
 
+![amoCRM](https://raw.githubusercontent.com/dotzero/amocrm-php/master/assets/logo.png)
+
 ## Установка
 
 ### Через composer:
