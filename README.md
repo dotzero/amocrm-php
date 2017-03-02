@@ -92,6 +92,7 @@ try {
 - Дополнительные поля ([пример](examples/custom_field.php), [документация](https://developers.amocrm.ru/rest_api/#fields))
 - Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
 - Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
+- Связи ([пример](examples/links.php), [документация](https://developers.amocrm.ru/rest_api/#links))
 - WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
 - Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
 
@@ -168,6 +169,12 @@ try {
     * `apiAddForms($forms = [])` - Добавление неразобранных заявок с типом FORMS
     * `addDataLead($values)` - Добавление сделки которая будет создана после одобрения заявки
     * `addDataContact($values)` - Добавление контакта или компании которая будет создана после одобрения заявки
+
+- Модель `links` для работы со Связями между сущностями
+
+    * `apiList($parameters)` - Метод для получения связей между сущностями аккаунта
+    * `apiLink($links = [])` - Метод позволяет устанавливать связи между сущностями
+    * `apiUnlink($links = [])` - Метод позволяет удалять связи между сущностями
 
 - Модель `widgets` для работы с Виджетами
 
