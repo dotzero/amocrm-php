@@ -38,17 +38,20 @@ class ClientTest extends TestCase
         return [
             // model name, expected
             ['account', 'AmoCRM\Models\Account'],
+            ['catalog', 'AmoCRM\Models\Catalog'],
             ['company', 'AmoCRM\Models\Company'],
             ['contact', 'AmoCRM\Models\Contact'],
             ['customer', 'AmoCRM\Models\Customer'],
             ['customers_periods', 'AmoCRM\Models\CustomersPeriods'],
+            ['custom_field', 'AmoCRM\Models\CustomField'],
             ['lead', 'AmoCRM\Models\Lead'],
+            ['links', 'AmoCRM\Models\Links'],
             ['note', 'AmoCRM\Models\Note'],
-            ['task', 'AmoCRM\Models\Task'],
             ['pipelines', 'AmoCRM\Models\Pipelines'],
+            ['task', 'AmoCRM\Models\Task'],
             ['unsorted', 'AmoCRM\Models\Unsorted'],
-            ['widgets', 'AmoCRM\Models\Widgets'],
             ['webhooks', 'AmoCRM\Models\WebHooks'],
+            ['widgets', 'AmoCRM\Models\Widgets'],
         ];
     }
 }

@@ -93,6 +93,7 @@ try {
 - Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
 - Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
 - Связи ([пример](examples/links.php), [документация](https://developers.amocrm.ru/rest_api/#links))
+- Каталоги ([пример](examples/catalog.php), [документация](https://developers.amocrm.ru/rest_api/#catalogs))
 - WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
 - Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
 
@@ -175,6 +176,13 @@ try {
     * `apiList($parameters)` - Метод для получения связей между сущностями аккаунта
     * `apiLink($links = [])` - Метод позволяет устанавливать связи между сущностями
     * `apiUnlink($links = [])` - Метод позволяет удалять связи между сущностями
+
+- Модель `catalog` для работы с Виджетами
+
+    * `apiList($id = null)` - Метод для получения списка каталогов аккаунта
+    * `apiAdd($catalogs = [])` - Метод позволяет добавлять каталоги по одному или пакетно
+    * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим каталогам
+    * `apiDelete($id)` - Метод позволяет удалять данные по уже существующим каталогам
 
 - Модель `widgets` для работы с Виджетами
 
