@@ -90,7 +90,7 @@ try {
 - Задача ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Событие ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
 - Дополнительные поля ([пример](examples/custom_field.php), [документация](https://developers.amocrm.ru/rest_api/#fields))
-- Звонок (*не реализовано*)
+- Звонок ([пример](examples/call.php), [документация](https://developers.amocrm.ru/rest_api/#call))
 - Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
 - WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
 - Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
@@ -149,6 +149,10 @@ try {
 
     * `apiAdd($fields = [])` - Метод позволяет добавлять дополнительные поля по одному или пакетно
     * `apiDelete($id, $origin)` - Метод позволяет удалять дополнительные поля
+
+- Модель `call` для работы со Звоноками
+
+    * `apiAdd($code, $key, $calls = [])` - Метод позволяет добавлять звонки по одному или пакетно
 
 - Модель `unsorted` для работы со Списоком неразобранных заявок
 
