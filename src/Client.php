@@ -27,6 +27,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Unsorted $unsorted
  * @property \AmoCRM\Models\Links $links
  * @property \AmoCRM\Models\Catalog $catalog
+ * @property \AmoCRM\Models\CatalogElement $catalog_element
  * @property \AmoCRM\Models\Widgets $widgets
  * @property \AmoCRM\Models\WebHooks $webhooks
  *

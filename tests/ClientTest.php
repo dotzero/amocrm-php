@@ -39,6 +39,7 @@ class ClientTest extends TestCase
             // model name, expected
             ['account', 'AmoCRM\Models\Account'],
             ['catalog', 'AmoCRM\Models\Catalog'],
+            ['catalog_element', 'AmoCRM\Models\CatalogElement'],
             ['company', 'AmoCRM\Models\Company'],
             ['contact', 'AmoCRM\Models\Contact'],
             ['customer', 'AmoCRM\Models\Customer'],
