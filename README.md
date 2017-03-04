@@ -7,7 +7,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
 
-Клиент для работы с API сервиса [amoCRM](https://www.amocrm.ru/)
+Удобный и быстрый клиент на PHP для работы с REST API [amoCRM](https://www.amocrm.ru/).
 
 ![amoCRM](https://raw.githubusercontent.com/dotzero/amocrm-php/master/assets/logo.png)
 
@@ -22,7 +22,7 @@ $ composer require dotzero/amocrm
 или добавить
 
 ```json
-"dotzero/amocrm": "~0.3.10"
+"dotzero/amocrm": "0.3.*"
 ```
 
 в секцию `require` файла composer.json.
@@ -79,26 +79,29 @@ try {
 }
 ```
 
-## Список доступных моделей
+## Список поддерживаемых моделей
 
 - Аккаунт ([пример](examples/account.php), [документация](https://developers.amocrm.ru/rest_api/#account))
 - Контакт ([пример](examples/contact.php), [документация](https://developers.amocrm.ru/rest_api/#contact))
 - Сделка ([пример](examples/lead.php), [документация](https://developers.amocrm.ru/rest_api/#lead))
 - Компания ([пример](examples/company.php), [документация](https://developers.amocrm.ru/rest_api/#company))
 - Покупатель ([пример](examples/customer.php), [документация](https://developers.amocrm.ru/rest_api/#customer))
-- Периоды покупателей ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
+- Транзакция (*не реализовано*)
 - Задача ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Событие ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
 - Дополнительные поля ([пример](examples/custom_field.php), [документация](https://developers.amocrm.ru/rest_api/#fields))
-- Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
+- Звонок (*не реализовано*)
 - Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
-- Связи ([пример](examples/links.php), [документация](https://developers.amocrm.ru/rest_api/#links))
+- WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
+- Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
+- Периоды покупателей ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
+- Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
 - Каталоги ([пример](examples/catalog.php), [документация](https://developers.amocrm.ru/rest_api/#catalogs))
 - Элементы каталогов ([пример](examples/catalog_element.php), [документация](https://developers.amocrm.ru/rest_api/#catalog_elements))
-- WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
-- Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
+- Связи ([пример](examples/links.php), [документация](https://developers.amocrm.ru/rest_api/#links))
+- Элементы (*не реализовано*)
 
-## Описание моделей и методов
+## Описание методов моделей
 
 - Модель `account` для работы с Аккаунтом
 
@@ -112,6 +115,12 @@ try {
     * `apiUpdate($id, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим контактам
     * `apiLinks($parameters, $modified = null)` - Метод для получения списка связей между сделками и контактами
 
+- Модель `lead` для работы со Сделками
+
+    * `apiList($parameters, $modified = null)` - Метод для получения списка сделок с возможностью фильтрации и постраничной выборки
+    * `apiAdd($leads = [])` - Метод позволяет добавлять сделки по одной или пакетно
+    * `apiUpdate($id, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим сделкам
+
 - Модель `company` для работы с Компаниями
 
     * `apiList($parameters, $modified = null)` - Метод для получения списка компаний с возможностью фильтрации и постраничной выборки
@@ -124,16 +133,11 @@ try {
     * `apiAdd($customers = [])` - Метод позволяет добавлять покупателей по одному или пакетно
     * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим покупателям
 
-- Модель `customers_periods` для работы с Компаниями
+- Модель `task` для работы с Задачами
 
-    * `apiList()` - Метод для получения списка периодов
-    * `apiSet($periods = [])` - Метод позволяет изменять данные по периодам
-
-- Модель `lead` для работы со Сделками
-
-    * `apiList($parameters, $modified = null)` - Метод для получения списка сделок с возможностью фильтрации и постраничной выборки
-    * `apiAdd($leads = [])` - Метод позволяет добавлять сделки по одной или пакетно
-    * `apiUpdate($id, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим сделкам
+    * `apiList($parameters, $modified = null)` - Метод для получения списка задач с возможностью фильтрации и постраничной выборки
+    * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
+    * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
 
 - Модель `note` для работы с Примечаниями (Задачами)
 
@@ -141,24 +145,10 @@ try {
     * `apiAdd($notes = [])` - Метод позволяет добавлять примечание по одному или пакетно
     * `apiUpdate($id, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим примечаниям
 
-- Модель `task` для работы с Задачами
-
-    * `apiList($parameters, $modified = null)` - Метод для получения списка задач с возможностью фильтрации и постраничной выборки
-    * `apiAdd($tasks = [])` - Метод позволяет добавлять задачи по одной или пакетно
-    * `apiUpdate($id, $text, $modified = 'now')` - Метод позволяет обновлять данные по уже существующим задачам
-
 - Модель `custom_field` для работы с Дополнительными полями
 
     * `apiAdd($fields = [])` - Метод позволяет добавлять дополнительные поля по одному или пакетно
     * `apiDelete($id, $origin)` - Метод позволяет удалять дополнительные поля
-
-- Модель `pipelines` для работы с Списком воронок и этапов продаж
-
-    * `apiList($id = null)` - Метод для получения списка воронок и этапов продаж
-    * `apiAdd($pipelines = [])` - Метод позволяет добавлять воронки и этапов продаж по одной или пакетно
-    * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим воронкам и этапам продаж
-    * `apiDelete($id)` - Метод позволяет удалять воронки по одной или пакетно
-    * `addStatusField($parameters, $id = null)` - Добавление этапов воронки
 
 - Модель `unsorted` для работы со Списоком неразобранных заявок
 
@@ -172,11 +162,30 @@ try {
     * `addDataLead($values)` - Добавление сделки которая будет создана после одобрения заявки
     * `addDataContact($values)` - Добавление контакта или компании которая будет создана после одобрения заявки
 
-- Модель `links` для работы со Связями между сущностями
+- Модель `webhooks` для работы с WebHooks
 
-    * `apiList($parameters)` - Метод для получения связей между сущностями аккаунта
-    * `apiLink($links = [])` - Метод позволяет устанавливать связи между сущностями
-    * `apiUnlink($links = [])` - Метод позволяет удалять связи между сущностями
+    * `apiList()` - Метод для получения списка WebHooks
+    * `apiSubscribe($url, $events = [])` - Метод для добавления WebHooks
+    * `apiUnsubscribe($url, $events = [])` - Метод для удаления WebHooks
+
+- Модель `pipelines` для работы с Списком воронок и этапов продаж
+
+    * `apiList($id = null)` - Метод для получения списка воронок и этапов продаж
+    * `apiAdd($pipelines = [])` - Метод позволяет добавлять воронки и этапов продаж по одной или пакетно
+    * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим воронкам и этапам продаж
+    * `apiDelete($id)` - Метод позволяет удалять воронки по одной или пакетно
+    * `addStatusField($parameters, $id = null)` - Добавление этапов воронки
+
+- Модель `customers_periods` для работы с Компаниями
+
+    * `apiList()` - Метод для получения списка периодов
+    * `apiSet($periods = [])` - Метод позволяет изменять данные по периодам
+
+- Модель `widgets` для работы с Виджетами
+
+    * `apiList($parameters = [])` - Метод для получения списка доступных для установки виджетов
+    * `apiInstall($parameters)` - Метод позволяет включать виджеты по одному или пакетно
+    * `apiUninstall($parameters)` - Метод позволяет выключать виджеты по одному или пакетно
 
 - Модель `catalog` для работы с Каталогами
 
@@ -192,17 +201,58 @@ try {
     * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим элементам каталога
     * `apiDelete($id)` - Метод позволяет удалять данные по уже существующим элементам каталога
 
-- Модель `widgets` для работы с Виджетами
+- Модель `links` для работы со Связями между сущностями
 
-    * `apiList($parameters = [])` - Метод для получения списка доступных для установки виджетов
-    * `apiInstall($parameters)` - Метод позволяет включать виджеты по одному или пакетно
-    * `apiUninstall($parameters)` - Метод позволяет выключать виджеты по одному или пакетно
+    * `apiList($parameters)` - Метод для получения связей между сущностями аккаунта
+    * `apiLink($links = [])` - Метод позволяет устанавливать связи между сущностями
+    * `apiUnlink($links = [])` - Метод позволяет удалять связи между сущностями
 
-- Модель `webhooks` для работы с WebHooks
+## Описание работы с WebHooks
 
-    * `apiList()` - Метод для получения списка WebHooks
-    * `apiSubscribe($url, $events = [])` - Метод для добавления WebHooks
-    * `apiUnsubscribe($url, $events = [])` - Метод для удаления WebHooks
+[WebHooks](https://developers.amocrm.ru/rest_api/webhooks.php) – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта, в разделе «API».
+
+### Список доступных уведомлений
+
+- `add_lead` - Добавить сделку
+- `add_contact` - Добавить контакт
+- `add_company` - Добавить компанию
+- `add_customer` - Добавить покупателя
+- `update_lead` - Изменить сделку
+- `update_contact` - Изменить контакт
+- `update_company` - Изменить компанию
+- `update_customer` - Изменить покупателя
+- `delete_lead` - Удалить сделку
+- `delete_contact` - Удалить контакт
+- `delete_company` - Удалить компанию
+- `delete_customer` - Удалить покупателя
+- `status_lead` - Смена статуса сделки
+- `responsible_lead` - Смена отв-го сделки
+- `restore_contact` - Восстановить контакт
+- `restore_company` - Восстановить компанию
+- `restore_lead` - Восстановить сделку
+- `note_lead` - Примечание в сделке
+- `note_contact` - Примечание в контакте
+- `note_company` - Примечание в компании
+- `note_customer` - Примечание в покупателе
+
+```php
+try {
+    $listener = new \AmoCRM\Webhooks\Listener();
+
+    // Добавление обработчка на уведомление contacts->add
+    $listener->on('add_contact', function ($domain, $id, $data) {
+        // $domain Поддомен amoCRM
+        // $id Id объекта связаного с уведомленим
+        // $data Поля возвращаемые уведомлением
+    });
+
+    // Вызов обработчика уведомлений
+    $listener->listen();
+
+} catch (\AmoCRM\Exception $e) {
+    printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
+}
+```
 
 ## Описание хелпера Fields
 
@@ -272,53 +322,6 @@ try {
     ]);
 
 } catch (\AmoCRM\Helpers\B2BFamilyException $e) {
-    printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
-}
-```
-
-## Webhooks
-
-[WebHooks](https://developers.amocrm.ru/rest_api/webhooks.php) – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта, в разделе «API».
-
-### Список доступных уведомлений
-
-- `add_lead` - Добавить сделку
-- `add_contact` - Добавить контакт
-- `add_company` - Добавить компанию
-- `add_customer` - Добавить покупателя
-- `update_lead` - Изменить сделку
-- `update_contact` - Изменить контакт
-- `update_company` - Изменить компанию
-- `update_customer` - Изменить покупателя
-- `delete_lead` - Удалить сделку
-- `delete_contact` - Удалить контакт
-- `delete_company` - Удалить компанию
-- `delete_customer` - Удалить покупателя
-- `status_lead` - Смена статуса сделки
-- `responsible_lead` - Смена отв-го сделки
-- `restore_contact` - Восстановить контакт
-- `restore_company` - Восстановить компанию
-- `restore_lead` - Восстановить сделку
-- `note_lead` - Примечание в сделке
-- `note_contact` - Примечание в контакте
-- `note_company` - Примечание в компании
-- `note_customer` - Примечание в покупателе
-
-```php
-try {
-    $listener = new \AmoCRM\Webhooks\Listener();
-
-    // Добавление обработчка на уведомление contacts->add
-    $listener->on('add_contact', function ($domain, $id, $data) {
-        // $domain Поддомен amoCRM
-        // $id Id объекта связаного с уведомленим
-        // $data Поля возвращаемые уведомлением
-    });
-
-    // Вызов обработчика уведомлений
-    $listener->listen();
-
-} catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }
 ```
