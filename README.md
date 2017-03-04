@@ -94,6 +94,7 @@ try {
 - Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
 - Связи ([пример](examples/links.php), [документация](https://developers.amocrm.ru/rest_api/#links))
 - Каталоги ([пример](examples/catalog.php), [документация](https://developers.amocrm.ru/rest_api/#catalogs))
+- Элементы каталогов ([пример](examples/catalog_element.php), [документация](https://developers.amocrm.ru/rest_api/#catalog_elements))
 - WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
 - Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
 
