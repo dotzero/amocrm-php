@@ -2,6 +2,7 @@
 
 namespace AmoCRM;
 
+use AmoCRM\Models\ModelInterface;
 use AmoCRM\Request\ParamsBag;
 use AmoCRM\Helpers\Fields;
 
@@ -68,7 +69,7 @@ class Client
      * Возращает экземпляр модели для работы с amoCRM API
      *
      * @param string $name Название модели
-     * @return mixed
+     * @return ModelInterface
      * @throws ModelException
      */
     public function __get($name)

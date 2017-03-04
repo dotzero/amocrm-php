@@ -17,7 +17,8 @@ class ClientTest extends TestCase
         $model = $this->amo->{$name};
 
         $this->assertInstanceOf($expected, $model);
-        $this->assertEquals($expected, (string)$model);
+        $this->assertInstanceOf('\AmoCRM\Models\ModelInterface', $model);
+        $this->assertSame($expected, (string)$model);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace AmoCRM\Models;
 
+use ArrayAccess;
 use AmoCRM\Exception;
 use AmoCRM\Request\Request;
 
@@ -18,7 +19,7 @@ use AmoCRM\Request\Request;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-abstract class AbstractModel extends Request implements \ArrayAccess
+abstract class AbstractModel extends Request implements ArrayAccess, ModelInterface
 {
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
