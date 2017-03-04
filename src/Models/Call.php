@@ -84,12 +84,10 @@ class Call extends AbstractModel
 
         $response = $this->postRequest('/api/calls/add/', $parameters);
 
-        if (!isset($response['calls']['add']['errors'])) {
-            return false;
-        }
-
         $result = [];
-        if (isset($response['calls']['add']['success'])) {
+        if (!isset($response['calls']['add']['errors'])) {
+            return $result;
+        } elseif (isset($response['calls']['add']['success'])) {
             $result = $response['calls']['add']['success'];
         }
 
