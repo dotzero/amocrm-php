@@ -50,7 +50,7 @@ class CatalogElement extends AbstractModel
      *
      * @link https://developers.amocrm.ru/rest_api/catalog_elements/set.php
      * @param array $elements Массив каталогов для пакетного добавления
-     * @return int|array Уникальный идентификатор каталога или массив при пакетном добавлении
+     * @return int|array Уникальный идентификатор элемента каталога или массив при пакетном добавлении
      */
     public function apiAdd($elements = [])
     {
@@ -87,7 +87,7 @@ class CatalogElement extends AbstractModel
      * Метод позволяет обновлять данные по уже существующим элементам каталога
      *
      * @link https://developers.amocrm.ru/rest_api/catalog_elements/set.php
-     * @param int $id Уникальный идентификатор элемента элемента каталога
+     * @param int $id Уникальный идентификатор элемента каталога
      * @return bool Флаг успешности выполнения запроса
      * @throws \AmoCRM\Exception
      */
@@ -121,7 +121,7 @@ class CatalogElement extends AbstractModel
      * Метод позволяет удалять данные по уже существующим элементам каталога
      *
      * @link https://developers.amocrm.ru/rest_api/catalog_elements/set.php
-     * @param int $id Уникальный идентификатор элемента элемента каталога
+     * @param int $id Уникальный идентификатор элемента каталога
      * @return bool Флаг успешности выполнения запроса
      * @throws \AmoCRM\Exception
      */
