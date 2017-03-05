@@ -86,7 +86,7 @@ try {
 - Сделка ([пример](examples/lead.php), [документация](https://developers.amocrm.ru/rest_api/#lead))
 - Компания ([пример](examples/company.php), [документация](https://developers.amocrm.ru/rest_api/#company))
 - Покупатель ([пример](examples/customer.php), [документация](https://developers.amocrm.ru/rest_api/#customer))
-- Транзакция (*не реализовано*)
+- Транзакция ([пример](examples/transaction.php), [документация](https://developers.amocrm.ru/rest_api/#transaction))
 - Задача ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
 - Событие ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
 - Дополнительные поля ([пример](examples/custom_field.php), [документация](https://developers.amocrm.ru/rest_api/#fields))
@@ -132,6 +132,12 @@ try {
     * `apiList($parameters)` - Метод для получения покупателей аккаунта
     * `apiAdd($customers = [])` - Метод позволяет добавлять покупателей по одному или пакетно
     * `apiUpdate($id)` - Метод позволяет обновлять данные по уже существующим покупателям
+
+- Модель `transaction` для работы с Транзакциями
+
+    * `apiList($parameters)` - Метод для получения транзакицй аккаунта
+    * `apiAdd($transactions = [])` - Метод позволяет добавлять транзакции по одной или пакетно
+    * `apiDelete($id)` - Метод позволяет удалять транзакции
 
 - Модель `task` для работы с Задачами
 

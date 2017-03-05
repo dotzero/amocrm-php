@@ -29,6 +29,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Note $note
  * @property \AmoCRM\Models\Pipelines $pipelines
  * @property \AmoCRM\Models\Task $task
+ * @property \AmoCRM\Models\Transaction $transaction
  * @property \AmoCRM\Models\Unsorted $unsorted
  * @property \AmoCRM\Models\WebHooks $webhooks
  * @property \AmoCRM\Models\Widgets $widgets

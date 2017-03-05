@@ -52,6 +52,7 @@ class ClientTest extends TestCase
             ['note', 'AmoCRM\Models\Note'],
             ['pipelines', 'AmoCRM\Models\Pipelines'],
             ['task', 'AmoCRM\Models\Task'],
+            ['transaction', 'AmoCRM\Models\Transaction'],
             ['unsorted', 'AmoCRM\Models\Unsorted'],
             ['webhooks', 'AmoCRM\Models\WebHooks'],
             ['widgets', 'AmoCRM\Models\Widgets'],
