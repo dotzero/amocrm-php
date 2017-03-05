@@ -42,7 +42,7 @@ class Call extends AbstractModel
     const TYPE_OUTBOUND = 'outbound';
 
     /**
-     * Сеттер для даты создания контакта
+     * Сеттер для даты создания звонка
      *
      * @param string $date Дата в произвольном формате
      * @return $this
@@ -62,7 +62,7 @@ class Call extends AbstractModel
      * @link https://developers.amocrm.ru/rest_api/calls_set.php
      * @param string $code Уникальный идентификатор сервиса
      * @param string $key Ключ сервиса, который можно получить написав в техническую поддержку amoCRM
-     * @param array $calls Массив каталогов для пакетного добавления
+     * @param array $calls Массив звонков для пакетного добавления
      * @return string|array Уникальный идентификатор звонка или массив при пакетном добавлении
      */
     public function apiAdd($code, $key, $calls = [])
