@@ -7,7 +7,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
 
-Удобный и быстрый клиент на PHP для работы с REST API [amoCRM](https://www.amocrm.ru/).
+Удобный и быстрый клиент на PHP для работы с REST API [amoCRM](https://www.amocrm.ru/), реализующий все методы оригинального API.
 
 ![amoCRM](https://raw.githubusercontent.com/dotzero/amocrm-php/master/assets/logo.png)
 
@@ -99,7 +99,6 @@ try {
 - Каталоги ([пример](examples/catalog.php), [документация](https://developers.amocrm.ru/rest_api/#catalogs))
 - Элементы каталогов ([пример](examples/catalog_element.php), [документация](https://developers.amocrm.ru/rest_api/#catalog_elements))
 - Связи ([пример](examples/links.php), [документация](https://developers.amocrm.ru/rest_api/#links))
-- Элементы (*не реализовано*)
 
 ## Описание методов моделей
 
