@@ -7,7 +7,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
 
-Удобный и быстрый клиент на PHP для работы с REST API [amoCRM](https://www.amocrm.ru/), реализующий все методы оригинального API.
+Удобный и быстрый клиент на PHP для работы с API [amoCRM](https://www.amocrm.ru/), реализующий все методы оригинального API.
 
 ![amoCRM](https://raw.githubusercontent.com/dotzero/amocrm-php/master/assets/logo.png)
 
@@ -26,6 +26,16 @@ $ composer require dotzero/amocrm
 ```
 
 в секцию `require` файла composer.json.
+
+### Без использования composer:
+
+Скачать последнюю версию [amocrm.phar](https://github.com/dotzero/amocrm-php/releases/latest).
+
+```php
+<?php
+// Использовать ее вместо vendor/autoload.php
+require_once __DIR__ . '/amocrm.phar';
+```
 
 ## Быстрый старт
 
