@@ -362,3 +362,8 @@ $ vendor/bin/phpunit
 ## Лицензия
 
 Библиотека доступна на условиях лицензии MIT: http://www.opensource.org/licenses/mit-license.php
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/dotzero/amocrm-php/badge.svg?style=beer-square)](https://beerpay.io/dotzero/amocrm-php)  [![Beerpay](https://beerpay.io/dotzero/amocrm-php/make-wish.svg?style=flat-square)](https://beerpay.io/dotzero/amocrm-php?focus=wish)
