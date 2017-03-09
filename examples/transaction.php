@@ -6,7 +6,7 @@ try {
     $amo = new \AmoCRM\Client(getenv('DOMAIN'), getenv('LOGIN'), getenv('HASH'));
 
     // Список транзакций
-    // Метод для получения транзакицй аккаунта.
+    // Метод для получения транзакций аккаунта.
 
     print_r($amo->transaction->apiList([
         'limit_rows' => 10,

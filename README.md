@@ -144,7 +144,7 @@ try {
 
 - Модель `transaction` для работы с Транзакциями
 
-    * `apiList($parameters)` - Метод для получения транзакицй аккаунта
+    * `apiList($parameters)` - Метод для получения транзакций аккаунта
     * `apiAdd($transactions = [])` - Метод позволяет добавлять транзакции по одной или пакетно
     * `apiDelete($id)` - Метод позволяет удалять транзакции
 
@@ -165,14 +165,14 @@ try {
     * `apiAdd($fields = [])` - Метод позволяет добавлять дополнительные поля по одному или пакетно
     * `apiDelete($id, $origin)` - Метод позволяет удалять дополнительные поля
 
-- Модель `call` для работы со Звоноками
+- Модель `call` для работы со Звонками
 
     * `apiAdd($code, $key, $calls = [])` - Метод позволяет добавлять звонки по одному или пакетно
 
-- Модель `unsorted` для работы со Списоком неразобранных заявок
+- Модель `unsorted` для работы со Списком неразобранных заявок
 
     * `apiList($parameters = [])` - Метод для получения списка неразобранных заявок с возможностью фильтрации и постраничной выборки
-    * `apiGetAllSummary()` - Метод для получения аггрегированной информации о неразобранных заявках
+    * `apiGetAllSummary()` - Метод для получения агрегированной информации о неразобранных заявках
     * `apiAccept($uids, $user_id, $status_id = null)` - Метод для принятия неразобранных заявок
     * `apiDecline($uids, $user_id)` - Метод для отклонения неразобранных заявок
     * `apiAddSip($sip = [])` - Добавление неразобранных заявок с типом SIP
@@ -258,10 +258,10 @@ try {
 try {
     $listener = new \AmoCRM\Webhooks\Listener();
 
-    // Добавление обработчка на уведомление contacts->add
+    // Добавление обработчика на уведомление contacts->add
     $listener->on('add_contact', function ($domain, $id, $data) {
         // $domain Поддомен amoCRM
-        // $id Id объекта связаного с уведомленим
+        // $id Id объекта связанного с уведомлением
         // $data Поля возвращаемые уведомлением
     });
 
@@ -362,8 +362,3 @@ $ vendor/bin/phpunit
 ## Лицензия
 
 Библиотека доступна на условиях лицензии MIT: http://www.opensource.org/licenses/mit-license.php
-
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/dotzero/amocrm-php/badge.svg?style=beer-square)](https://beerpay.io/dotzero/amocrm-php)  [![Beerpay](https://beerpay.io/dotzero/amocrm-php/make-wish.svg?style=flat-square)](https://beerpay.io/dotzero/amocrm-php?focus=wish)

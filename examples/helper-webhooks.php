@@ -5,27 +5,27 @@ require_once __DIR__ . '/../vendor/autoload.php';
 try {
     $listener = new \AmoCRM\Webhooks\Listener();
 
-    // Добавление обработчка на уведомление contacts->add
+    // Добавление обработчика на уведомление contacts->add
     $listener->on('add_contact', function ($domain, $id, $data) {
         // $domain Поддомен amoCRM
-        // $id Id объекта связаного с уведомленим
+        // $id Id объекта связанного с уведомлением
         // $data Поля возвращаемые уведомлением
         print_r($domain);
         print_r($id);
         print_r($data);
     });
 
-    // Добавление обработчка на несколько уведомлений
+    // Добавление обработчика на несколько уведомлений
     $listener->on(['update_contact', 'update_company'], function ($domain, $id, $data) {
         // $domain Поддомен amoCRM
-        // $id Id объекта связаного с уведомленим
+        // $id Id объекта связанного с уведомлением
         // $data Поля возвращаемые уведомлением
         print_r($domain);
         print_r($id);
         print_r($data);
     });
 
-    // Добавление обработчка как метод класса
+    // Добавление обработчика как метод класса
     $listener->on('delete_company', ['Callbacks', 'event']);
 
     // Вызов обработчика уведомлений
@@ -44,7 +44,7 @@ class Callbacks
         print_r($id);
         print_r($data);
         // $domain Поддомен amoCRM
-        // $id Id объекта связаного с уведомленим
+        // $id Id объекта связанного с уведомлением
         // $data Поля возвращаемые уведомлением
     }
 }

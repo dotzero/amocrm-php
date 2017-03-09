@@ -5,7 +5,7 @@ namespace AmoCRM\Models;
 /**
  * Class Unsorted
  *
- * Класс модель для работы со Списоком неразобранных заявок
+ * Класс модель для работы со Списком неразобранных заявок
  *
  * @package AmoCRM\Models
  * @author dotzero <mail@dotzero.ru>
@@ -81,7 +81,7 @@ class Unsorted extends AbstractModel
     /**
      * Аггрегирование неразобранных заявок
      *
-     * Метод для получения аггрегированной информации о неразобранных заявках.
+     * Метод для получения агрегированной информации о неразобранных заявках.
      *
      * @link https://developers.amocrm.ru/rest_api/unsorted/get_all_summary.php
      * @return array Ответ amoCRM API

@@ -144,7 +144,7 @@ class Listener
      *
      * @param string $name Код события
      * @param string $domain Поддомен amoCRM
-     * @param int $id Id объекта связаного с уведомленим
+     * @param int $id Id объекта связанного с уведомлением
      * @param array $data Поля возвращаемые уведомлением
      */
     private function fireCallback($name, $domain, $id, $data)

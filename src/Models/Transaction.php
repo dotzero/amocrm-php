@@ -57,7 +57,7 @@ class Transaction extends AbstractModel
     /**
      * Список транзакций
      *
-     * Метод для получения транзакицй аккаунта.
+     * Метод для получения транзакций аккаунта.
      *
      * @link https://developers.amocrm.ru/rest_api/transactions/list.php
      * @param array $parameters Массив параметров к amoCRM API
