@@ -67,7 +67,7 @@ class Client
     }
 
     /**
-     * Возращает экземпляр модели для работы с amoCRM API
+     * Возвращает экземпляр модели для работы с amoCRM API
      *
      * @param string $name Название модели
      * @return ModelInterface

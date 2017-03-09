@@ -245,7 +245,7 @@ try {
 - `delete_company` - Удалить компанию
 - `delete_customer` - Удалить покупателя
 - `status_lead` - Смена статуса сделки
-- `responsible_lead` - Смена отв-го сделки
+- `responsible_lead` - Смена ответственного сделки
 - `restore_contact` - Восстановить контакт
 - `restore_company` - Восстановить компанию
 - `restore_lead` - Восстановить сделку

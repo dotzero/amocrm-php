@@ -204,7 +204,7 @@ class Request
     }
 
     /**
-     * Парсит HTTP ответ, валидирует и возвращает тело
+     * Парсит HTTP ответ, проверяет на наличие ошибок и возвращает тело ответа
      *
      * @param string $response HTTP ответ
      * @param array $info Результат функции curl_getinfo

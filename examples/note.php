@@ -15,7 +15,7 @@ try {
         'query' => 'mail',
     ]));
 
-    // С доп фильтрацией по (изменено с)
+    // С доп. фильтрацией по (изменено с)
     print_r($amo->note->apiList([
         'type' => 'lead',
         'limit_rows' => 5,

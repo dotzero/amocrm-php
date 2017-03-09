@@ -15,7 +15,7 @@ try {
         'query' => 'mail',
     ]));
 
-    // С доп фильтрацией по (изменено с)
+    // С доп. фильтрацией по (изменено с)
     print_r($amo->task->apiList([
         'type' => 'lead',
         'limit_rows' => 5,
@@ -52,7 +52,7 @@ try {
     $task = $amo->task;
     $task->debug(true); // Режим отладки
 
-    $task->apiUpdate((int)$id, 'апдейт', 'now');
+    $task->apiUpdate((int)$id, 'Текст задачи', 'now');
 
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());

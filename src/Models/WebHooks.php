@@ -92,7 +92,7 @@ class WebHooks extends AbstractModel
      * Метод для добавления WebHooks.
      *
      * @link https://developers.amocrm.ru/rest_api/webhooks/subscribe.php
-     * @param null|string $url URL на который необходимо присылать уведомления, должен соответствоать стандарту RFC 2396
+     * @param null|string $url URL на который необходимо присылать уведомления, должен соответствовать стандарту RFC 2396
      * @param array|string $events Список событий, при которых должны отправляться WebHooks
      * @return array|false Ответ amoCRM API
      * @throws \AmoCRM\Exception
@@ -133,7 +133,7 @@ class WebHooks extends AbstractModel
      * Метод для удаления WebHooks.
      *
      * @link https://developers.amocrm.ru/rest_api/webhooks/unsubscribe.php
-     * @param null|string $url URL на который необходимо присылать уведомления, должен соответствоать стандарту RFC 2396
+     * @param null|string $url URL на который необходимо присылать уведомления, должен соответствовать стандарту RFC 2396
      * @param array|string $events Список событий, от которых необходимо отписать WebHook
      * @return array|false Ответ amoCRM API
      * @throws \AmoCRM\Exception

@@ -63,7 +63,7 @@ class Account extends AbstractModel
     }
 
     /**
-     * Урезание значения возвращаемоного методом apiCurrent,
+     * Урезание значения возвращаемого методом apiCurrent,
      * оставляет только основные поля такие как 'id', 'name', 'type_id', 'enums'
      *
      * @param array $account Ответ amoCRM API

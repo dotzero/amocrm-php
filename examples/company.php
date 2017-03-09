@@ -13,7 +13,7 @@ try {
         'query' => 'mail',
     ]));
 
-    // С доп фильтрацией по (изменено с)
+    // С доп. фильтрацией по (изменено с)
     print_r($amo->company->apiList([
         'query' => 'mail',
         'limit_rows' => 10,

@@ -103,7 +103,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
     }
 
     /**
-     * Получение списока значений полей модели
+     * Получение списка значений полей модели
      *
      * @return array Список значений полей модели
      */
@@ -144,7 +144,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
             if ($enum !== false) {
                 $fieldValue['enum'] = $enum;
             }
-            
+
             if ($subtype !== false) {
                 $fieldValue['subtype'] = $subtype;
             }
