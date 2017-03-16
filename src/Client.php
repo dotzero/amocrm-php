@@ -52,7 +52,7 @@ class Client
     /**
      * Client constructor
      *
-     * @param string $domain Поддомен amoCRM
+     * @param string $domain Поддомен или домен amoCRM
      * @param string $login Логин amoCRM
      * @param string $apikey Ключ пользователя amoCRM
      */
