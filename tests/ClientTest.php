@@ -6,7 +6,31 @@ class ClientTest extends TestCase
 
     public function setUp()
     {
-        $this->amo = new \AmoCRM\Client('example.com', 'login', 'hash');
+        $this->amo = new \AmoCRM\Client('example', 'login', 'hash');
+    }
+
+    public function testSubDomain()
+    {
+        $amo = new \AmoCRM\Client('test', 'login', 'hash');
+
+        $this->assertEquals('test.amocrm.ru', $amo->parameters->getAuth('domain'));
+        $this->assertCount(3, $amo->parameters->getAuth());
+    }
+
+    public function testFullDomain()
+    {
+        $amo = new \AmoCRM\Client('test-ru.amocrm.ru', 'login', 'hash');
+
+        $this->assertEquals('test-ru.amocrm.ru', $amo->parameters->getAuth('domain'));
+        $this->assertCount(3, $amo->parameters->getAuth());
+    }
+
+    public function testFullDomainCom()
+    {
+        $amo = new \AmoCRM\Client('test-com.amocrm.com', 'login', 'hash');
+
+        $this->assertEquals('test-com.amocrm.com', $amo->parameters->getAuth('domain'));
+        $this->assertCount(3, $amo->parameters->getAuth());
     }
 
     /**

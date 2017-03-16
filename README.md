@@ -44,6 +44,9 @@ try {
     // Создание клиента
     $amo = new \AmoCRM\Client('SUBDOMAIN', 'LOGIN', 'HASH');
 
+    // SUBDOMAIN может принимать как часть перед .amocrm.ru,
+    // так и домен целиком например test.amocrm.ru или test.amocrm.com
+
     // Получение экземпляра модели для работы с аккаунтом
     $account = $amo->account;
 

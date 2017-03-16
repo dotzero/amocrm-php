@@ -58,6 +58,11 @@ class Client
      */
     public function __construct($domain, $login, $apikey)
     {
+        // Разернуть поддомен в полный домен
+        if (strpos($domain, '.') === false) {
+            $domain = sprintf('%s.amocrm.ru', $domain);
+        }
+
         $this->parameters = new ParamsBag();
         $this->parameters->addAuth('domain', $domain);
         $this->parameters->addAuth('login', $login);

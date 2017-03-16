@@ -18,30 +18,6 @@ class ParamsBagTest extends TestCase
         $this->assertCount(2, $this->params->getAuth());
     }
 
-    public function testSubDomain()
-    {
-        $this->params->addAuth('domain', 'test');
-
-        $this->assertEquals('test.amocrm.ru', $this->params->getAuth('domain'));
-        $this->assertCount(1, $this->params->getAuth());
-    }
-
-    public function testFullDomain()
-    {
-        $this->params->addAuth('domain', 'test-ru.amocrm.ru');
-
-        $this->assertEquals('test-ru.amocrm.ru', $this->params->getAuth('domain'));
-        $this->assertCount(1, $this->params->getAuth());
-    }
-
-    public function testFullDomainCom()
-    {
-        $this->params->addAuth('domain', 'test-com.amocrm.com');
-
-        $this->assertEquals('test-com.amocrm.com', $this->params->getAuth('domain'));
-        $this->assertCount(1, $this->params->getAuth());
-    }
-
     public function testGet()
     {
         $this->params->addGet('key', 'value')->addGet(['foo' => 'bar']);

@@ -23,7 +23,7 @@ class RequestTest extends TestCase
     public function setUp()
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $paramsBag->addAuth('domain', 'example');
+        $paramsBag->addAuth('domain', 'example.amocrm.ru');
         $paramsBag->addAuth('login', 'login@domain');
         $paramsBag->addAuth('apikey', 'hash');
         $this->request = new RequestMock($paramsBag);

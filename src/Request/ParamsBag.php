@@ -41,10 +41,6 @@ class ParamsBag
      */
     public function addAuth($name, $value)
     {
-        // Разернуть поддомен в полный домен
-        if ($name === 'domain' && strpos($value, '.') === false) {
-            $value = sprintf('%s.amocrm.ru', $value);
-        }
         $this->authParams[$name] = $value;
 
         return $this;
