@@ -147,7 +147,7 @@ class Request
             ]));
         }
 
-        return sprintf('https://%s.amocrm.ru%s?%s', $this->parameters->getAuth('domain'), $url, $query);
+        return sprintf('https://%s%s?%s', $this->parameters->getAuth('domain'), $url, $query);
     }
 
     /**
