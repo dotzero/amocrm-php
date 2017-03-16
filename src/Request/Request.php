@@ -2,6 +2,7 @@
 
 namespace AmoCRM\Request;
 
+use DateTime;
 use AmoCRM\Exception;
 use AmoCRM\NetworkException;
 
@@ -113,7 +114,7 @@ class Request
     /**
      * Подготавливает список заголовков HTTP
      *
-     * @param null|string $modified Значение заголовка IF-MODIFIED-SINCE
+     * @param mixed $modified Значение заголовка IF-MODIFIED-SINCE
      * @return array
      */
     protected function prepareHeaders($modified = null)
@@ -121,7 +122,11 @@ class Request
         $headers = ['Content-Type: application/json'];
 
         if ($modified !== null) {
-            $headers[] = 'IF-MODIFIED-SINCE: ' . (new \DateTime($modified))->format(\DateTime::RFC1123);
+            if (is_int($modified)) {
+                $headers[] = 'IF-MODIFIED-SINCE: ' . $modified;
+            } else {
+                $headers[] = 'IF-MODIFIED-SINCE: ' . (new DateTime($modified))->format(DateTime::RFC1123);
+            }
         }
 
         return $headers;

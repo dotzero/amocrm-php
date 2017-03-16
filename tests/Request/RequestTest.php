@@ -65,17 +65,23 @@ class RequestTest extends TestCase
 
     public function testPrepareHeaders()
     {
+        date_default_timezone_set('UTC');
+
+        $dt = '2017-01-02 12:30:00';
+        $ts = strtotime($dt);
+
         $actual = $this->invokeMethod($this->request, 'prepareHeaders');
 
         $this->assertCount(1, $actual);
         $this->assertContains('Content-Type: application/json', $actual);
 
-        $actual = $this->invokeMethod($this->request, 'prepareHeaders', [
-            '2017-01-02 12:30:00'
-        ]);
-
+        $actual = $this->invokeMethod($this->request, 'prepareHeaders', [$dt]);
         $this->assertCount(2, $actual);
-        $this->assertRegExp('/^IF-MODIFIED-SINCE: Mon, 02 Jan 2017 12:30:00/ui', $actual[1], $actual[1]);
+        $this->assertContains('IF-MODIFIED-SINCE: Mon, 02 Jan 2017 12:30:00 +0000', $actual);
+
+        $actual = $this->invokeMethod($this->request, 'prepareHeaders', [$ts]);
+        $this->assertCount(2, $actual);
+        $this->assertContains('IF-MODIFIED-SINCE: 1483360200', $actual);
     }
 
     /**
