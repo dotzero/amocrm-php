@@ -27,7 +27,6 @@ try {
             'not_open_timeout' => 1
         ]
     ]);
-
 } catch (\AmoCRM\Helpers\B2BFamilyException $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

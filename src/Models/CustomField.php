@@ -89,7 +89,7 @@ class CustomField extends AbstractModel
             ],
         ];
 
-        foreach ($fields AS $field) {
+        foreach ($fields as $field) {
             $parameters['fields']['add'][] = $field->getValues();
         }
 

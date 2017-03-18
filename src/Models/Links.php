@@ -75,7 +75,7 @@ class Links extends AbstractModel
             ],
         ];
 
-        foreach ($links AS $link) {
+        foreach ($links as $link) {
             $parameters['links']['link'][] = $link->getValues();
         }
 
@@ -109,7 +109,7 @@ class Links extends AbstractModel
             ],
         ];
 
-        foreach ($links AS $link) {
+        foreach ($links as $link) {
             $parameters['links']['unlink'][] = $link->getValues();
         }
 

@@ -92,7 +92,7 @@ class Pipelines extends AbstractModel
             ],
         ];
 
-        foreach ($pipelines AS $pipeline) {
+        foreach ($pipelines as $pipeline) {
             $parameters['pipelines']['add'][] = $pipeline->getValues();
         }
 

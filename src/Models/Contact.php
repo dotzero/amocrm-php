@@ -157,7 +157,7 @@ class Contact extends AbstractModel
             ],
         ];
 
-        foreach ($contacts AS $contact) {
+        foreach ($contacts as $contact) {
             $parameters['contacts']['add'][] = $contact->getValues();
         }
 

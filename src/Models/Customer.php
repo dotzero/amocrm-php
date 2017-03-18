@@ -97,7 +97,7 @@ class Customer extends AbstractModel
             ],
         ];
 
-        foreach ($customers AS $customer) {
+        foreach ($customers as $customer) {
             $parameters['customers']['add'][] = $customer->getValues();
         }
 

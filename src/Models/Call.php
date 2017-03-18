@@ -78,7 +78,7 @@ class Call extends AbstractModel
             'add' => [],
         ];
 
-        foreach ($calls AS $call) {
+        foreach ($calls as $call) {
             $parameters['add'][] = $call->getValues();
         }
 

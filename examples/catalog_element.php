@@ -45,7 +45,6 @@ try {
 
     // Удаление каталогов
     $amo->catalog_element->apiDelete((int)$id);
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

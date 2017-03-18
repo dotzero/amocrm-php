@@ -108,7 +108,6 @@ try {
     $user_id = $account['users'][0]['id'];
 
     print_r($amo->unsorted->apiDecline($unsortedId, $user_id));
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

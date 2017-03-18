@@ -92,7 +92,7 @@ class Transaction extends AbstractModel
             ],
         ];
 
-        foreach ($transactions AS $transaction) {
+        foreach ($transactions as $transaction) {
             $parameters['transactions']['add'][] = $transaction->getValues();
         }
 

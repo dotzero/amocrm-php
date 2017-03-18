@@ -129,14 +129,14 @@ class Company extends AbstractModel
             ],
         ];
 
-        foreach ($companies AS $company) {
+        foreach ($companies as $company) {
             $parameters['contacts']['add'][] = $company->getValues();
         }
 
         $response = $this->postRequest('/private/api/v2/json/company/set', $parameters);
 
         if (isset($response['contacts']['add'])) {
-            $result = array_map(function($item) {
+            $result = array_map(function ($item) {
                 return $item['id'];
             }, $response['contacts']['add']);
         } else {

@@ -58,7 +58,6 @@ try {
     print_r($amo->contact->apiLinks([
         'limit_rows' => 3
     ]));
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s', $e->getCode(), $e->getMessage());
 }

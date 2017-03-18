@@ -142,14 +142,14 @@ class Note extends AbstractModel
             ],
         ];
 
-        foreach ($notes AS $note) {
+        foreach ($notes as $note) {
             $parameters['notes']['add'][] = $note->getValues();
         }
 
         $response = $this->postRequest('/private/api/v2/json/notes/set', $parameters);
 
         if (isset($response['notes']['add'])) {
-            $result = array_map(function($item) {
+            $result = array_map(function ($item) {
                 return $item['id'];
             }, $response['notes']['add']);
         } else {

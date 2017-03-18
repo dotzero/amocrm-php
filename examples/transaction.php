@@ -37,7 +37,6 @@ try {
 
     // Удаление каталогов
     var_dump($amo->transaction->apiDelete((int)$id));
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

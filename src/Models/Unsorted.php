@@ -195,7 +195,7 @@ class Unsorted extends AbstractModel
             ],
         ];
 
-        foreach ($values AS $value) {
+        foreach ($values as $value) {
             $parameters['unsorted']['add'][] = $value->getValues();
         }
 

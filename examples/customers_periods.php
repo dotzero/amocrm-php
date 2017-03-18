@@ -30,7 +30,6 @@ try {
     // При удалении периода нужно исключить его из запроса.
 
     print_r($amo->customers_periods->apiSet([$period1, $period2]));
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s', $e->getCode(), $e->getMessage());
 }

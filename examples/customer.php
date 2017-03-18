@@ -43,7 +43,6 @@ try {
     $customer['name'] = 'ФИО 3';
 
     $customer->apiUpdate((int)$id);
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s', $e->getCode(), $e->getMessage());
 }

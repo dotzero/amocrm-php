@@ -67,7 +67,7 @@ class Catalog extends AbstractModel
             ],
         ];
 
-        foreach ($catalogs AS $catalog) {
+        foreach ($catalogs as $catalog) {
             $parameters['catalogs']['add'][] = $catalog->getValues();
         }
 

@@ -24,7 +24,6 @@ try {
     print_r($amo->widgets->apiUninstall([
         'widget_id' => 62121
     ]));
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

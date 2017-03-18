@@ -65,7 +65,7 @@ class CustomersPeriods extends AbstractModel
             ],
         ];
 
-        foreach ($periods AS $period) {
+        foreach ($periods as $period) {
             if ($period instanceof self) {
                 $period = $period->getValues();
             }

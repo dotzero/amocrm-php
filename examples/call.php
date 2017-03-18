@@ -20,7 +20,6 @@ try {
     $call['link'] = 'http://example.com/audio.mp3';
 
     $call->apiAdd('my_service_name', '601eb8fab9707d8009dba552f2d411a3');
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

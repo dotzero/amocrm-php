@@ -37,7 +37,6 @@ try {
         'update_contact',
         'delete_contact'
     ]));
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

@@ -23,7 +23,6 @@ try {
     //$field->debug(true); // Режим отладки
     $result = $field->apiDelete($id, '528d0285c1f9180911159a9dc6f759b3_zendesk_widget');
     var_dump($result);
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s', $e->getCode(), $e->getMessage());
 }

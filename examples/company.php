@@ -53,7 +53,6 @@ try {
     $company['name'] = 'ООО Тестовая компания 3';
 
     $company->apiUpdate((int)$id, 'now');
-
 } catch (\AmoCRM\Exception $e) {
     printf('Error (%d): %s' . PHP_EOL, $e->getCode(), $e->getMessage());
 }

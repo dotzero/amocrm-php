@@ -116,14 +116,14 @@ class Lead extends AbstractModel
             ],
         ];
 
-        foreach ($leads AS $lead) {
+        foreach ($leads as $lead) {
             $parameters['leads']['add'][] = $lead->getValues();
         }
 
         $response = $this->postRequest('/private/api/v2/json/leads/set', $parameters);
 
         if (isset($response['leads']['add'])) {
-            $result = array_map(function($item) {
+            $result = array_map(function ($item) {
                 return $item['id'];
             }, $response['leads']['add']);
         } else {

@@ -151,7 +151,7 @@ class Listener
     {
         $callbacks = isset($this->hooks[$name]) ? $this->hooks[$name] : [];
 
-        foreach ($callbacks AS $callback) {
+        foreach ($callbacks as $callback) {
             call_user_func($callback, $domain, $id, $data);
         }
     }
