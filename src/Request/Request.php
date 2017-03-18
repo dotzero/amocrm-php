@@ -157,6 +157,8 @@ class Request implements LoggerAwareInterface
             }
         }
 
+        $this->logger->debug(__METHOD__, $headers);
+
         return $headers;
     }
 
@@ -180,7 +182,10 @@ class Request implements LoggerAwareInterface
             ]));
         }
 
-        return sprintf('https://%s%s?%s', $this->parameters->getAuth('domain'), $url, $query);
+        $endpoint = sprintf('https://%s%s?%s', $this->parameters->getAuth('domain'), $url, $query);
+        $this->logger->debug(__METHOD__, [$endpoint]);
+
+        return $endpoint;
     }
 
     /**
@@ -230,6 +235,13 @@ class Request implements LoggerAwareInterface
         $this->printDebug('curl_errno', $errno);
 
         if ($result === false && !empty($error)) {
+            $this->logger->error('NetworkException', [
+                'curlopt_url' => $endpoint,
+                'curlopt_postfields' => $this->parameters->getPost(),
+                'curl_error' => $error,
+                'curl_errno' => $errno,
+                'curl_getinfo' => $info,
+            ]);
             throw new NetworkException($error, $errno);
         }
 
@@ -248,6 +260,8 @@ class Request implements LoggerAwareInterface
     {
         $result = json_decode($response, true);
 
+        $this->logger->debug(__METHOD__, (array)$result);
+
         if (!isset($result['response'])) {
             return false;
         } elseif (floor($info['http_code'] / 100) >= 3) {
@@ -255,6 +269,9 @@ class Request implements LoggerAwareInterface
             if (isset($result['response']['error_code']) && $result['response']['error_code'] > 0) {
                 $code = $result['response']['error_code'];
             }
+
+            $this->logger->error(__METHOD__, (array)$result['response']);
+
             if ($this->v1 === false) {
                 throw new Exception($result['response']['error'], $code);
             } else {
