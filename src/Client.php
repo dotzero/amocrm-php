@@ -31,7 +31,7 @@ use AmoCRM\Helpers\Fields;
  * @property \AmoCRM\Models\Task $task
  * @property \AmoCRM\Models\Transaction $transaction
  * @property \AmoCRM\Models\Unsorted $unsorted
- * @property \AmoCRM\Models\WebHooks $webhooks
+ * @property \AmoCRM\Models\Webhooks $webhooks
  * @property \AmoCRM\Models\Widgets $widgets
  *
  * For the full copyright and license information, please view the LICENSE

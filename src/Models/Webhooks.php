@@ -3,9 +3,9 @@
 namespace AmoCRM\Models;
 
 /**
- * Class WebHooks
+ * Class Webhooks
  *
- * Класс модель для работы с WebHooks
+ * Класс модель для работы с Webhooks
  *
  * @package AmoCRM\Models
  * @author dotzero <mail@dotzero.ru>
@@ -15,7 +15,7 @@ namespace AmoCRM\Models;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class WebHooks extends AbstractModel
+class Webhooks extends AbstractModel
 {
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
@@ -72,9 +72,9 @@ class WebHooks extends AbstractModel
     }
 
     /**
-     * Список WebHooks
+     * Список Webhooks
      *
-     * Метод для получения списка WebHooks.
+     * Метод для получения списка Webhooks.
      *
      * @link https://developers.amocrm.ru/rest_api/webhooks/list.php
      * @return array Ответ amoCRM API
@@ -87,13 +87,13 @@ class WebHooks extends AbstractModel
     }
 
     /**
-     * Добавление WebHooks
+     * Добавление Webhooks
      *
-     * Метод для добавления WebHooks.
+     * Метод для добавления Webhooks.
      *
      * @link https://developers.amocrm.ru/rest_api/webhooks/subscribe.php
      * @param null|string $url URL на который необходимо присылать уведомления, должен соответствовать стандарту RFC 2396
-     * @param array|string $events Список событий, при которых должны отправляться WebHooks
+     * @param array|string $events Список событий, при которых должны отправляться Webhooks
      * @return array|false Ответ amoCRM API
      * @throws \AmoCRM\Exception
      */
@@ -128,9 +128,9 @@ class WebHooks extends AbstractModel
     }
 
     /**
-     * Удаления WebHooks
+     * Удаления Webhooks
      *
-     * Метод для удаления WebHooks.
+     * Метод для удаления Webhooks.
      *
      * @link https://developers.amocrm.ru/rest_api/webhooks/unsubscribe.php
      * @param null|string $url URL на который необходимо присылать уведомления, должен соответствовать стандарту RFC 2396
