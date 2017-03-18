@@ -3,34 +3,30 @@
 namespace AmoCRM\Tests\Request;
 
 use AmoCRM\Tests\TestCase;
-
-class RequestMock extends \AmoCRM\Request\Request
-{
-    public function v1($value)
-    {
-        $this->v1 = $value;
-    }
-
-    protected function request($url, $modified = null)
-    {
-        return [];
-    }
-}
+use AmoCRM\Request\ParamsBag;
+use AmoCRM\Request\Request;
 
 class RequestTest extends TestCase
 {
     /**
-     * @var null|RequestMock
+     * @var Request
      */
-    private $request = null;
+    private $request;
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
+        $paramsBag = new ParamsBag();
         $paramsBag->addAuth('domain', 'example.amocrm.ru');
         $paramsBag->addAuth('login', 'login@domain');
         $paramsBag->addAuth('apikey', 'hash');
-        $this->request = new RequestMock();
+
+        $paramsBag->addGet('param1', 'value1');
+        $paramsBag->addGet('param2', 'value2');
+
+        $paramsBag->addPost('field1', 'value1');
+        $paramsBag->addPost('field2', 'value2');
+
+        $this->request = new Request();
         $this->request->setParameters($paramsBag);
     }
 
@@ -43,29 +39,70 @@ class RequestTest extends TestCase
 
     public function testGetParameters()
     {
-        $actual = $this->invokeMethod($this->request, 'getParameters');
-        $this->assertInstanceOf('\AmoCRM\Request\ParamsBag', $actual);
+        $actual = $this->request->getParameters();
+
+        $this->assertInstanceOf('\AmoCRM\Request\ParamsBagInterface', $actual);
+        $this->assertEquals('value1', $actual->getGet('param1'));
+        $this->assertEquals('value2', $actual->getGet('param2'));
+    }
+
+    public function testSetLogger()
+    {
+        $this->assertInstanceOf('\Psr\Log\LoggerAwareInterface', $this->request);
+        $this->assertAttributeInstanceOf('\Psr\Log\LoggerInterface', 'logger', $this->request);
+        $this->assertAttributeInstanceOf('\Psr\Log\NullLogger', 'logger', $this->request);
+
+        $mock = $this->getMockBuilder('\Psr\Log\NullLogger')->getMock();
+        $this->request->setLogger($mock);
+
+        $this->assertAttributeInstanceOf('\Psr\Log\LoggerInterface', 'logger', $this->request);
+        $this->assertAttributeSame($mock, 'logger', $this->request);
     }
 
     public function testGetRequest()
     {
-        $actual = $this->invokeMethod($this->request, 'getRequest', [
+        $mock = $this->getMockBuilder('\AmoCRM\Request\Request')
+            ->setMethods(['request'])
+            ->getMock();
+
+        $mock->expects($this->once())
+            ->method('request')
+            ->with($this->equalTo('/foobar'))
+            ->willReturnArgument(1);
+
+        $modified = $this->invokeMethod($mock, 'getRequest', [
             '/foobar',
             ['foo' => 'bar'],
             'now'
         ]);
 
-        $this->assertEquals([], $actual);
+        $this->assertEquals('now', $modified);
+
+        $params = $mock->getParameters();
+        $this->assertEquals(['foo' => 'bar'], $params->getGet());
     }
 
     public function testPostRequest()
     {
-        $actual = $this->invokeMethod($this->request, 'postRequest', [
+        $mock = $this->getMockBuilder('\AmoCRM\Request\Request')
+            ->setMethods(['request'])
+            ->getMock();
+
+        $mock->expects($this->once())
+            ->method('request')
+            ->with($this->equalTo('/foobar'))
+            ->willReturnArgument(1);
+
+
+        $modified = $this->invokeMethod($mock, 'postRequest', [
             '/foobar',
             ['foo' => 'bar']
         ]);
 
-        $this->assertEquals([], $actual);
+        $this->assertNull($modified);
+
+        $params = $mock->getParameters();
+        $this->assertEquals(['foo' => 'bar'], $params->getPost());
     }
 
     public function testPrepareHeaders()
@@ -99,8 +136,9 @@ class RequestTest extends TestCase
 
     public function testPrepareEndpointV1()
     {
-        $this->request->v1(true);
-        $expected = 'https://example.amocrm.ru/foo/?login=login%40domain&api_key=hash';
+        $this->setProtectedProperty($this->request, 'v1', true);
+
+        $expected = 'https://example.amocrm.ru/foo/?param1=value1&param2=value2&login=login%40domain&api_key=hash';
         $actual = $this->invokeMethod($this->request, 'prepareEndpoint', ['/foo/']);
 
         $this->assertEquals($expected, $actual);
@@ -108,7 +146,7 @@ class RequestTest extends TestCase
 
     public function testPrepareEndpointV2()
     {
-        $expected = 'https://example.amocrm.ru/foo/?USER_LOGIN=login%40domain&USER_HASH=hash';
+        $expected = 'https://example.amocrm.ru/foo/?param1=value1&param2=value2&USER_LOGIN=login%40domain&USER_HASH=hash';
         $actual = $this->invokeMethod($this->request, 'prepareEndpoint', ['/foo/']);
 
         $this->assertEquals($expected, $actual);
@@ -191,27 +229,7 @@ class RequestTest extends TestCase
             'http_code' => 400
         ];
 
-        $this->request->v1(true);
+        $this->setProtectedProperty($this->request, 'v1', true);
         $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
-    }
-
-    public function testPrintDebug()
-    {
-        $this->request->debug(true);
-
-        $actual = $this->invokeMethod($this->request, 'printDebug', ['foo', 'bar', true]);
-        $this->assertStringStartsWith('[DEBUG]', $actual);
-        $this->assertRegExp('/foo: bar/u', $actual);
-
-        $actual = $this->invokeMethod($this->request, 'printDebug', ['foo', [100 => 200], true]);
-        $this->assertStringStartsWith('[DEBUG]', $actual);
-        $this->assertRegExp('/Array/u', $actual);
-        $this->assertRegExp('/\[100\] => 200/u', $actual);
-    }
-
-    public function testPrintDebugOff()
-    {
-        $actual = $this->invokeMethod($this->request, 'printDebug');
-        $this->assertFalse($actual);
     }
 }
