@@ -53,8 +53,7 @@ class PipelinesTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new PipelinesMock($paramsBag);
+        $this->model = new PipelinesMock();
     }
 
     /**

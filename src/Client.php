@@ -5,6 +5,9 @@ namespace AmoCRM;
 use AmoCRM\Models\ModelInterface;
 use AmoCRM\Request\ParamsBag;
 use AmoCRM\Helpers\Fields;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class Client
@@ -37,7 +40,7 @@ use AmoCRM\Helpers\Fields;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Client
+class Client implements LoggerAwareInterface
 {
     /**
      * @var Fields|null Экземпляр Fields для хранения номеров полей
@@ -48,6 +51,11 @@ class Client
      * @var ParamsBag|null Экземпляр ParamsBag для хранения аргументов
      */
     public $parameters = null;
+
+    /**
+     * @var LoggerInterface|null Экземпляр класса имплементирующего LoggerInterface
+     */
+    protected $logger = null;
 
     /**
      * Client constructor
@@ -69,6 +77,17 @@ class Client
         $this->parameters->addAuth('apikey', $apikey);
 
         $this->fields = new Fields();
+        $this->logger = new NullLogger();
+    }
+
+    /**
+     * Устанавливает экземпляр класса имплементирующего LoggerInterface
+     *
+     * @param LoggerInterface $logger экземпляр класса имплементирующего LoggerInterface
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     /**
@@ -86,10 +105,11 @@ class Client
             throw new ModelException('Model not exists: ' . $name);
         }
 
-        // Чистим GET и POST от предыдущих вызовов
-        $this->parameters->clearGet()->clearPost();
+        $model = new $classname();
+        $model->setParameters(clone $this->parameters);
+        $model->setLogger(clone $this->logger);
 
-        return new $classname($this->parameters);
+        return $model;
     }
 
     /**

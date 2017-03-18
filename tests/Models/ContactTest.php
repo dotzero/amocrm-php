@@ -49,8 +49,7 @@ class ContactTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new ContactMock($paramsBag);
+        $this->model = new ContactMock();
     }
 
     /**

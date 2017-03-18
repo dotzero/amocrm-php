@@ -42,7 +42,8 @@ class AccountTest extends TestCase
     {
         $paramsBag = new \AmoCRM\Request\ParamsBag();
         $paramsBag->addAuth('login', 'mail@example.com');
-        $this->model = new AccountMock($paramsBag);
+        $this->model = new AccountMock();
+        $this->model->setParameters($paramsBag);
     }
 
     public function testApiCurrent()

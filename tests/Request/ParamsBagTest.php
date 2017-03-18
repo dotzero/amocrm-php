@@ -3,6 +3,7 @@
 namespace AmoCRM\Tests\Request;
 
 use AmoCRM\Tests\TestCase;
+use AmoCRM\Request\ParamsBag;
 
 class ParamsBagTest extends TestCase
 {
@@ -10,7 +11,9 @@ class ParamsBagTest extends TestCase
 
     public function setUp()
     {
-        $this->params = new \AmoCRM\Request\ParamsBag();
+        $this->params = new ParamsBag();
+
+        $this->assertInstanceOf('\AmoCRM\Request\ParamsBagInterface', $this->params);
     }
 
     public function testAuth()
@@ -29,10 +32,9 @@ class ParamsBagTest extends TestCase
         $this->assertEquals('value', $this->params->getGet('key'));
         $this->assertEquals('bar', $this->params->getGet('foo'));
         $this->assertCount(2, $this->params->getGet());
-        $this->assertTrue($this->params->hasGet());
 
         $this->params->clearGet();
-        $this->assertFalse($this->params->hasGet());
+        $this->assertCount(0, $this->params->getGet());
     }
 
     public function testPost()
@@ -42,9 +44,8 @@ class ParamsBagTest extends TestCase
         $this->assertEquals('value', $this->params->getPost('key'));
         $this->assertEquals('bar', $this->params->getPost('foo'));
         $this->assertCount(2, $this->params->getPost());
-        $this->assertTrue($this->params->hasPost());
 
         $this->params->clearPost();
-        $this->assertFalse($this->params->hasPost());
+        $this->assertCount(0, $this->params->getPost());
     }
 }

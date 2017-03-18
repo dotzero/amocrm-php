@@ -44,15 +44,9 @@ class UnsortedTest extends TestCase
      */
     private $model = null;
 
-    /**
-     * @var null|\AmoCRM\Request\ParamsBag
-     */
-    private $paramsBag = null;
-
     public function setUp()
     {
-        $this->paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new UnsortedMock($this->paramsBag);
+        $this->model = new UnsortedMock();
     }
 
     /**
@@ -194,7 +188,7 @@ class UnsortedTest extends TestCase
 
     public function testAddDataLead()
     {
-        $lead = new \AmoCRM\Models\Lead($this->paramsBag);
+        $lead = new \AmoCRM\Models\Lead();
         $lead['name'] = 'New lead from this form';
 
         $this->model->addDataLead($lead);
@@ -211,7 +205,7 @@ class UnsortedTest extends TestCase
 
     public function testAddDataContact()
     {
-        $contact = new \AmoCRM\Models\Contact($this->paramsBag);
+        $contact = new \AmoCRM\Models\Contact();
         $contact['name'] = 'New contact from this form';
 
         $this->model->addDataContact($contact);

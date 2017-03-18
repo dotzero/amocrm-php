@@ -30,7 +30,8 @@ class RequestTest extends TestCase
         $paramsBag->addAuth('domain', 'example.amocrm.ru');
         $paramsBag->addAuth('login', 'login@domain');
         $paramsBag->addAuth('apikey', 'hash');
-        $this->request = new RequestMock($paramsBag);
+        $this->request = new RequestMock();
+        $this->request->setParameters($paramsBag);
     }
 
     public function testDebug()

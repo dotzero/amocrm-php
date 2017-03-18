@@ -49,8 +49,7 @@ class LinksTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new LinksMock($paramsBag);
+        $this->model = new LinksMock();
     }
 
     /**

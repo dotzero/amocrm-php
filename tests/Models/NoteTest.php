@@ -49,8 +49,7 @@ class NoteTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new NoteMock($paramsBag);
+        $this->model = new NoteMock();
     }
 
     /**

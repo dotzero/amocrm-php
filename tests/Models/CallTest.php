@@ -48,8 +48,7 @@ class CallTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new CallMock($paramsBag);
+        $this->model = new CallMock();
     }
 
     /**

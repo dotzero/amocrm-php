@@ -3,9 +3,9 @@
 namespace AmoCRM\Request;
 
 /**
- * Class ParamsBag
+ * Interface ParamsBagInterface
  *
- * Класс для хранения аргументов
+ * Базовый интерфейс класса для хранения аргументов
  *
  * @package AmoCRM\Request
  * @author dotzero <mail@dotzero.ru>
@@ -15,23 +15,8 @@ namespace AmoCRM\Request;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class ParamsBag implements ParamsBagInterface
+interface ParamsBagInterface
 {
-    /**
-     * @var array Список значений параметров для авторизации
-     */
-    private $authParams = [];
-
-    /**
-     * @var array Список значений GET параметров
-     */
-    private $getParams = [];
-
-    /**
-     * @var array Список значений POST параметров
-     */
-    private $postParams = [];
-
     /**
      * Добавление значений параметров для авторизации
      *
@@ -39,12 +24,7 @@ class ParamsBag implements ParamsBagInterface
      * @param mixed $value Значение параметра
      * @return $this
      */
-    public function addAuth($name, $value)
-    {
-        $this->authParams[$name] = $value;
-
-        return $this;
-    }
+    public function addAuth($name, $value);
 
     /**
      * Получение параметра для авторизации по ключу или список параметров
@@ -52,14 +32,7 @@ class ParamsBag implements ParamsBagInterface
      * @param string $name Название параметра
      * @return array|null Значение параметра или список параметров
      */
-    public function getAuth($name = null)
-    {
-        if ($name !== null) {
-            return isset($this->authParams[$name]) ? $this->authParams[$name] : null;
-        }
-
-        return $this->authParams;
-    }
+    public function getAuth($name = null);
 
     /**
      * Добавление значений GET параметров
@@ -68,16 +41,7 @@ class ParamsBag implements ParamsBagInterface
      * @param mixed $value Значение параметра
      * @return $this
      */
-    public function addGet($name, $value = null)
-    {
-        if (is_array($name) && $value === null) {
-            $this->getParams = array_merge($this->getParams, $name);
-        } else {
-            $this->getParams[$name] = $value;
-        }
-
-        return $this;
-    }
+    public function addGet($name, $value = null);
 
     /**
      * Получение GET параметра по ключу или список параметров
@@ -85,26 +49,14 @@ class ParamsBag implements ParamsBagInterface
      * @param string $name Название параметра
      * @return array|null Значение параметра или список параметров
      */
-    public function getGet($name = null)
-    {
-        if ($name !== null) {
-            return isset($this->getParams[$name]) ? $this->getParams[$name] : null;
-        }
-
-        return $this->getParams;
-    }
+    public function getGet($name = null);
 
     /**
      * Очистка всех GET параметров
      *
      * @return $this
      */
-    public function clearGet()
-    {
-        $this->getParams = [];
-
-        return $this;
-    }
+    public function clearGet();
 
     /**
      * Добавление значений POST параметров
@@ -113,16 +65,7 @@ class ParamsBag implements ParamsBagInterface
      * @param mixed $value Значение параметра
      * @return $this
      */
-    public function addPost($name, $value = null)
-    {
-        if (is_array($name) && $value === null) {
-            $this->postParams = array_merge($this->postParams, $name);
-        } else {
-            $this->postParams[$name] = $value;
-        }
-
-        return $this;
-    }
+    public function addPost($name, $value = null);
 
     /**
      * Получение POST параметра по ключу или список параметров
@@ -130,24 +73,12 @@ class ParamsBag implements ParamsBagInterface
      * @param string $name Название параметра
      * @return array|null Значение параметра или список параметров
      */
-    public function getPost($name = null)
-    {
-        if ($name !== null) {
-            return isset($this->postParams[$name]) ? $this->postParams[$name] : null;
-        }
-
-        return $this->postParams;
-    }
+    public function getPost($name = null);
 
     /**
      * Очистка всех POST параметров
      *
      * @return $this
      */
-    public function clearPost()
-    {
-        $this->postParams = [];
-
-        return $this;
-    }
+    public function clearPost();
 }

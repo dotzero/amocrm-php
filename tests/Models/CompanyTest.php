@@ -49,8 +49,7 @@ class CompanyTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new CompanyMock($paramsBag);
+        $this->model = new CompanyMock();
     }
 
     /**

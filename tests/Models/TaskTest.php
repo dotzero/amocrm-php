@@ -49,8 +49,7 @@ class TaskTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new TaskMock($paramsBag);
+        $this->model = new TaskMock();
     }
 
     /**

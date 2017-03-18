@@ -53,8 +53,7 @@ class CustomerTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new CustomerMock($paramsBag);
+        $this->model = new CustomerMock();
     }
 
     /**

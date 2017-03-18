@@ -45,8 +45,7 @@ class CustomersPeriodsTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new CustomersPeriodsMock($paramsBag);
+        $this->model = new CustomersPeriodsMock();
     }
 
     /**

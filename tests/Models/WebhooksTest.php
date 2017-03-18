@@ -60,8 +60,7 @@ class WebhooksTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new WebhooksMock($paramsBag);
+        $this->model = new WebhooksMock();
     }
 
     /**

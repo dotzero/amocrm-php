@@ -39,8 +39,7 @@ class CustomFieldTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new CustomFieldMock($paramsBag);
+        $this->model = new CustomFieldMock();
     }
 
     /**

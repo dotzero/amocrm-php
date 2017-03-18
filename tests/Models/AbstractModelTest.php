@@ -13,9 +13,7 @@ class AbstractModelTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-
-        $this->model = $this->getMockForAbstractClass('\AmoCRM\Models\AbstractModel', [$paramsBag]);
+        $this->model = $this->getMockForAbstractClass('\AmoCRM\Models\AbstractModel');
         $this->setProtectedProperty($this->model, 'fields', [
             'foo',
             'bar',

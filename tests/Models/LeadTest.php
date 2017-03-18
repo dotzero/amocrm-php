@@ -49,8 +49,7 @@ class LeadTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new LeadMock($paramsBag);
+        $this->model = new LeadMock();
     }
 
     /**

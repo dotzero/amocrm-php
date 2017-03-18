@@ -38,8 +38,7 @@ class WidgetsTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new WidgetsMock($paramsBag);
+        $this->model = new WidgetsMock();
     }
 
     public function testApiList()

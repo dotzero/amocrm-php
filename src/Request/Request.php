@@ -5,6 +5,9 @@ namespace AmoCRM\Request;
 use DateTime;
 use AmoCRM\Exception;
 use AmoCRM\NetworkException;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class Request
@@ -19,7 +22,7 @@ use AmoCRM\NetworkException;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-class Request
+class Request implements LoggerAwareInterface
 {
     /**
      * @var bool Использовать устаревшую схему авторизации
@@ -32,23 +35,28 @@ class Request
     private $debug = false;
 
     /**
-     * @var ParamsBag|null Экземпляр ParamsBag для хранения аргументов
+     * @var ParamsBagInterface Экземпляр класса имплементирующего ParamsBagInterface
      */
-    private $parameters = null;
+    protected $parameters;
+
+    /**
+     * @var LoggerInterface Экземпляр класса имплементирующего LoggerInterface
+     */
+    protected $logger;
 
     /**
      * Request constructor
      *
-     * @param ParamsBag $parameters Экземпляр ParamsBag для хранения аргументов
      * @throws NetworkException
      */
-    public function __construct(ParamsBag $parameters)
+    public function __construct()
     {
         if (!function_exists('curl_init')) {
             throw new NetworkException('The cURL PHP extension was not loaded');
         }
 
-        $this->parameters = $parameters;
+        $this->setParameters(new ParamsBag());
+        $this->setLogger(new NullLogger());
     }
 
     /**
@@ -65,13 +73,33 @@ class Request
     }
 
     /**
-     * Возвращает экземпляр ParamsBag для хранения аргументов
+     * Устанавливает экземпляр класса имплементирующего ParamsBagInterface
      *
-     * @return ParamsBag|null
+     * @param ParamsBagInterface $parameters экземпляр класса имплементирующего ParamsBagInterface
      */
-    protected function getParameters()
+    public function setParameters(ParamsBagInterface $parameters)
+    {
+        $this->parameters = $parameters;
+    }
+
+    /**
+     * Возвращает экземпляр класса имплементирующего ParamsBagInterface
+     *
+     * @return ParamsBagInterface экземпляр класса имплементирующего ParamsBagInterface
+     */
+    public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * Устанавливает экземпляр класса имплементирующего LoggerInterface
+     *
+     * @param LoggerInterface $logger экземпляр класса имплементирующего LoggerInterface
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     /**
@@ -180,7 +208,7 @@ class Request
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        if ($this->parameters->hasPost()) {
+        if (count($this->parameters->getPost())) {
             $fields = json_encode([
                 'request' => $this->parameters->getPost(),
             ]);

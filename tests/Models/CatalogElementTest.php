@@ -60,8 +60,7 @@ class CatalogElementTest extends TestCase
 
     public function setUp()
     {
-        $paramsBag = new \AmoCRM\Request\ParamsBag();
-        $this->model = new CatalogElementMock($paramsBag);
+        $this->model = new CatalogElementMock();
     }
 
     /**
