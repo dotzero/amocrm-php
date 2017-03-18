@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class WidgetsMock extends \AmoCRM\Models\Widgets
 {
     public $mockUrl;

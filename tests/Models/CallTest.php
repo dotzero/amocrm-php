@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class CallMock extends \AmoCRM\Models\Call
 {
     public $mockUrl;

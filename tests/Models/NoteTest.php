@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class NoteMock extends \AmoCRM\Models\Note
 {
     public $mockUrl;

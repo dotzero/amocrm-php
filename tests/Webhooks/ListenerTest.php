@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Webhooks;
+
+use AmoCRM\Tests\TestCase;
+
 class ListenerTest extends TestCase
 {
     /**

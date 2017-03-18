@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Helpers;
+
+use AmoCRM\Tests\TestCase;
+
 class B2BFamilyMock extends \AmoCRM\Helpers\B2BFamily
 {
     protected function request($method, $url, $parameters = [])

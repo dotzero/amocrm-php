@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Helpers;
+
+use AmoCRM\Tests\TestCase;
+
 class FieldsTest extends TestCase
 {
     /**

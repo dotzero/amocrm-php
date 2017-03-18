@@ -21,9 +21,9 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
+        "psr-4": {
+            "AmoCRM\\Tests\\": "tests"
+        }
     },
     "scripts": {
         "test": [

@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class WebhooksMock extends \AmoCRM\Models\Webhooks
 {
     public $mockUrl;

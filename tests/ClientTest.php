@@ -1,5 +1,7 @@
 <?php
 
+namespace AmoCRM\Tests;
+
 class ClientTest extends TestCase
 {
     private $amo = null;

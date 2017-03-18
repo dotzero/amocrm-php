@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class UnsortedMock extends \AmoCRM\Models\Unsorted
 {
     public $mockUrl;

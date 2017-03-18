@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Request;
+
+use AmoCRM\Tests\TestCase;
+
 class ParamsBagTest extends TestCase
 {
     private $params = null;

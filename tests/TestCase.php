@@ -1,6 +1,8 @@
 <?php
 
-abstract class TestCase extends PHPUnit_Framework_TestCase
+namespace AmoCRM\Tests;
+
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * Sets a protected property on a given object via reflection
@@ -12,7 +14,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      */
     public function setProtectedProperty(&$object, $property, $value)
     {
-        $reflection = new ReflectionClass(get_class($object));
+        $reflection = new \ReflectionClass(get_class($object));
         $reflection_property = $reflection->getProperty($property);
         $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
@@ -28,7 +30,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
      */
     public function invokeMethod(&$object, $methodName, array $parameters = [])
     {
-        $reflection = new ReflectionClass(get_class($object));
+        $reflection = new \ReflectionClass(get_class($object));
         $method = $reflection->getMethod($methodName);
         $method->setAccessible(true);
 

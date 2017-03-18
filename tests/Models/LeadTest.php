@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class LeadMock extends \AmoCRM\Models\Lead
 {
     public $mockUrl;

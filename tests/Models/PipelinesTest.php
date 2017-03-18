@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class PipelinesMock extends \AmoCRM\Models\Pipelines
 {
     public $mockUrl;

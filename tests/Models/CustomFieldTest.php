@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Models;
+
+use AmoCRM\Tests\TestCase;
+
 class CustomFieldMock extends \AmoCRM\Models\CustomField
 {
     public $mockUrl;

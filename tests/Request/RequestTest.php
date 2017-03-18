@@ -1,5 +1,9 @@
 <?php
 
+namespace AmoCRM\Tests\Request;
+
+use AmoCRM\Tests\TestCase;
+
 class RequestMock extends \AmoCRM\Request\Request
 {
     public function v1($value)
