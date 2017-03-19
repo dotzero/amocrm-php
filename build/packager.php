@@ -13,6 +13,7 @@ foreach (['README.md', 'LICENSE'] as $file) {
 
 // Copy each dependency to the staging directory. Copy *.php and *.pem files.
 $packager->recursiveCopy('src', 'AmoCRM', ['php']);
+$packager->recursiveCopy('vendor/psr/log/Psr', 'Psr');
 
 // Create the classmap autoloader
 $packager->createAutoloader();
