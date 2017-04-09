@@ -175,7 +175,7 @@ class B2BFamily
         $endpoint = 'https://api.b2bfamily.com' . $url;
 
         if (in_array($method, [self::METHOD_GET, self::METHOD_DELETE])) {
-            $endpoint .= '?' . http_build_query($parameters);
+            $endpoint .= '?' . http_build_query($parameters, null, '&');
         }
 
         $ch = curl_init();
