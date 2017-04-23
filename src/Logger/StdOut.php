@@ -42,14 +42,14 @@ class StdOut extends AbstractLogger
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function log($level, $message, array $context = [])
     {
         if (posix_isatty(STDOUT)) {
             printf("\033[0;%sm%s\033[0m\n", $this->color($level), $this->format($level, $message, $context));
         } else {
-            printf($this->format($level, $message, $context));
+            printf("%s\n", $this->format($level, $message, $context));
         }
     }
 
@@ -79,6 +79,6 @@ class StdOut extends AbstractLogger
             JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
         );
 
-        return sprintf("[%s][%s] %s\n%s", strtoupper($level), date('c'), $message, $context);
+        return sprintf("[%s][%s] %s %s", strtoupper($level), date('c'), $message, $context);
     }
 }

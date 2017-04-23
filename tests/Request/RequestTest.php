@@ -30,13 +30,6 @@ class RequestTest extends TestCase
         $this->request->setParameters($paramsBag);
     }
 
-    public function testDebug()
-    {
-        $this->assertAttributeEquals(false, 'debug', $this->request);
-        $this->request->debug(true);
-        $this->assertAttributeEquals(true, 'debug', $this->request);
-    }
-
     public function testGetParameters()
     {
         $actual = $this->request->getParameters();

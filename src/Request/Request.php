@@ -5,6 +5,7 @@ namespace AmoCRM\Request;
 use DateTime;
 use AmoCRM\Exception;
 use AmoCRM\NetworkException;
+use AmoCRM\Logger\StdOut;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\NullLogger;
@@ -28,11 +29,6 @@ class Request implements LoggerAwareInterface
      * @var bool Использовать устаревшую схему авторизации
      */
     protected $v1 = false;
-
-    /**
-     * @var bool Флаг вывода отладочной информации
-     */
-    private $debug = false;
 
     /**
      * @var ParamsBagInterface Экземпляр класса имплементирующего ParamsBagInterface
@@ -60,14 +56,19 @@ class Request implements LoggerAwareInterface
     }
 
     /**
-     * Установка флага вывода отладочной информации
+     * Установка отладчика по-умолчанию,
+     * выводящего отладочную информацию в StdOut
      *
      * @param bool $flag Значение флага
      * @return $this
      */
     public function debug($flag = false)
     {
-        $this->debug = (bool)$flag;
+        if ($flag) {
+            $this->setLogger(new StdOut());
+        } else {
+            $this->setLogger(new NullLogger());
+        }
 
         return $this;
     }
@@ -118,6 +119,8 @@ class Request implements LoggerAwareInterface
             $this->parameters->addGet($parameters);
         }
 
+        $this->logger->debug(__METHOD__ . ' ' . $url, $parameters);
+
         return $this->request($url, $modified);
     }
 
@@ -135,6 +138,8 @@ class Request implements LoggerAwareInterface
         if (!empty($parameters)) {
             $this->parameters->addPost($parameters);
         }
+
+        $this->logger->debug(__METHOD__ . ' ' . $url, $parameters);
 
         return $this->request($url);
     }
@@ -183,7 +188,10 @@ class Request implements LoggerAwareInterface
         }
 
         $endpoint = sprintf('https://%s%s?%s', $this->parameters->getAuth('domain'), $url, $query);
-        $this->logger->debug(__METHOD__, [$endpoint]);
+
+        // Replace sensitive apikey with placeholder
+        $message = str_replace($this->parameters->getAuth('apikey'), 'secret', $endpoint);
+        $this->logger->debug(__METHOD__ . ' ' . $message);
 
         return $endpoint;
     }
@@ -202,9 +210,6 @@ class Request implements LoggerAwareInterface
         $headers = $this->prepareHeaders($modified);
         $endpoint = $this->prepareEndpoint($url);
 
-        $this->printDebug('url', $endpoint);
-        $this->printDebug('headers', $headers);
-
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $endpoint);
@@ -214,12 +219,12 @@ class Request implements LoggerAwareInterface
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         if (count($this->parameters->getPost())) {
-            $fields = json_encode([
+            $fields = [
                 'request' => $this->parameters->getPost(),
-            ]);
+            ];
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-            $this->printDebug('post params', $fields);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+            $this->logger->debug(__METHOD__, $fields);
         }
 
         $result = curl_exec($ch);
@@ -229,19 +234,7 @@ class Request implements LoggerAwareInterface
 
         curl_close($ch);
 
-        $this->printDebug('curl_exec', $result);
-        $this->printDebug('curl_getinfo', $info);
-        $this->printDebug('curl_error', $error);
-        $this->printDebug('curl_errno', $errno);
-
         if ($result === false && !empty($error)) {
-            $this->logger->error('NetworkException', [
-                'curlopt_url' => $endpoint,
-                'curlopt_postfields' => $this->parameters->getPost(),
-                'curl_error' => $error,
-                'curl_errno' => $errno,
-                'curl_getinfo' => $info,
-            ]);
             throw new NetworkException($error, $errno);
         }
 
@@ -280,32 +273,5 @@ class Request implements LoggerAwareInterface
         }
 
         return $result['response'];
-    }
-
-    /**
-     * Вывода отладочной информации
-     *
-     * @param string $key Заголовок отладочной информации
-     * @param mixed $value Значение отладочной информации
-     * @param bool $return Возврат строки вместо вывода
-     * @return mixed
-     */
-    protected function printDebug($key = '', $value = null, $return = false)
-    {
-        if ($this->debug !== true) {
-            return false;
-        }
-
-        if (!is_string($value)) {
-            $value = print_r($value, true);
-        }
-
-        $line = sprintf('[DEBUG] %s: %s', $key, $value);
-
-        if ($return === false) {
-            return print_r($line . PHP_EOL);
-        }
-
-        return $line;
     }
 }
