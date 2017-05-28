@@ -36,6 +36,24 @@ class RequestTest extends TestCase
         $this->assertAttributeEquals(true, 'debug', $this->request);
     }
 
+    public function testGetLastHttpCode()
+    {
+        $paramsBag = new \AmoCRM\Request\ParamsBag();
+        $request = new \AmoCRM\Request\Request($paramsBag);
+
+        $this->setProtectedProperty($request, 'lastHttpCode', 200);
+        $this->assertEquals(200, $request->getLastHttpCode());
+    }
+
+    public function testGetLastHttpResponse()
+    {
+        $paramsBag = new \AmoCRM\Request\ParamsBag();
+        $request = new \AmoCRM\Request\Request($paramsBag);
+
+        $this->setProtectedProperty($request, 'lastHttpResponse', 'foobar');
+        $this->assertEquals('foobar', $request->getLastHttpResponse());
+    }
+
     public function testGetParameters()
     {
         $actual = $this->invokeMethod($this->request, 'getParameters');

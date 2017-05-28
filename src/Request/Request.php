@@ -37,6 +37,16 @@ class Request
     private $parameters = null;
 
     /**
+     * @var int|null Последний полученный HTTP код
+     */
+    private $lastHttpCode = null;
+
+    /**
+     * @var string|null Последний полученный HTTP ответ
+     */
+    private $lastHttpResponse = null;
+
+    /**
      * Request constructor
      *
      * @param ParamsBag $parameters Экземпляр ParamsBag для хранения аргументов
@@ -62,6 +72,26 @@ class Request
         $this->debug = (bool)$flag;
 
         return $this;
+    }
+
+    /**
+     * Возвращает последний полученный HTTP код
+     *
+     * @return int|null
+     */
+    public function getLastHttpCode()
+    {
+        return $this->lastHttpCode;
+    }
+
+    /**
+     * Возвращает последний полученный HTTP ответ
+     *
+     * @return null|string
+     */
+    public function getLastHttpResponse()
+    {
+        return $this->lastHttpResponse;
     }
 
     /**
@@ -195,6 +225,9 @@ class Request
         $errno = curl_errno($ch);
 
         curl_close($ch);
+
+        $this->lastHttpCode = $info['http_code'];
+        $this->lastHttpResponse = $result;
 
         $this->printDebug('curl_exec', $result);
         $this->printDebug('curl_getinfo', $info);
