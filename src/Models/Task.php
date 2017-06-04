@@ -25,6 +25,7 @@ class Task extends AbstractModel
         'element_type',
         'date_create',
         'last_modified',
+        'status',
         'request_id',
         'task_type',
         'text',

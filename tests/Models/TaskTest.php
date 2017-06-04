@@ -121,6 +121,7 @@ class TaskTest extends TestCase
             ['element_type', 100, 100],
             ['date_create', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
             ['last_modified', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
+            ['status', 100, 100],
             ['request_id', 100, 100],
             ['task_type', 100, 100],
             ['text', "Line 1\nLine 2", "Line 1\nLine 2"],
