@@ -223,6 +223,21 @@ class RequestTest extends TestCase
         $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
     }
 
+    /**
+     * @expectedException \AmoCRM\Exception
+     * @expectedExceptionCode 502
+     * @expectedExceptionMessage Invalid response body.
+     */
+    public function testParseInvalidResponseWithHttpError502()
+    {
+        $response = '<html>Bad Gateway</html>';
+        $info = [
+            'http_code' => 502,
+        ];
+
+        $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
+    }
+
     public function testPrintDebug()
     {
         $this->request->debug(true);
