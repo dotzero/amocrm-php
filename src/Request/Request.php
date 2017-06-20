@@ -253,18 +253,23 @@ class Request
     {
         $result = json_decode($response, true);
 
-        if (!isset($result['response'])) {
-            return false;
-        } elseif (floor($info['http_code'] / 100) >= 3) {
-            $code = 0;
+        if (floor($info['http_code'] / 100) >= 3) {
             if (isset($result['response']['error_code']) && $result['response']['error_code'] > 0) {
                 $code = $result['response']['error_code'];
-            }
-            if ($this->v1 === false) {
-                throw new Exception($result['response']['error'], $code);
+            } elseif ($result !== null) {
+                $code = 0;
             } else {
-                throw new Exception(json_encode($result['response']));
+                $code = $info['http_code'];
             }
+            if ($this->v1 === false && isset($result['response']['error'])) {
+                throw new Exception($result['response']['error'], $code);
+            } elseif (isset($result['response'])) {
+                throw new Exception(json_encode($result['response']));
+            } else {
+                throw new Exception('Invalid response body.', $code);
+            }
+        } elseif (!isset($result['response'])) {
+            return false;
         }
 
         return $result['response'];
