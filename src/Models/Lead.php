@@ -161,7 +161,10 @@ class Lead extends AbstractModel
         $parameters['leads']['update'][] = $lead;
 
         $response = $this->postRequest('/private/api/v2/json/leads/set', $parameters);
+        if (isset($response['leads']['update']['errors'][$id])) {
+            throw new Exception($response['leads']['update']['errors'][$id]);
+        }
 
-        return isset($response['leads']) ? true : false;
+        return isset($response['leads']['update']['id']) ? true : false;
     }
 }
