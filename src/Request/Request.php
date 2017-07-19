@@ -203,6 +203,8 @@ class Request
         $this->printDebug('headers', $headers);
 
         $ch = curl_init();
+		
+		$s = 2;
 
         curl_setopt($ch, CURLOPT_URL, $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
