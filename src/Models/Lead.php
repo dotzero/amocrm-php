@@ -2,8 +2,6 @@
 
 namespace AmoCRM\Models;
 
-use AmoCRM\Exception;
-
 /**
  * Class Lead
  *
@@ -144,7 +142,7 @@ class Lead extends AbstractModel
      * @param int $id Уникальный идентификатор сделки
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
-     * @throws Exception
+     * @throws \AmoCRM\Exception
      */
     public function apiUpdate($id, $modified = 'now')
     {
@@ -163,9 +161,6 @@ class Lead extends AbstractModel
         $parameters['leads']['update'][] = $lead;
 
         $response = $this->postRequest('/private/api/v2/json/leads/set', $parameters);
-        if (isset($response['leads']['update']['errors'][$id])) {
-            throw new Exception($response['leads']['update']['errors'][$id]);
-        }
 
         return empty($response['leads']['update']['errors']);
     }
