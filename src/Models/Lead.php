@@ -167,6 +167,6 @@ class Lead extends AbstractModel
             throw new Exception($response['leads']['update']['errors'][$id]);
         }
 
-        return isset($response['leads']['update'][0]['id']) ? true : false;
+        return empty($response['leads']['update']['errors']);
     }
 }
