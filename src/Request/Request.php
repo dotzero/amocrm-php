@@ -203,8 +203,8 @@ class Request
         $this->printDebug('headers', $headers);
 
         $ch = curl_init();
-		
-		$s = 2;
+
+        $s = 2;
 
         curl_setopt($ch, CURLOPT_URL, $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -219,6 +219,10 @@ class Request
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
             $this->printDebug('post params', $fields);
+        }
+
+        if ($this->parameters->hasProxy()) {
+            curl_setopt($ch, CURLOPT_PROXY, $this->parameters->getProxy());
         }
 
         $result = curl_exec($ch);

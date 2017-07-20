@@ -33,6 +33,25 @@ class ParamsBag
     private $postParams = [];
 
     /**
+     * @var string|null Прокси сервер
+     */
+    private $proxy = null;
+
+    /**
+     * Добавление прокси сервера
+     *
+     * @param string $proxy Прокси сервер CURLOPT_PROXY
+     * @see http://php.net/manual/ru/function.curl-setopt.php
+     * @return $this
+     */
+    public function addProxy($proxy)
+    {
+        $this->proxy = $proxy;
+
+        return $this;
+    }
+
+    /**
      * Добавление значений параметров для авторизации
      *
      * @param string $name Название параметра
@@ -169,5 +188,25 @@ class ParamsBag
         $this->postParams = [];
 
         return $this;
+    }
+
+    /**
+     * Получить прокси сервер
+     *
+     * @return string
+     */
+    public function getProxy()
+    {
+        return $this->proxy;
+    }
+
+    /**
+     * Получение использованиея прокси сервера
+     *
+     * @return bool
+     */
+    public function hasProxy()
+    {
+        return is_string($this->proxy);
     }
 }

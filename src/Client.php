@@ -55,8 +55,9 @@ class Client
      * @param string $domain Поддомен или домен amoCRM
      * @param string $login Логин amoCRM
      * @param string $apikey Ключ пользователя amoCRM
+     * @param string $proxy Прокси сервер для отправки запроса
      */
-    public function __construct($domain, $login, $apikey)
+    public function __construct($domain, $login, $apikey, $proxy = null)
     {
         // Разернуть поддомен в полный домен
         if (strpos($domain, '.') === false) {
@@ -67,6 +68,10 @@ class Client
         $this->parameters->addAuth('domain', $domain);
         $this->parameters->addAuth('login', $login);
         $this->parameters->addAuth('apikey', $apikey);
+
+        if ($proxy) {
+            $this->parameters->addProxy($proxy);
+        }
 
         $this->fields = new Fields();
     }
