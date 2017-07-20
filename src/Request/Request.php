@@ -204,8 +204,6 @@ class Request
 
         $ch = curl_init();
 
-        $s = 2;
-
         curl_setopt($ch, CURLOPT_URL, $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
