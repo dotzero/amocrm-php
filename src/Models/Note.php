@@ -188,6 +188,6 @@ class Note extends AbstractModel
 
         $response = $this->postRequest('/private/api/v2/json/notes/set', $parameters);
 
-        return isset($response['notes']) ? true : false;
+        return empty($response['notes']['update']['errors']);
     }
 }

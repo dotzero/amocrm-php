@@ -172,6 +172,6 @@ class Task extends AbstractModel
 
         $response = $this->postRequest('/private/api/v2/json/tasks/set', $parameters);
 
-        return isset($response['tasks']) ? true : false;
+        return empty($response['tasks']['update']['errors']);
     }
 }

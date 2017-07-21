@@ -175,6 +175,6 @@ class Company extends AbstractModel
 
         $response = $this->postRequest('/private/api/v2/json/company/set', $parameters);
 
-        return isset($response['contacts']) ? true : false;
+        return empty($response['contacts']['update']['errors']);
     }
 }
