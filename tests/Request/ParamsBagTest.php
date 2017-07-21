@@ -18,6 +18,14 @@ class ParamsBagTest extends TestCase
         $this->assertCount(2, $this->params->getAuth());
     }
 
+    public function testProxy()
+    {
+        $this->params->addProxy('http://proxy.url');
+
+        $this->assertTrue($this->params->hasProxy());
+        $this->assertEquals('http://proxy.url', $this->params->getProxy());
+    }
+
     public function testGet()
     {
         $this->params->addGet('key', 'value')->addGet(['foo' => 'bar']);

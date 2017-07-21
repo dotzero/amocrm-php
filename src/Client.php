@@ -55,7 +55,7 @@ class Client
      * @param string $domain Поддомен или домен amoCRM
      * @param string $login Логин amoCRM
      * @param string $apikey Ключ пользователя amoCRM
-     * @param string $proxy Прокси сервер для отправки запроса
+     * @param string|null $proxy Прокси сервер для отправки запроса
      */
     public function __construct($domain, $login, $apikey, $proxy = null)
     {
@@ -69,7 +69,7 @@ class Client
         $this->parameters->addAuth('login', $login);
         $this->parameters->addAuth('apikey', $apikey);
 
-        if ($proxy) {
+        if ($proxy !== null) {
             $this->parameters->addProxy($proxy);
         }
 
