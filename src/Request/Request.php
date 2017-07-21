@@ -219,6 +219,10 @@ class Request
             $this->printDebug('post params', $fields);
         }
 
+        if ($this->parameters->hasProxy()) {
+            curl_setopt($ch, CURLOPT_PROXY, $this->parameters->getProxy());
+        }
+
         $result = curl_exec($ch);
         $info = curl_getinfo($ch);
         $error = curl_error($ch);
