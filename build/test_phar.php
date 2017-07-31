@@ -13,7 +13,7 @@ $models = [
     ['pipelines', '\AmoCRM\Models\Pipelines'],
     ['unsorted', '\AmoCRM\Models\Unsorted'],
     ['widgets', '\AmoCRM\Models\Widgets'],
-    ['web_hooks', '\AmoCRM\Models\WebHooks'],
+    ['web_hooks', '\AmoCRM\Models\Webhooks'],
 ];
 
 $amo = new \AmoCRM\Client('example', 'login', 'hash');

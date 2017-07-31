@@ -105,7 +105,7 @@ try {
 - Дополнительные поля ([пример](examples/custom_field.php), [документация](https://developers.amocrm.ru/rest_api/#fields))
 - Звонок ([пример](examples/call.php), [документация](https://developers.amocrm.ru/rest_api/#call))
 - Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
-- WebHooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
+- Webhooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
 - Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
 - Периоды покупателей ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
 - Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
@@ -184,11 +184,11 @@ try {
     * `addDataLead($values)` - Добавление сделки которая будет создана после одобрения заявки
     * `addDataContact($values)` - Добавление контакта или компании которая будет создана после одобрения заявки
 
-- Модель `webhooks` для работы с WebHooks
+- Модель `webhooks` для работы с Webhooks
 
-    * `apiList()` - Метод для получения списка WebHooks
-    * `apiSubscribe($url, $events = [])` - Метод для добавления WebHooks
-    * `apiUnsubscribe($url, $events = [])` - Метод для удаления WebHooks
+    * `apiList()` - Метод для получения списка Webhooks
+    * `apiSubscribe($url, $events = [])` - Метод для добавления Webhooks
+    * `apiUnsubscribe($url, $events = [])` - Метод для удаления Webhooks
 
 - Модель `pipelines` для работы с Списком воронок и этапов продаж
 
@@ -229,9 +229,9 @@ try {
     * `apiLink($links = [])` - Метод позволяет устанавливать связи между сущностями
     * `apiUnlink($links = [])` - Метод позволяет удалять связи между сущностями
 
-## Описание работы с WebHooks
+## Описание работы с Webhooks
 
-[WebHooks](https://developers.amocrm.ru/rest_api/webhooks.php) – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта, в разделе «API».
+[Webhooks](https://developers.amocrm.ru/rest_api/webhooks.php) – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта, в разделе «API».
 
 ### Список доступных уведомлений
 
