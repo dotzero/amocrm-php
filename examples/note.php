@@ -34,8 +34,8 @@ try {
     $note = $amo->note;
     $note->debug(true); // Режим отладки
     $note['element_id'] = $contactId;
-    $note['element_type'] = 1;
-    $note['note_type'] = 4;
+    $note['element_type'] = \AmoCRM\Models\Note::TYPE_CONTACT; // 1 - contact, 2 - lead
+    $note['note_type'] = \AmoCRM\Models\Note::COMMON; // @see https://developers.amocrm.ru/rest_api/notes_type.php
     $note['text'] = 'Текст примечания';
 
     $id = $note->apiAdd();
@@ -54,8 +54,8 @@ try {
     $note = $amo->note;
     $note->debug(true); // Режим отладки
     $note['element_id'] = $contactId;
-    $note['element_type'] = 1;
-    $note['note_type'] = 4;
+    $note['element_type'] = \AmoCRM\Models\Note::TYPE_CONTACT; // 1 - contact, 2 - lead
+    $note['note_type'] = \AmoCRM\Models\Note::COMMON; // @see https://developers.amocrm.ru/rest_api/notes_type.php
     $note['text'] = 'Апдейт примечания';
 
     $note->apiUpdate((int)$id, 'now');

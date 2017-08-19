@@ -32,6 +32,7 @@ class Lead extends AbstractModel
         'linked_company_id',
         'tags',
         'visitor_uid',
+        'notes',
     ];
 
     /**
@@ -73,6 +74,32 @@ class Lead extends AbstractModel
         }
 
         $this->values['tags'] = implode(',', $value);
+
+        return $this;
+    }
+
+    /**
+     * Сеттер для списка примечаний, которые появятся в сделке
+     * после принятия неразобранного
+     *
+     * @param array|Note $value Примечание или массив примечаний
+     * @return $this
+     */
+    public function setNotes($value)
+    {
+        $this->values['notes'] = [];
+
+        if ($value instanceof Note) {
+            $value = [$value];
+        }
+
+        foreach ($value as $note) {
+            if ($note instanceof Note) {
+                $note = $note->getValues();
+            }
+
+            $this->values['notes'][] = $note;
+        }
 
         return $this;
     }

@@ -85,6 +85,19 @@ class LeadTest extends TestCase
         $this->assertCount(3, $this->model['custom_fields'][2]['values']);
     }
 
+    public function testSetNotes()
+    {
+        $paramsBag = new \AmoCRM\Request\ParamsBag();
+        $note = new \AmoCRM\Models\Note($paramsBag);
+        $note['text'] = 'foobar';
+
+        $this->model['notes'] = $note;
+        $this->assertEquals($this->model['notes'], [$note->getValues()]);
+
+        $this->model['notes'] = [$note, $note];
+        $this->assertEquals($this->model['notes'], [$note->getValues(), $note->getValues()]);
+    }
+
     public function testApiList()
     {
         $parameters = [
