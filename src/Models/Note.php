@@ -29,6 +29,7 @@ class Note extends AbstractModel
         'request_id',
         'text',
         'responsible_user_id',
+        'created_user_id',
     ];
 
     /**

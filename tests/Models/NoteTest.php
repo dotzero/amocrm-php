@@ -117,6 +117,7 @@ class NoteTest extends TestCase
             ['request_id', 100, 100],
             ['text', "Line 1\nLine 2", "Line 1\nLine 2"],
             ['responsible_user_id', 100, 100],
+            ['created_user_id', 100, 100],
         ];
     }
 }
