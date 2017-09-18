@@ -25,7 +25,8 @@ class CustomField extends AbstractModel
         'disabled',
         'type',
         'element_type',
-        'origin'
+        'origin',
+        'enums',
     ];
 
     const TYPE_TEXT = 1;

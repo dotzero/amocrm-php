@@ -130,6 +130,7 @@ class CustomFieldTest extends TestCase
             ['type', 1, 1],
             ['element_type', 1, 1],
             ['origin', 'api', 'api'],
+            ['enums', [['one'], ['two']], [['one'], ['two']]],
         ];
     }
 }
