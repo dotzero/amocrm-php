@@ -26,8 +26,10 @@ class Company extends AbstractModel
         'date_create',
         'last_modified',
         'responsible_user_id',
+        'created_user_id',
         'linked_leads_id',
         'tags',
+        'modified_user_id',
     ];
 
     /**

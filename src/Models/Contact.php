@@ -26,10 +26,13 @@ class Contact extends AbstractModel
         'date_create',
         'last_modified',
         'responsible_user_id',
+        'created_user_id',
         'linked_leads_id',
         'company_name',
+        'linked_company_id',
         'tags',
         'notes',
+        'modified_user_id',
     ];
 
     /**

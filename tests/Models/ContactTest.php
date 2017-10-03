@@ -206,11 +206,14 @@ class ContactTest extends TestCase
             ['date_create', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
             ['last_modified', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
             ['responsible_user_id', 100, 100],
+            ['created_user_id', 100, 100],
             ['linked_leads_id', 100, [100]],
             ['linked_leads_id', [100, 200], [100, 200]],
             ['company_name', 'Компания', 'Компания'],
+            ['linked_company_id', 100, 100],
             ['tags', 'Tag', 'Tag'],
             ['tags', ['Tag 1', 'Tag 2'], 'Tag 1,Tag 2'],
+            ['modified_user_id', 100, 100],
         ];
     }
 }
