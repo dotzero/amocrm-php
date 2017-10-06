@@ -28,11 +28,13 @@ class Lead extends AbstractModel
         'pipeline_id',
         'price',
         'responsible_user_id',
+        'created_user_id',
         'request_id',
         'linked_company_id',
         'tags',
         'visitor_uid',
         'notes',
+        'modified_user_id',
     ];
 
     /**
