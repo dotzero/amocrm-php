@@ -22,12 +22,13 @@ class Customer extends AbstractModel
      */
     protected $fields = [
         'name',
-        'request_id',
         'main_user_id',
+        'created_by',
         'next_price',
         'periodicity',
         'tags',
         'next_date',
+        'request_id',
     ];
 
     /**
