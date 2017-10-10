@@ -23,6 +23,7 @@ class Transaction extends AbstractModel
         'customer_id',
         'date',
         'price',
+        'comment',
         'request_id',
         'next_price',
         'next_date',
