@@ -130,6 +130,7 @@ class TransactionTest extends TestCase
             ['customer_id', 100, 100],
             ['date', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
             ['price', 200, 200],
+            ['comment', 'Comment for transaction', 'Comment for transaction'],
             ['request_id', 300, 300],
             ['next_price', 400, 400],
             ['next_date', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],

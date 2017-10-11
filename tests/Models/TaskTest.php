@@ -127,6 +127,7 @@ class TaskTest extends TestCase
             ['text', "Line 1\nLine 2", "Line 1\nLine 2"],
             ['responsible_user_id', 100, 100],
             ['complete_till', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
+            ['created_user_id', 100, 100],
         ];
     }
 }

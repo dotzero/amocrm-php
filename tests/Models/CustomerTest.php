@@ -148,13 +148,14 @@ class CustomerTest extends TestCase
         return [
             // field, value, expected
             ['name', 'ФИО', 'ФИО'],
-            ['request_id', 100, 100],
             ['main_user_id', 100, 100],
+            ['created_by', 100, 100],
             ['next_price', 100, 100],
             ['periodicity', 100, 100],
             ['tags', 'Tag', 'Tag'],
             ['tags', ['Tag 1', 'Tag 2'], 'Tag 1,Tag 2'],
             ['next_date', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
+            ['request_id', 100, 100],
         ];
     }
 }

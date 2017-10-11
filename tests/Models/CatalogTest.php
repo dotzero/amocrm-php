@@ -148,6 +148,7 @@ class CatalogTest extends TestCase
         return [
             // field, value, expected
             ['name', 'Products', 'Products'],
+            ['request_id', 100, 100],
         ];
     }
 }
