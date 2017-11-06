@@ -30,6 +30,7 @@ class Unsorted extends AbstractModel
         'source_uid',
         'source_data',
         'date_create',
+        'pipeline_id',
         'data',
     ];
 
