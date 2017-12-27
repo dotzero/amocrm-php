@@ -139,6 +139,13 @@ class CatalogElementTest extends TestCase
         $this->assertEquals([1], $this->model->mockParameters['catalog_elements']['delete']);
     }
 
+    public function testApiDeleteBatch()
+    {
+        $this->assertTrue($this->model->apiDeleteBatch([1,2,3]));
+        $this->assertEquals('/private/api/v2/json/catalog_elements/set', $this->model->mockUrl);
+        $this->assertEquals([1,2,3], $this->model->mockParameters['catalog_elements']['delete']);
+    }
+
     public function fieldsProvider()
     {
         return [
