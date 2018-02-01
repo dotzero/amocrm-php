@@ -78,6 +78,15 @@ class Note extends AbstractModel
      */
     const TYPE_LEAD = 2;
 
+    /** @const int Типа задачи Компания */
+    const TYPE_COMPANY = 3;
+
+    /** @const int Типа задачи Задача */
+    const TYPE_TASK = 4;
+
+    /** @const int Типа задачи Покупатель */
+    const TYPE_CUSTOMER = 12;
+
     /**
      * Сеттер для даты создания примечания
      *

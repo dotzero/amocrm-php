@@ -36,14 +36,17 @@ class Listener
         'add_contact', // Добавить контакт
         'add_company', // Добавить компанию
         'add_customer', // Добавить покупателя
+        'add_task', // Добавить покупателя
         'update_lead', // Изменить сделку
         'update_contact', // Изменить контакт
         'update_company', // Изменить компанию
         'update_customer', // Изменить покупателя
+        'update_task', // Изменить покупателя
         'delete_lead', // Удалить сделку
         'delete_contact', // Удалить контакт
         'delete_company', // Удалить компанию
         'delete_customer', // Удалить покупателя
+        'delete_task', // Удалить задачу
         'status_lead', // Смена статуса сделки
         'responsible_lead', // Смена отв-го сделки
         'restore_contact', // Восстановить контакт
