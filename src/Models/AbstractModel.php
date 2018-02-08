@@ -4,6 +4,7 @@ namespace AmoCRM\Models;
 
 use ArrayAccess;
 use AmoCRM\Exception;
+use AmoCRM\Helpers\Format;
 use AmoCRM\Request\Request;
 
 /**
@@ -80,7 +81,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
      */
     public function offsetSet($offset, $value)
     {
-        $setter = 'set' . $this->toCamelCase($offset);
+        $setter = 'set' . Format::camelCase($offset);
 
         if (method_exists($this, $setter)) {
             return $this->$setter($value);
@@ -196,16 +197,5 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
         }
 
         return true;
-    }
-
-    /**
-     * Приведение under_score к CamelCase
-     *
-     * @param string $string Строка
-     * @return string Строка
-     */
-    private function toCamelCase($string)
-    {
-        return str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
     }
 }
