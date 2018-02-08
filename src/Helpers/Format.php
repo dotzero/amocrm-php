@@ -8,7 +8,7 @@ namespace AmoCRM\Helpers;
  * Хелпер для изменения формата данных
  *
  * @package AmoCRM\Helpers
- * @author denost <4deni.kiev@gmail.com>
+ * @author denostr <4deni.kiev@gmail.com>
  * @link https://github.com/dotzero/amocrm-php
  *
  * For the full copyright and license information, please view the LICENSE

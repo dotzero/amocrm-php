@@ -2,6 +2,8 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetDate;
+
 /**
  * Class Call
  *
@@ -17,6 +19,8 @@ namespace AmoCRM\Models;
  */
 class Call extends AbstractModel
 {
+    use SetDate;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -40,19 +44,6 @@ class Call extends AbstractModel
      * @const string Тип звонка исходящий
      */
     const TYPE_OUTBOUND = 'outbound';
-
-    /**
-     * Сеттер для даты создания звонка
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDate($date)
-    {
-        $this->values['date'] = strtotime($date);
-
-        return $this;
-    }
 
     /**
      * Добавление звонков

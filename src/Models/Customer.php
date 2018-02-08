@@ -2,6 +2,9 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetTags;
+use AmoCRM\Models\Traits\SetNextDate;
+
 /**
  * Class Customer
  *
@@ -17,6 +20,8 @@ namespace AmoCRM\Models;
  */
 class Customer extends AbstractModel
 {
+    use SetTags, SetNextDate;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -30,36 +35,6 @@ class Customer extends AbstractModel
         'next_date',
         'request_id',
     ];
-
-    /**
-     * Сеттер для даты след. покупки
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setNextDate($date)
-    {
-        $this->values['next_date'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка тегов покупателя
-     *
-     * @param int|array $value Название тегов через запятую или массив тегов
-     * @return $this
-     */
-    public function setTags($value)
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        $this->values['tags'] = implode(',', $value);
-
-        return $this;
-    }
 
     /**
      * Список покупателей
