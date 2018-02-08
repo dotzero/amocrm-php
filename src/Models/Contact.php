@@ -2,6 +2,12 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetNote;
+use AmoCRM\Models\Traits\SetTags;
+use AmoCRM\Models\Traits\SetDateCreate;
+use AmoCRM\Models\Traits\SetLastModified;
+use AmoCRM\Models\Traits\SetLinkedLeadsId;
+
 /**
  * Class Contact
  *
@@ -17,6 +23,8 @@ namespace AmoCRM\Models;
  */
 class Contact extends AbstractModel
 {
+    use SetNote, SetTags, SetDateCreate, SetLastModified, SetLinkedLeadsId;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -34,92 +42,6 @@ class Contact extends AbstractModel
         'notes',
         'modified_user_id',
     ];
-
-    /**
-     * Сеттер для даты создания контакта
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDateCreate($date)
-    {
-        $this->values['date_create'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для даты последнего изменения контакта
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setLastModified($date)
-    {
-        $this->values['last_modified'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка связанных сделок контакта
-     *
-     * @param int|array $value Номер связанной сделки или список сделок
-     * @return $this
-     */
-    public function setLinkedLeadsId($value)
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        $this->values['linked_leads_id'] = $value;
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка тегов контакта
-     *
-     * @param int|array $value Название тегов через запятую или массив тегов
-     * @return $this
-     */
-    public function setTags($value)
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        $this->values['tags'] = implode(',', $value);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка примечаний, которые появятся в контакте
-     * после принятия неразобранного
-     *
-     * @param array|Note $value Примечание или массив примечаний
-     * @return $this
-     */
-    public function setNotes($value)
-    {
-        $this->values['notes'] = [];
-
-        if ($value instanceof Note) {
-            $value = [$value];
-        }
-
-        foreach ($value as $note) {
-            if ($note instanceof Note) {
-                $note = $note->getValues();
-            }
-
-            $this->values['notes'][] = $note;
-        }
-
-        return $this;
-    }
 
     /**
      * Список контактов

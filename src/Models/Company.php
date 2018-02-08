@@ -2,6 +2,11 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetTags;
+use AmoCRM\Models\Traits\SetDateCreate;
+use AmoCRM\Models\Traits\SetLastModified;
+use AmoCRM\Models\Traits\SetLinkedLeadsId;
+
 /**
  * Class Company
  *
@@ -17,6 +22,8 @@ namespace AmoCRM\Models;
  */
 class Company extends AbstractModel
 {
+    use SetTags, SetDateCreate, SetLastModified, SetLinkedLeadsId;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -31,66 +38,6 @@ class Company extends AbstractModel
         'tags',
         'modified_user_id',
     ];
-
-    /**
-     * Сеттер для даты создания компании
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDateCreate($date)
-    {
-        $this->values['date_create'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для даты последнего изменения компании
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setLastModified($date)
-    {
-        $this->values['last_modified'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка связанных сделок компании
-     *
-     * @param int|array $value Номер связанной сделки или список сделок
-     * @return $this
-     */
-    public function setLinkedLeadsId($value)
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        $this->values['linked_leads_id'] = $value;
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка тегов компании
-     *
-     * @param int|array $value Название тегов через запятую или массив тегов
-     * @return $this
-     */
-    public function setTags($value)
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        $this->values['tags'] = implode(',', $value);
-
-        return $this;
-    }
 
     /**
      * Список компаний

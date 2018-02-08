@@ -2,6 +2,11 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetNote;
+use AmoCRM\Models\Traits\SetTags;
+use AmoCRM\Models\Traits\SetDateCreate;
+use AmoCRM\Models\Traits\SetLastModified;
+
 /**
  * Class Lead
  *
@@ -17,6 +22,8 @@ namespace AmoCRM\Models;
  */
 class Lead extends AbstractModel
 {
+    use SetNote, SetTags, SetDateCreate, SetLastModified;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -36,75 +43,6 @@ class Lead extends AbstractModel
         'notes',
         'modified_user_id',
     ];
-
-    /**
-     * Сеттер для даты создания сделки
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDateCreate($date)
-    {
-        $this->values['date_create'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для даты последнего изменения сделки
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setLastModified($date)
-    {
-        $this->values['last_modified'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка тегов сделки
-     *
-     * @param int|array $value Название тегов через запятую или массив тегов
-     * @return $this
-     */
-    public function setTags($value)
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        $this->values['tags'] = implode(',', $value);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка примечаний, которые появятся в сделке
-     * после принятия неразобранного
-     *
-     * @param array|Note $value Примечание или массив примечаний
-     * @return $this
-     */
-    public function setNotes($value)
-    {
-        $this->values['notes'] = [];
-
-        if ($value instanceof Note) {
-            $value = [$value];
-        }
-
-        foreach ($value as $note) {
-            if ($note instanceof Note) {
-                $note = $note->getValues();
-            }
-
-            $this->values['notes'][] = $note;
-        }
-
-        return $this;
-    }
 
     /**
      * Список сделок
