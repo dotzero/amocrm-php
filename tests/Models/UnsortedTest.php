@@ -230,6 +230,7 @@ class UnsortedTest extends TestCase
             ['source_uid', null, null],
             ['source_uid', '06ea27be-b26e-4ce4-8c20-cb4261a65752', '06ea27be-b26e-4ce4-8c20-cb4261a65752'],
             ['date_create', '2016-04-01 00:00:00', strtotime('2016-04-01 00:00:00')],
+            ['pipeline_id', 100, 100],
         ];
     }
 }
