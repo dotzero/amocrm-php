@@ -49,6 +49,7 @@ class Note extends AbstractModel
         self::CALL_OUT => 'Исходящий звонок',
         self::COMPANY_CREATED => 'Компания создана',
         self::TASK_RESULT => 'Результат по задаче',
+        self::SYSTEM => 'Системное сообщение',
         self::SMS_IN => 'Входящее смс',
         self::SMS_OUT => 'Исходящее смс',
     ];
@@ -65,6 +66,7 @@ class Note extends AbstractModel
     const CALL_OUT = 11;
     const COMPANY_CREATED = 12;
     const TASK_RESULT = 13;
+    const SYSTEM = 25;
     const SMS_IN = 102;
     const SMS_OUT = 103;
 
