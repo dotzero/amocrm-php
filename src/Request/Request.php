@@ -37,6 +37,11 @@ class Request
     private $parameters = null;
 
     /**
+     * @var CurlHandle Экземпляр CurlHandle
+     */
+    private $curlHandle;
+
+    /**
      * @var int|null Последний полученный HTTP код
      */
     private $lastHttpCode = null;
@@ -49,16 +54,13 @@ class Request
     /**
      * Request constructor
      *
-     * @param ParamsBag $parameters Экземпляр ParamsBag для хранения аргументов
-     * @throws NetworkException
+     * @param ParamsBag       $parameters Экземпляр ParamsBag для хранения аргументов
+     * @param CurlHandle|null $curlHandle Экземпляр CurlHandle для повторного использования
      */
-    public function __construct(ParamsBag $parameters)
+    public function __construct(ParamsBag $parameters, CurlHandle $curlHandle = null)
     {
-        if (!function_exists('curl_init')) {
-            throw new NetworkException('The cURL PHP extension was not loaded');
-        }
-
         $this->parameters = $parameters;
+        $this->curlHandle = $curlHandle !== null ? $curlHandle : new CurlHandle();
     }
 
     /**
@@ -149,7 +151,10 @@ class Request
      */
     protected function prepareHeaders($modified = null)
     {
-        $headers = ['Content-Type: application/json'];
+        $headers = [
+            'Connection: keep-alive',
+            'Content-Type: application/json',
+        ];
 
         if ($modified !== null) {
             if (is_int($modified)) {
@@ -202,13 +207,14 @@ class Request
         $this->printDebug('url', $endpoint);
         $this->printDebug('headers', $headers);
 
-        $ch = curl_init();
+        $ch = $this->curlHandle->open();
 
         curl_setopt($ch, CURLOPT_URL, $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_ENCODING, '');
 
         if ($this->parameters->hasPost()) {
             $fields = json_encode([
@@ -228,7 +234,7 @@ class Request
         $error = curl_error($ch);
         $errno = curl_errno($ch);
 
-        curl_close($ch);
+        $this->curlHandle->close();
 
         $this->lastHttpCode = $info['http_code'];
         $this->lastHttpResponse = $result;
