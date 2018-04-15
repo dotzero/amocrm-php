@@ -8,6 +8,7 @@
 [![License](https://poser.pugx.org/dotzero/amocrm/license)](https://packagist.org/packages/dotzero/amocrm)
 [![Code Coverage](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dotzero/amocrm-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dotzero/amocrm-php/?branch=master)
+[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/dotzero)
 
 Удобный и быстрый клиент на PHP для работы с API [amoCRM](https://www.amocrm.ru/), реализующий все методы оригинального API.
 
@@ -16,6 +17,10 @@
 Данный пакет взаимодействует со старой версией API. Но это не значит, что это API более не поддерживается. Это полностью рабочее API, которое не собираются удалять, просто ссылки более не актуальные, к сожалению на данный момент единственным решением будет просмотр документации тут:
 
 https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/
+
+Переход на новую версию API не быстрый и займет много времени.
+
+[![Say Thanks!](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/dotzero)
 
 ## Установка
 
@@ -100,24 +105,24 @@ try {
 
 ## Список поддерживаемых моделей
 
-- Аккаунт ([пример](examples/account.php), [документация](https://developers.amocrm.ru/rest_api/#account))
-- Контакт ([пример](examples/contact.php), [документация](https://developers.amocrm.ru/rest_api/#contact))
-- Сделка ([пример](examples/lead.php), [документация](https://developers.amocrm.ru/rest_api/#lead))
-- Компания ([пример](examples/company.php), [документация](https://developers.amocrm.ru/rest_api/#company))
-- Покупатель ([пример](examples/customer.php), [документация](https://developers.amocrm.ru/rest_api/#customer))
-- Транзакция ([пример](examples/transaction.php), [документация](https://developers.amocrm.ru/rest_api/#transaction))
-- Задача ([пример](examples/task.php), [документация](https://developers.amocrm.ru/rest_api/#tasks))
-- Событие ([пример](examples/note.php), [документация](https://developers.amocrm.ru/rest_api/#event))
-- Дополнительные поля ([пример](examples/custom_field.php), [документация](https://developers.amocrm.ru/rest_api/#fields))
-- Звонок ([пример](examples/call.php), [документация](https://developers.amocrm.ru/rest_api/#call))
-- Неразобранное ([пример](examples/unsorted.php), [документация](https://developers.amocrm.ru/rest_api/#unsorted))
-- Webhooks ([пример](examples/webhooks.php), [документация](https://developers.amocrm.ru/rest_api/#webhooks))
-- Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://developers.amocrm.ru/rest_api/#pipelines))
-- Периоды покупателей ([пример](examples/customers_periods.php), [документация](https://developers.amocrm.ru/rest_api/#customers_periods))
-- Виджеты ([пример](examples/widgets.php), [документация](https://developers.amocrm.ru/rest_api/#widgets))
-- Каталоги ([пример](examples/catalog.php), [документация](https://developers.amocrm.ru/rest_api/#catalogs))
-- Элементы каталогов ([пример](examples/catalog_element.php), [документация](https://developers.amocrm.ru/rest_api/#catalog_elements))
-- Связи ([пример](examples/links.php), [документация](https://developers.amocrm.ru/rest_api/#links))
+- Аккаунт ([пример](examples/account.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#account))
+- Контакт ([пример](examples/contact.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#contact))
+- Сделка ([пример](examples/lead.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#lead))
+- Компания ([пример](examples/company.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#company))
+- Покупатель ([пример](examples/customer.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#customer))
+- Транзакция ([пример](examples/transaction.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#transaction))
+- Задача ([пример](examples/task.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#tasks))
+- Событие ([пример](examples/note.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#event))
+- Дополнительные поля ([пример](examples/custom_field.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#fields))
+- Звонок ([пример](examples/call.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#call))
+- Неразобранное ([пример](examples/unsorted.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#unsorted))
+- Webhooks ([пример](examples/webhooks.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#webhooks))
+- Воронки и этапы продаж ([пример](examples/pipelines.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#pipelines))
+- Периоды покупателей ([пример](examples/customers_periods.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#customers_periods))
+- Виджеты ([пример](examples/widgets.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#widgets))
+- Каталоги ([пример](examples/catalog.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#catalogs))
+- Элементы каталогов ([пример](examples/catalog_element.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#catalog_elements))
+- Связи ([пример](examples/links.php), [документация](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/#links))
 
 ## Описание методов моделей
 
@@ -237,7 +242,7 @@ try {
 
 ## Описание работы с Webhooks
 
-[Webhooks](https://developers.amocrm.ru/rest_api/webhooks.php) – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта, в разделе «API».
+[Webhooks](https://web.archive.org/web/20170801033744/https://developers.amocrm.ru/rest_api/webhooks.php) – это уведомление сторонних приложений посредством отправки уведомлений о событиях, произошедших в amoCRM. Вы можете настроить HTTP адреса ваших приложений и связанные с ними рабочие правила в настройках своего аккаунта, в разделе «API».
 
 ### Список доступных уведомлений
 
