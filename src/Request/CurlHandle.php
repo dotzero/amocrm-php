@@ -25,7 +25,7 @@ class CurlHandle
     private $handle;
 
     /**
-     * CurlHandle destructor.
+     * Закрывает обработчик cURL
      */
     public function __destruct()
     {
@@ -35,11 +35,10 @@ class CurlHandle
     }
 
     /**
-     * Open cURL handle.
-     *
-     * @throws NetworkException
+     * Возвращает повторно используемый обработчик cURL или создает новый
      *
      * @return resource
+     * @throws NetworkException
      */
     public function open()
     {
@@ -56,7 +55,7 @@ class CurlHandle
     }
 
     /**
-     * Close cURL handle.
+     * Сбрасывает настройки обработчика cURL
      */
     public function close()
     {
