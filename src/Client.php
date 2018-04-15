@@ -6,6 +6,7 @@ use AmoCRM\Models\ModelInterface;
 use AmoCRM\Request\CurlHandle;
 use AmoCRM\Request\ParamsBag;
 use AmoCRM\Helpers\Fields;
+use AmoCRM\Helpers\Format;
 
 /**
  * Class Client
@@ -93,7 +94,7 @@ class Client
      */
     public function __get($name)
     {
-        $classname = '\\AmoCRM\\Models\\' . $this->toCamelCase($name);
+        $classname = '\\AmoCRM\\Models\\' . Format::camelCase($name);
 
         if (!class_exists($classname)) {
             throw new ModelException('Model not exists: ' . $name);
@@ -103,16 +104,5 @@ class Client
         $this->parameters->clearGet()->clearPost();
 
         return new $classname($this->parameters, $this->curlHandle);
-    }
-
-    /**
-     * Приведение under_score к CamelCase
-     *
-     * @param string $string Строка
-     * @return string Строка
-     */
-    private function toCamelCase($string)
-    {
-        return str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
     }
 }

@@ -2,6 +2,9 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetDateCreate;
+use AmoCRM\Models\Traits\SetLastModified;
+
 /**
  * Class Note
  *
@@ -17,6 +20,8 @@ namespace AmoCRM\Models;
  */
 class Note extends AbstractModel
 {
+    use SetDateCreate, SetLastModified;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -88,32 +93,6 @@ class Note extends AbstractModel
 
     /** @const int Типа задачи Покупатель */
     const TYPE_CUSTOMER = 12;
-
-    /**
-     * Сеттер для даты создания примечания
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDateCreate($date)
-    {
-        $this->values['date_create'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для даты последнего изменения примечания
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setLastModified($date)
-    {
-        $this->values['last_modified'] = strtotime($date);
-
-        return $this;
-    }
 
     /**
      * Список примечаний

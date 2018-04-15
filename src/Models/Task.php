@@ -2,6 +2,9 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetDateCreate;
+use AmoCRM\Models\Traits\SetLastModified;
+
 /**
  * Class Task
  *
@@ -17,6 +20,8 @@ namespace AmoCRM\Models;
  */
 class Task extends AbstractModel
 {
+    use SetDateCreate, SetLastModified;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -43,32 +48,6 @@ class Task extends AbstractModel
      * @const int Типа задачи Сделка
      */
     const TYPE_LEAD = 2;
-
-    /**
-     * Сеттер для даты создания задачи
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDateCreate($date)
-    {
-        $this->values['date_create'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для даты последнего изменения задачи
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setLastModified($date)
-    {
-        $this->values['last_modified'] = strtotime($date);
-
-        return $this;
-    }
 
     /**
      * Сеттер для дата до которой необходимо завершить задачу

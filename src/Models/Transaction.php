@@ -2,6 +2,9 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetDate;
+use AmoCRM\Models\Traits\SetNextDate;
+
 /**
  * Class Transaction
  *
@@ -16,6 +19,8 @@ namespace AmoCRM\Models;
  */
 class Transaction extends AbstractModel
 {
+    use SetDate, SetNextDate;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
@@ -28,32 +33,6 @@ class Transaction extends AbstractModel
         'next_price',
         'next_date',
     ];
-
-    /**
-     * Сеттер для даты совершенной покупки
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDate($date)
-    {
-        $this->values['date'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для ожидаемой даты покупателя
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setNextDate($date)
-    {
-        $this->values['next_date'] = strtotime($date);
-
-        return $this;
-    }
 
     /**
      * Список транзакций

@@ -2,6 +2,8 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetDateCreate;
+
 /**
  * Class Unsorted
  *
@@ -17,6 +19,8 @@ namespace AmoCRM\Models;
  */
 class Unsorted extends AbstractModel
 {
+    use SetDateCreate;
+
     /**
      * @var bool Использовать устаревшую схему авторизации
      */
@@ -48,19 +52,6 @@ class Unsorted extends AbstractModel
      * @const string Источник заявки - web-формы
      */
     const TYPE_FORMS = 'forms';
-
-    /**
-     * Сеттер для даты создания заявки
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDateCreate($date)
-    {
-        $this->values['date_create'] = strtotime($date);
-
-        return $this;
-    }
 
     /**
      * Список неразобранных заявок
