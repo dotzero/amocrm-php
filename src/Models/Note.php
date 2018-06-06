@@ -141,7 +141,12 @@ class Note extends AbstractModel
 
         if (isset($response['notes']['add'])) {
             $result = array_map(function($item) {
-                return $item['id'];
+				if(!empty($item['id']))
+					return $item['id'];
+				elseif(!empty($item['error']))
+					throw new Exception($item['error'],filter_var(mb_strstr($item['error'],".",true), FILTER_SANITIZE_NUMBER_INT));
+				else
+					return [];
             }, $response['notes']['add']);
         } else {
             return [];

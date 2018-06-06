@@ -98,7 +98,12 @@ class CustomField extends AbstractModel
 
         if (isset($response['fields']['add'])) {
             $result = array_map(function ($item) {
-                return $item['id'];
+				if(!empty($item['id']))
+					return $item['id'];
+				elseif(!empty($item['error']))
+					throw new Exception($item['error'],filter_var(mb_strstr($item['error'],".",true), FILTER_SANITIZE_NUMBER_INT));
+				else
+					return [];
             }, $response['fields']['add']);
         } else {
             return [];
