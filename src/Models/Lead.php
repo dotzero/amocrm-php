@@ -2,6 +2,11 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Traits\SetNote;
+use AmoCRM\Models\Traits\SetTags;
+use AmoCRM\Models\Traits\SetDateCreate;
+use AmoCRM\Models\Traits\SetLastModified;
+
 /**
  * Class Lead
  *
@@ -17,10 +22,13 @@ namespace AmoCRM\Models;
  */
 class Lead extends AbstractModel
 {
+    use SetNote, SetTags, SetDateCreate, SetLastModified;
+
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
     protected $fields = [
+        'id',
         'name',
         'date_create',
         'last_modified',
@@ -36,75 +44,6 @@ class Lead extends AbstractModel
         'notes',
         'modified_user_id',
     ];
-
-    /**
-     * Сеттер для даты создания сделки
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setDateCreate($date)
-    {
-        $this->values['date_create'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для даты последнего изменения сделки
-     *
-     * @param string $date Дата в произвольном формате
-     * @return $this
-     */
-    public function setLastModified($date)
-    {
-        $this->values['last_modified'] = strtotime($date);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка тегов сделки
-     *
-     * @param int|array $value Название тегов через запятую или массив тегов
-     * @return $this
-     */
-    public function setTags($value)
-    {
-        if (!is_array($value)) {
-            $value = [$value];
-        }
-
-        $this->values['tags'] = implode(',', $value);
-
-        return $this;
-    }
-
-    /**
-     * Сеттер для списка примечаний, которые появятся в сделке
-     * после принятия неразобранного
-     *
-     * @param array|Note $value Примечание или массив примечаний
-     * @return $this
-     */
-    public function setNotes($value)
-    {
-        $this->values['notes'] = [];
-
-        if ($value instanceof Note) {
-            $value = [$value];
-        }
-
-        foreach ($value as $note) {
-            if ($note instanceof Note) {
-                $note = $note->getValues();
-            }
-
-            $this->values['notes'][] = $note;
-        }
-
-        return $this;
-    }
 
     /**
      * Список сделок
@@ -168,14 +107,16 @@ class Lead extends AbstractModel
      * Метод позволяет обновлять данные по уже существующим сделкам
      *
      * @link https://developers.amocrm.ru/rest_api/leads_set.php
-     * @param int $id Уникальный идентификатор сделки
+     * @param int $leads Массив с данными для обновления
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
      * @throws \AmoCRM\Exception
      */
-    public function apiUpdate($id, $modified = 'now')
+    public function apiUpdate($leads = [], $modified = 'now')
     {
-        $this->checkId($id);
+        if (empty($leads)) {
+            $leads = [$this];
+        }
 
         $parameters = [
             'leads' => [
@@ -183,11 +124,10 @@ class Lead extends AbstractModel
             ],
         ];
 
-        $lead = $this->getValues();
-        $lead['id'] = $id;
-        $lead['last_modified'] = strtotime($modified);
-
-        $parameters['leads']['update'][] = $lead;
+        foreach ($leads as $key => $lead) {
+            $parameters['leads']['update'][$key] = $lead->getValues();
+            $parameters['leads']['update'][$key]['last_modified'] = strtotime($modified);
+        }
 
         $response = $this->postRequest('/private/api/v2/json/leads/set', $parameters);
 
