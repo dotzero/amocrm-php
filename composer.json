@@ -1,12 +1,16 @@
 {
-    "name": "dotzero/amocrm",
-    "description": "Удобный и быстрый клиент для работы с API amoCRM",
+    "name": "shadoll/amocrm",
+    "description": "Удобный и быстрый клиент для работы с API amoCRM - shadoll fork",
     "license": "MIT",
     "keywords": ["amocrm", "crm", "api"],
     "authors": [
         {
             "name": "dotzero",
             "email": "mail@dotzero.ru"
+        },
+        {
+            "name": "sHa",
+            "email": "sha@shadoll.com"
         }
     ],
     "require": {
