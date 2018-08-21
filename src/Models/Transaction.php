@@ -2,6 +2,7 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Exception;
 use AmoCRM\Models\Traits\SetDate;
 use AmoCRM\Models\Traits\SetNextDate;
 

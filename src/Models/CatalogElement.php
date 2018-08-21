@@ -2,6 +2,8 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Exception;
+
 /**
  * Class CatalogElement
  *

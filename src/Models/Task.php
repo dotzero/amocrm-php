@@ -2,6 +2,7 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Exception;
 use AmoCRM\Models\Traits\SetDateCreate;
 use AmoCRM\Models\Traits\SetLastModified;
 

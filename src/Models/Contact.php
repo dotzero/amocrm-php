@@ -2,6 +2,7 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Exception;
 use AmoCRM\Models\Traits\SetNote;
 use AmoCRM\Models\Traits\SetTags;
 use AmoCRM\Models\Traits\SetDateCreate;
