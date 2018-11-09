@@ -320,6 +320,6 @@ class Request
         if(!is_dir($log_dir)) {
             mkdir($log_dir);
         }
-        file_put_contents($log_dir."/amo_requests.log",microtime(true)." | ".$timestamp." ".strtoupper($entity)." ".$value. PHP_EOL);
+        file_put_contents($log_dir."/amo_requests.log",microtime(true)." | ".$timestamp." ".strtoupper($entity)." ".$value. PHP_EOL, FILE_APPEND | LOCK_EX);
     }
 }
