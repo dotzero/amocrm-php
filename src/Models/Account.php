@@ -2,6 +2,8 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Models\Cache;
+
 /**
  * Class Account
  *
@@ -32,7 +34,11 @@ class Account extends AbstractModel
      */
     public function apiCurrent($short = false, $parameters = [])
     {
-        $result = $this->getRequest('/private/api/v2/json/accounts/current', $parameters);
+        $result = (new Cache)->getCache('accounts_current');
+        if(!$result){
+            $result = $this->getRequest('/private/api/v2/json/accounts/current', $parameters);
+            (new Cache)->setCache('accounts_current',$result);
+        }
 
         return $short ? $this->getShorted($result['account']) : $result['account'];
     }

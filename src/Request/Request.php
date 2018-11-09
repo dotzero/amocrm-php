@@ -204,6 +204,8 @@ class Request
         $headers = $this->prepareHeaders($modified);
         $endpoint = $this->prepareEndpoint($url);
 
+        $this->logRequest($endpoint, 'REQUEST');
+
         $this->printDebug('url', $endpoint);
         $this->printDebug('headers', $headers);
 
@@ -310,5 +312,14 @@ class Request
         }
 
         return $line;
+    }
+
+    protected function logRequest($value, $entity=""){
+        $timestamp = gmdate("Y.m.d H:i:s", time());
+        $log_dir = defined('LOG_DIR')?LOG_DIR:sys_get_temp_dir();
+        if(!is_dir($log_dir)) {
+            mkdir($log_dir);
+        }
+        file_put_contents($log_dir."/amo_requests.log",microtime(true)." | ".$timestamp." ".strtoupper($entity)." ".$value. PHP_EOL);
     }
 }
