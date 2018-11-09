@@ -315,11 +315,11 @@ class Request
     }
 
     protected function logRequest($value, $entity=""){
-        $timestamp = gmdate("Y.m.d H:i:s", time());
+        $timestamp = gmdate("Y-m-d H:i:s", time());
         $log_dir = defined('LOG_DIR')?LOG_DIR:sys_get_temp_dir();
         if(!is_dir($log_dir)) {
             mkdir($log_dir);
         }
-        file_put_contents($log_dir."/amo_requests.log",microtime(true)." | ".$timestamp." ".strtoupper($entity)." ".$value. PHP_EOL, FILE_APPEND | LOCK_EX);
+        file_put_contents($log_dir."/amo_requests.log"," [".$timestamp."] ".microtime(true)." | ".strtoupper($entity)." ".$value. PHP_EOL, FILE_APPEND | LOCK_EX);
     }
 }
