@@ -104,7 +104,7 @@ class Contact extends AbstractModel
      *
      * Метод позволяет обновлять данные по уже существующим контактам
      *
-     * @link https://developers.amocrm.ru/rest_api/contacts_set.php
+     * @link https://web.archive.org/web/20140903111912/https://developers.amocrm.ru/rest_api/contacts_set.php
      * @param int $id Уникальный идентификатор контакта
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
@@ -114,22 +114,50 @@ class Contact extends AbstractModel
     {
         $this->checkId($id);
 
+        $contact = $this->getValues();
+        $contact['id'] = $id;
+        $contact['last_modified'] = strtotime($modified);
+
+        return $this->apiUpdateList([$contact]);
+    }
+
+    /**
+     * Пакетное обновление контактов
+     *
+     * @link https://web.archive.org/web/20140903111912/https://developers.amocrm.ru/rest_api/contacts_set.php
+     * @param \AmoCRM\Models\Contact[]|array[] $contacts массив контактов для обновления
+     * @param string $modified
+     * @return bool
+     * @throws \AmoCRM\Exception
+     * @throws \AmoCRM\NetworkException
+     */
+    public function apiUpdateList($contacts = [], $modified = 'now')
+    {
         $parameters = [
             'contacts' => [
                 'update' => [],
             ],
         ];
 
-        $contact = $this->getValues();
-        $contact['id'] = $id;
-        $contact['last_modified'] = strtotime($modified);
+        /** @var \AmoCRM\Models\Contact|array $contact */
+        foreach ($contacts as $contact) {
+            if ($contact instanceof Contact) {
+                $contact = $contact->getValues();
+            }
+            $contact['id'] = isset($contact['id']) ? $contact['id'] : null;
+            $contact['last_modified'] = isset($contact['last_modified'])
+                ? $contact['last_modified']
+                : strtotime($modified);
 
-        $parameters['contacts']['update'][] = $contact;
+            $this->checkId($contact['id']);
+            $parameters['contacts']['update'][] = $contact;
+        }
 
         $response = $this->postRequest('/private/api/v2/json/contacts/set', $parameters);
 
         return empty($response['contacts']['update']['errors']);
     }
+
 
     /**
      * Связи между сделками и контактами
