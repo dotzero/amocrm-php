@@ -143,4 +143,35 @@ class CatalogElement extends AbstractModel
 
         return empty($response['catalog_elements']['delete']['errors']);
     }
+
+    /**
+     * Удаление элементов каталога
+     *
+     * Метод позволяет удалять данные по уже существующим элементам каталога
+     *
+     * @link https://developers.amocrm.com/rest_api/catalog_elements/set.php
+     * @param array $ids Уникальные идентификаторы элементов каталога
+     * @return bool Флаг успешности выполнения запроса
+     * @throws \AmoCRM\Exception
+     */
+    public function apiDeleteBatch(array $ids)
+    {
+        array_walk($ids, function($id){
+            $this->checkId($id);
+        });
+
+        $parameters = [
+            'catalog_elements' => [
+                'delete' => $ids,
+            ],
+        ];
+
+        $response = $this->postRequest('/private/api/v2/json/catalog_elements/set', $parameters);
+
+        if (!isset($response['catalog_elements']['delete']['errors'])) {
+            return false;
+        }
+
+        return empty($response['catalog_elements']['delete']['errors']);
+    }
 }

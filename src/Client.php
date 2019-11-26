@@ -3,6 +3,7 @@
 namespace AmoCRM;
 
 use AmoCRM\Models\ModelInterface;
+use AmoCRM\Request\CurlHandle;
 use AmoCRM\Request\ParamsBag;
 use AmoCRM\Helpers\Fields;
 use AmoCRM\Helpers\Format;
@@ -51,6 +52,11 @@ class Client
     public $parameters = null;
 
     /**
+     * @var CurlHandle Экземпляр CurlHandle для повторного использования
+     */
+    private $curlHandle;
+
+    /**
      * Client constructor
      *
      * @param string $domain Поддомен или домен amoCRM
@@ -75,6 +81,8 @@ class Client
         }
 
         $this->fields = new Fields();
+
+        $this->curlHandle = new CurlHandle();
     }
 
     /**
@@ -95,6 +103,6 @@ class Client
         // Чистим GET и POST от предыдущих вызовов
         $this->parameters->clearGet()->clearPost();
 
-        return new $classname($this->parameters);
+        return new $classname($this->parameters, $this->curlHandle);
     }
 }

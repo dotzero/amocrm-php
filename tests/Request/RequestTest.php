@@ -90,15 +90,15 @@ class RequestTest extends TestCase
 
         $actual = $this->invokeMethod($this->request, 'prepareHeaders');
 
-        $this->assertCount(1, $actual);
+        $this->assertCount(2, $actual);
         $this->assertContains('Content-Type: application/json', $actual);
 
         $actual = $this->invokeMethod($this->request, 'prepareHeaders', [$dt]);
-        $this->assertCount(2, $actual);
+        $this->assertCount(3, $actual);
         $this->assertContains('IF-MODIFIED-SINCE: Mon, 02 Jan 2017 12:30:00 +0000', $actual);
 
         $actual = $this->invokeMethod($this->request, 'prepareHeaders', [$ts]);
-        $this->assertCount(2, $actual);
+        $this->assertCount(3, $actual);
         $this->assertContains('IF-MODIFIED-SINCE: 1483360200', $actual);
     }
 
