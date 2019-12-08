@@ -183,6 +183,7 @@ class LeadTest extends TestCase
             ['tags', ['Tag 1', 'Tag 2'], 'Tag 1,Tag 2'],
             ['visitor_uid', '12345678-52d2-44c2-9e16-ba0052d9f6d6', '12345678-52d2-44c2-9e16-ba0052d9f6d6'],
             ['modified_user_id', 100, 100],
+            ['loss_reason_id', 100, 100],
         ];
     }
 }
