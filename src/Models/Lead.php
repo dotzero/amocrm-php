@@ -28,6 +28,7 @@ class Lead extends AbstractModel
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
     protected $fields = [
+        'id',
         'name',
         'date_create',
         'last_modified',
@@ -107,14 +108,16 @@ class Lead extends AbstractModel
      * Метод позволяет обновлять данные по уже существующим сделкам
      *
      * @link https://developers.amocrm.ru/rest_api/leads_set.php
-     * @param int $id Уникальный идентификатор сделки
+     * @param int $leads Массив с данными для обновления
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
      * @throws \AmoCRM\Exception
      */
-    public function apiUpdate($id, $modified = 'now')
+    public function apiUpdate($leads = [], $modified = 'now')
     {
-        $this->checkId($id);
+        if (empty($leads)) {
+            $leads = [$this];
+        }
 
         $parameters = [
             'leads' => [
@@ -122,11 +125,10 @@ class Lead extends AbstractModel
             ],
         ];
 
-        $lead = $this->getValues();
-        $lead['id'] = $id;
-        $lead['last_modified'] = strtotime($modified);
-
-        $parameters['leads']['update'][] = $lead;
+        foreach ($leads as $key => $lead) {
+            $parameters['leads']['update'][$key] = $lead->getValues();
+            $parameters['leads']['update'][$key]['last_modified'] = strtotime($modified);
+        }
 
         $response = $this->postRequest('/private/api/v2/json/leads/set', $parameters);
 
