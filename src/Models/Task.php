@@ -137,18 +137,45 @@ class Task extends AbstractModel
     {
         $this->checkId($id);
 
+        $task = $this->getValues();
+        $task['id'] = $id;
+        $task['text'] = $text;
+        $task['last_modified'] = strtotime($modified);
+
+        return $this->apiUpdateList([$task]);
+    }
+
+    /**
+     * Пакетное обновление задач
+     *
+     * @link https://web.archive.org/web/20140903175023/https://developers.amocrm.ru/rest_api/tasks_set.php
+     * @param \AmoCRM\Models\Task[]|array[] $tasks массив задач для обновления
+     * @param string $modified
+     * @return bool
+     * @throws \AmoCRM\Exception
+     * @throws \AmoCRM\NetworkException
+     */
+    public function apiUpdateList($tasks = [], $modified = 'now')
+    {
         $parameters = [
             'tasks' => [
                 'update' => [],
             ],
         ];
 
-        $task = $this->getValues();
-        $task['id'] = $id;
-        $task['text'] = $text;
-        $task['last_modified'] = strtotime($modified);
+        /** @var \AmoCRM\Models\Task|array $task */
+        foreach ($tasks as $task) {
+            if ($task instanceof Task) {
+                $task = $task->getValues();
+            }
+            $task['id'] = isset($task['id']) ? $task['id'] : null;
+            $task['last_modified'] = isset($task['last_modified'])
+                ? $task['last_modified']
+                : strtotime($modified);
 
-        $parameters['tasks']['update'][] = $task;
+            $this->checkId($task['id']);
+            $parameters['tasks']['update'][] = $task;
+        }
 
         $response = $this->postRequest('/private/api/v2/json/tasks/set', $parameters);
 

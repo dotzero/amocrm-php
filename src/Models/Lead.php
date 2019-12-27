@@ -106,7 +106,7 @@ class Lead extends AbstractModel
      *
      * Метод позволяет обновлять данные по уже существующим сделкам
      *
-     * @link https://developers.amocrm.ru/rest_api/leads_set.php
+     * @link https://web.archive.org/web/20140903201937/https://developers.amocrm.ru/rest_api/leads_set.php
      * @param int $id Уникальный идентификатор сделки
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
@@ -116,17 +116,44 @@ class Lead extends AbstractModel
     {
         $this->checkId($id);
 
+        $lead = $this->getValues();
+        $lead['id'] = $id;
+        $lead['last_modified'] = strtotime($modified);
+
+        return $this->apiUpdateList([$lead]);
+    }
+
+    /**
+     * Пакетное обновление сделок
+     *
+     * @link https://web.archive.org/web/20140903201937/https://developers.amocrm.ru/rest_api/leads_set.php
+     * @param \AmoCRM\Models\Lead[]|array[] $leads массив сделок для обновления
+     * @param string $modified
+     * @return bool
+     * @throws \AmoCRM\Exception
+     * @throws \AmoCRM\NetworkException
+     */
+    public function apiUpdateList($leads = [], $modified = 'now')
+    {
         $parameters = [
             'leads' => [
                 'update' => [],
             ],
         ];
 
-        $lead = $this->getValues();
-        $lead['id'] = $id;
-        $lead['last_modified'] = strtotime($modified);
+        /** @var \AmoCRM\Models\Lead|array $lead */
+        foreach ($leads as $lead) {
+            if ($lead instanceof Lead) {
+                $lead = $lead->getValues();
+            }
+            $lead['id'] = isset($lead['id']) ? $lead['id'] : null;
+            $lead['last_modified'] = isset($lead['last_modified'])
+                ? $lead['last_modified']
+                : strtotime($modified);
 
-        $parameters['leads']['update'][] = $lead;
+            $this->checkId($lead['id']);
+            $parameters['leads']['update'][] = $lead;
+        }
 
         $response = $this->postRequest('/private/api/v2/json/leads/set', $parameters);
 

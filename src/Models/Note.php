@@ -155,7 +155,7 @@ class Note extends AbstractModel
      *
      * Метод позволяет обновлять данные по уже существующим примечаниям
      *
-     * @link https://developers.amocrm.ru/rest_api/notes_set.php
+     * @link https://web.archive.org/web/20140903171813/https://developers.amocrm.ru/rest_api/notes_set.php
      * @param int $id Уникальный идентификатор примечания
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
@@ -165,17 +165,45 @@ class Note extends AbstractModel
     {
         $this->checkId($id);
 
+        $note = $this->getValues();
+        $note['id'] = $id;
+        $note['last_modified'] = strtotime($modified);
+
+        return $this->apiUpdateList([$note]);
+    }
+
+    /**
+     * Обновление примечания
+     *
+     * Метод позволяет обновлять данные по уже существующим примечаниям
+     *
+     * @link https://web.archive.org/web/20140903171813/https://developers.amocrm.ru/rest_api/notes_set.php
+     * @param \AmoCRM\Models\Note[]|array[] $notes массив примечаний дл обновления
+     * @param string $modified Дата последнего изменения
+     * @return bool Флаг успешности выполнения запроса
+     * @throws \AmoCRM\Exception
+     */
+    public function apiUpdateList($notes = [], $modified = 'now')
+    {
         $parameters = [
             'notes' => [
                 'update' => [],
             ],
         ];
 
-        $lead = $this->getValues();
-        $lead['id'] = $id;
-        $lead['last_modified'] = strtotime($modified);
+        /** @var \AmoCRM\Models\Note|array $note */
+        foreach ($notes as $note) {
+            if ($note instanceof Note) {
+                $note = $note->getValues();
+            }
+            $note['id'] = isset($note['id']) ? $note['id'] : null;
+            $note['last_modified'] = isset($note['last_modified'])
+                ? $note['last_modified']
+                : strtotime($modified);
 
-        $parameters['notes']['update'][] = $lead;
+            $this->checkId($note['id']);
+            $parameters['notes']['update'][] = $note;
+        }
 
         $response = $this->postRequest('/private/api/v2/json/notes/set', $parameters);
 

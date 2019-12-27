@@ -110,17 +110,43 @@ class Company extends AbstractModel
     {
         $this->checkId($id);
 
+        $company = $this->getValues();
+        $company['id'] = $id;
+        $company['last_modified'] = strtotime($modified);
+
+        return $this->apiUpdateList([$company]);
+    }
+
+    /**
+     * Пакетное обновление компаний
+     *
+     * @link https://web.archive.org/web/20140903201932/https://developers.amocrm.ru/rest_api/company_set.php
+     * @param \AmoCRM\Models\Company[]|array[] $companies Уникальный идентификатор компании
+     * @param string $modified Дата последнего изменения данной сущности
+     * @return bool Флаг успешности выполнения запроса
+     * @throws \AmoCRM\Exception
+     */
+    public function apiUpdateList($companies = [], $modified = 'now')
+    {
         $parameters = [
             'contacts' => [
                 'update' => [],
             ],
         ];
 
-        $company = $this->getValues();
-        $company['id'] = $id;
-        $company['last_modified'] = strtotime($modified);
+        /** @var \AmoCRM\Models\Company|array $company */
+        foreach ($companies as $company) {
+            if ($company instanceof Company) {
+                $company = $company->getValues();
+            }
+            $company['id'] = isset($company['id']) ? $company['id'] : null;
+            $company['last_modified'] = isset($company['last_modified'])
+                ? $company['last_modified']
+                : strtotime($modified);
 
-        $parameters['contacts']['update'][] = $company;
+            $this->checkId($company['id']);
+            $parameters['contacts']['update'][] = $company;
+        }
 
         $response = $this->postRequest('/private/api/v2/json/company/set', $parameters);
 
