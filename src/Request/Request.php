@@ -25,32 +25,32 @@ class Request
      * @var bool Использовать устаревшую схему авторизации
      */
     protected $v1 = false;
-
+    
     /**
      * @var bool Флаг вывода отладочной информации
      */
     private $debug = false;
-
+    
     /**
      * @var ParamsBag|null Экземпляр ParamsBag для хранения аргументов
      */
     private $parameters = null;
-
+    
     /**
      * @var CurlHandle Экземпляр CurlHandle
      */
     private $curlHandle;
-
+    
     /**
      * @var int|null Последний полученный HTTP код
      */
     private $lastHttpCode = null;
-
+    
     /**
      * @var string|null Последний полученный HTTP ответ
      */
     private $lastHttpResponse = null;
-
+    
     /**
      * Request constructor
      *
@@ -62,7 +62,7 @@ class Request
         $this->parameters = $parameters;
         $this->curlHandle = $curlHandle !== null ? $curlHandle : new CurlHandle();
     }
-
+    
     /**
      * Установка флага вывода отладочной информации
      *
@@ -72,10 +72,10 @@ class Request
     public function debug($flag = false)
     {
         $this->debug = (bool)$flag;
-
+        
         return $this;
     }
-
+    
     /**
      * Возвращает последний полученный HTTP код
      *
@@ -85,7 +85,7 @@ class Request
     {
         return $this->lastHttpCode;
     }
-
+    
     /**
      * Возвращает последний полученный HTTP ответ
      *
@@ -95,7 +95,7 @@ class Request
     {
         return $this->lastHttpResponse;
     }
-
+    
     /**
      * Возвращает экземпляр ParamsBag для хранения аргументов
      *
@@ -105,7 +105,7 @@ class Request
     {
         return $this->parameters;
     }
-
+    
     /**
      * Выполнить HTTP GET запрос и вернуть тело ответа
      *
@@ -121,10 +121,10 @@ class Request
         if (!empty($parameters)) {
             $this->parameters->addGet($parameters);
         }
-
+        
         return $this->request($url, $modified);
     }
-
+    
     /**
      * Выполнить HTTP POST запрос и вернуть тело ответа
      *
@@ -139,10 +139,10 @@ class Request
         if (!empty($parameters)) {
             $this->parameters->addPost($parameters);
         }
-
+        
         return $this->request($url);
     }
-
+    
     /**
      * Подготавливает список заголовков HTTP
      *
@@ -155,7 +155,7 @@ class Request
             'Connection: keep-alive',
             'Content-Type: application/json',
         ];
-
+        
         if ($modified !== null) {
             if (is_int($modified)) {
                 $headers[] = 'IF-MODIFIED-SINCE: ' . $modified;
@@ -163,10 +163,10 @@ class Request
                 $headers[] = 'IF-MODIFIED-SINCE: ' . (new DateTime($modified))->format(DateTime::RFC1123);
             }
         }
-
+        
         return $headers;
     }
-
+    
     /**
      * Подготавливает URL для HTTP запроса
      *
@@ -186,10 +186,10 @@ class Request
                 'api_key' => $this->parameters->getAuth('apikey'),
             ]), null, '&');
         }
-
+        
         return sprintf('https://%s%s?%s', $this->parameters->getAuth('domain'), $url, $query);
     }
-
+    
     /**
      * Выполнить HTTP запрос и вернуть тело ответа
      *
@@ -203,19 +203,19 @@ class Request
     {
         $headers = $this->prepareHeaders($modified);
         $endpoint = $this->prepareEndpoint($url);
-
+        
         $this->printDebug('url', $endpoint);
         $this->printDebug('headers', $headers);
-
+        
         $ch = $this->curlHandle->open();
-
+        
         curl_setopt($ch, CURLOPT_URL, $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_ENCODING, '');
-
+        
         if ($this->parameters->hasPost()) {
             $fields = json_encode([
                 'request' => $this->parameters->getPost(),
@@ -224,33 +224,33 @@ class Request
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
             $this->printDebug('post params', $fields);
         }
-
+        
         if ($this->parameters->hasProxy()) {
             curl_setopt($ch, CURLOPT_PROXY, $this->parameters->getProxy());
         }
-
+        
         $result = curl_exec($ch);
         $info = curl_getinfo($ch);
         $error = curl_error($ch);
         $errno = curl_errno($ch);
-
+        
         $this->curlHandle->close();
-
+        
         $this->lastHttpCode = $info['http_code'];
         $this->lastHttpResponse = $result;
-
+        
         $this->printDebug('curl_exec', $result);
         $this->printDebug('curl_getinfo', $info);
         $this->printDebug('curl_error', $error);
         $this->printDebug('curl_errno', $errno);
-
+        
         if ($result === false && !empty($error)) {
             throw new NetworkException($error, $errno);
         }
-
+        
         return $this->parseResponse($result, $info);
     }
-
+    
     /**
      * Парсит HTTP ответ, проверяет на наличие ошибок и возвращает тело ответа
      *
@@ -262,7 +262,7 @@ class Request
     protected function parseResponse($response, $info)
     {
         $result = json_decode($response, true);
-
+        
         if (floor($info['http_code'] / 100) >= 3) {
             if (isset($result['response']['error_code']) && $result['response']['error_code'] > 0) {
                 $code = $result['response']['error_code'];
@@ -278,13 +278,11 @@ class Request
             } else {
                 throw new Exception('Invalid response body.', $code);
             }
-        } elseif (!isset($result['response'])) {
-            return false;
         }
-
-        return $result['response'];
+        
+        return $result;
     }
-
+    
     /**
      * Вывода отладочной информации
      *
@@ -298,17 +296,17 @@ class Request
         if ($this->debug !== true) {
             return false;
         }
-
+        
         if (!is_string($value)) {
             $value = print_r($value, true);
         }
-
+        
         $line = sprintf('[DEBUG] %s: %s', $key, $value);
-
+        
         if ($return === false) {
             return print_r($line . PHP_EOL);
         }
-
+        
         return $line;
     }
 }
