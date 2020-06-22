@@ -2,8 +2,10 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Exception;
 use AmoCRM\Models\Traits\SetDateCreate;
 use AmoCRM\Models\Traits\SetLastModified;
+use AmoCRM\NetworkException;
 
 /**
  * Class Task
@@ -21,34 +23,38 @@ use AmoCRM\Models\Traits\SetLastModified;
 class Task extends AbstractModel
 {
     use SetDateCreate, SetLastModified;
-
+    
     /**
      * @var array Список доступный полей для модели (исключая кастомные поля)
      */
     protected $fields = [
-        'element_id',
-        'element_type',
-        'date_create',
-        'last_modified',
-        'status',
-        'request_id',
-        'task_type',
-        'text',
+        'created_by',
+        'updated_by',
+        'created_at',
+        'updated_at',
         'responsible_user_id',
+        'group_id',
+        'entity_id',
+        'entity_type',
+        'duration',
+        'is_completed',
+        'task_type_id',
+        'text',
+        'result',
         'complete_till',
-        'created_user_id',
+        'account_id'
     ];
-
+    
     /**
      * @const int Типа задачи Контакт
      */
     const TYPE_CONTACT = 1;
-
+    
     /**
      * @const int Типа задачи Сделка
      */
     const TYPE_LEAD = 2;
-
+    
     /**
      * Сеттер для дата до которой необходимо завершить задачу
      *
@@ -61,28 +67,47 @@ class Task extends AbstractModel
     public function setCompleteTill($date)
     {
         $this->values['complete_till'] = strtotime($date);
-
+        
         return $this;
     }
-
+    
     /**
      * Список задач
-     *
      * Метод для получения списка задач с возможностью фильтрации и постраничной выборки.
      * Ограничение по возвращаемым на одной странице (offset) данным - 500 задач
-     *
-     * @link https://developers.amocrm.ru/rest_api/tasks_list.php
-     * @param array $parameters Массив параметров к amoCRM API
+     * @link https://www.amocrm.ru/developers/content/crm_platform/tasks-api#tasks-list
+     * @param array       $parameters Массив параметров к amoCRM API
+     * @param string      $url
+     * @param null|string $modified   Дополнительная фильтрация по (изменено с)
+     * @return array Ответ amoCRM API
+     * @throws Exception
+     * @throws NetworkException
+     */
+    public function apiList($parameters, $url = '/api/v4/tasks', $modified = null)
+    {
+        $response = $this->getRequest($url, $parameters, $modified);
+    
+        return isset($response['_embedded']['tasks']) ? $response['_embedded']['tasks'] : [];
+    }
+    
+    /**
+     * Получение одной задачи
+     * Метод для получения одной задачи по id
+     * @link https://www.amocrm.ru/developers/content/crm_platform/tasks-api#task-detail
+     * @param string      $taskId   идентификатор задачи
+     * @param string      $url
      * @param null|string $modified Дополнительная фильтрация по (изменено с)
      * @return array Ответ amoCRM API
+     * @throws Exception
+     * @throws NetworkException
      */
-    public function apiList($parameters, $modified = null)
+    public function apiListItem($taskId, $url = '/api/v4/tasks/', $parameters = [], $modified = null)
     {
-        $response = $this->getRequest('/private/api/v2/json/tasks/list', $parameters, $modified);
-
-        return isset($response['tasks']) ? $response['tasks'] : [];
+        $response = $this->getRequest($url.$taskId, $parameters, $modified);
+        
+        return $response ? : [];
     }
-
+    
     /**
      * Добавление задачи
      *
@@ -97,19 +122,19 @@ class Task extends AbstractModel
         if (empty($tasks)) {
             $tasks = [$this];
         }
-
+        
         $parameters = [
             'tasks' => [
                 'add' => [],
             ],
         ];
-
+        
         foreach ($tasks AS $task) {
             $parameters['tasks']['add'][] = $task->getValues();
         }
-
+        
         $response = $this->postRequest('/private/api/v2/json/tasks/set', $parameters);
-
+        
         if (isset($response['tasks']['add'])) {
             $result = array_map(function($item) {
                 return $item['id'];
@@ -117,10 +142,10 @@ class Task extends AbstractModel
         } else {
             return [];
         }
-
+        
         return count($tasks) == 1 ? array_shift($result) : $result;
     }
-
+    
     /**
      * Обновление задачи
      *
@@ -131,27 +156,27 @@ class Task extends AbstractModel
      * @param string $text Текст задачи
      * @param string $modified Дата последнего изменения данной сущности
      * @return bool Флаг успешности выполнения запроса
-     * @throws \AmoCRM\Exception
+     * @throws Exception
      */
     public function apiUpdate($id, $text, $modified = 'now')
     {
         $this->checkId($id);
-
+        
         $parameters = [
             'tasks' => [
                 'update' => [],
             ],
         ];
-
+        
         $task = $this->getValues();
         $task['id'] = $id;
         $task['text'] = $text;
         $task['last_modified'] = strtotime($modified);
-
+        
         $parameters['tasks']['update'][] = $task;
-
+        
         $response = $this->postRequest('/private/api/v2/json/tasks/set', $parameters);
-
+        
         return empty($response['tasks']['update']['errors']);
     }
 }
