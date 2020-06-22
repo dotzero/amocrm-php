@@ -116,7 +116,7 @@ class Request
      * @throws Exception
      * @throws NetworkException
      */
-    protected function getRequest($url, $parameters = [], $modified = null)
+    public function getRequest($url, $parameters = [], $modified = null)
     {
         if (!empty($parameters)) {
             $this->parameters->addGet($parameters);

@@ -34,7 +34,7 @@ class Account extends AbstractModel
     {
         $result = $this->getRequest('/private/api/v2/json/accounts/current', $parameters);
 
-        return $short ? $this->getShorted($result['account']) : $result['account'];
+        return $short ? $this->getShorted($result['response']['account']) : $result['response']['account'];
     }
 
     /**
