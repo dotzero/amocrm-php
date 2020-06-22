@@ -101,9 +101,9 @@ class Task extends AbstractModel
      * @throws Exception
      * @throws NetworkException
      */
-    public function apiListItem($taskId, $url = '/api/v4/tasks/', $modified = null)
+    public function apiListItem($taskId, $url = '/api/v4/tasks/', $parameters = [], $modified = null)
     {
-        $response = $this->getRequest($url.$taskId, $modified);
+        $response = $this->getRequest($url.$taskId, $parameters, $modified);
         
         return isset($response['tasks']) ? $response['tasks'] : [];
     }
