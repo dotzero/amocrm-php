@@ -105,7 +105,7 @@ class Task extends AbstractModel
     {
         $response = $this->getRequest($url.$taskId, $parameters, $modified);
         
-        return isset($response['tasks']) ? $response['tasks'] : [];
+        return $response ? : [];
     }
     
     /**
