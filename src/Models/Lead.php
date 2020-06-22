@@ -2,10 +2,12 @@
 
 namespace AmoCRM\Models;
 
+use AmoCRM\Exception;
 use AmoCRM\Models\Traits\SetNote;
 use AmoCRM\Models\Traits\SetTags;
 use AmoCRM\Models\Traits\SetDateCreate;
 use AmoCRM\Models\Traits\SetLastModified;
+use AmoCRM\NetworkException;
 
 /**
  * Class Lead
@@ -51,18 +53,38 @@ class Lead extends AbstractModel
      * Метод для получения списка сделок с возможностью фильтрации и постраничной выборки.
      * Ограничение по возвращаемым на одной странице (offset) данным - 500 сделок
      *
-     * @link https://developers.amocrm.ru/rest_api/leads_list.php
+     * @link https://www.amocrm.ru/developers/content/crm_platform/leads-api#leads-list
      * @param array $parameters Массив параметров к amoCRM API
      * @param null|string $modified Дополнительная фильтрация по (изменено с)
      * @return array Ответ amoCRM API
      */
-    public function apiList($parameters, $modified = null)
+    
+    public function apiList($parameters, $url = '/api/v4/leads', $modified = null)
     {
-        $response = $this->getRequest('/private/api/v2/json/leads/list', $parameters, $modified);
-
-        return isset($response['leads']) ? $response['leads'] : [];
+        $response = $this->getRequest($url, $parameters, $modified);
+        
+        return isset($response['_embedded']['leads']) ? $response['_embedded']['leads'] : [];
     }
-
+    
+    /**
+     * Получение одной сделки
+     * Метод для получения одной сделки по id
+     * @link https://www.amocrm.ru/developers/content/crm_platform/leads-api#lead-detail
+     * @param             $itemId
+     * @param string      $url
+     * @param array       $parameters
+     * @param null|string $modified Дополнительная фильтрация по (изменено с)
+     * @return array Ответ amoCRM API
+     * @throws Exception
+     * @throws NetworkException
+     */
+    public function apiListItem($itemId, $url = '/api/v4/leads/', $parameters = [], $modified = null)
+    {
+        $response = $this->getRequest($url.$itemId, $parameters, $modified);
+        
+        return $response ? : [];
+    }
+    
     /**
      * Добавление сделки
      *

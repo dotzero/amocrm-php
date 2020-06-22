@@ -75,7 +75,7 @@ class Task extends AbstractModel
      * Список задач
      * Метод для получения списка задач с возможностью фильтрации и постраничной выборки.
      * Ограничение по возвращаемым на одной странице (offset) данным - 500 задач
-     * @link https://developers.amocrm.ru/rest_api/tasks_list.php
+     * @link https://www.amocrm.ru/developers/content/crm_platform/tasks-api#tasks-list
      * @param array       $parameters Массив параметров к amoCRM API
      * @param string      $url
      * @param null|string $modified   Дополнительная фильтрация по (изменено с)
@@ -83,11 +83,11 @@ class Task extends AbstractModel
      * @throws Exception
      * @throws NetworkException
      */
-    public function apiList($parameters, $url = '/private/api/v2/json/tasks/list', $modified = null)
+    public function apiList($parameters, $url = '/api/v4/tasks', $modified = null)
     {
         $response = $this->getRequest($url, $parameters, $modified);
-        
-        return isset($response['tasks']) ? $response['tasks'] : [];
+    
+        return isset($response['_embedded']['tasks']) ? $response['_embedded']['tasks'] : [];
     }
     
     /**
