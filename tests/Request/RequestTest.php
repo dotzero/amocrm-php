@@ -145,7 +145,12 @@ class RequestTest extends TestCase
 
     public function testParseResponseEmpty()
     {
-        $actual = $this->invokeMethod($this->request, 'parseResponse', [null, null]);
+        $response = '';
+        $info = [
+            'http_code' => 200
+        ];
+
+        $actual = $this->invokeMethod($this->request, 'parseResponse', [$response, $info]);
         $this->assertFalse($actual);
     }
 
