@@ -176,15 +176,15 @@ class Request
     protected function prepareEndpoint($url)
     {
         if ($this->v1 === false) {
-            $query = http_build_query(array_merge($this->parameters->getGet(), [
+            $query = http_build_query(data: array_merge($this->parameters->getGet(), [
                 'USER_LOGIN' => $this->parameters->getAuth('login'),
                 'USER_HASH' => $this->parameters->getAuth('apikey'),
-            ]), null, '&');
+            ]), arg_separator: '&');
         } else {
-            $query = http_build_query(array_merge($this->parameters->getGet(), [
+            $query = http_build_query(data: array_merge($this->parameters->getGet(), [
                 'login' => $this->parameters->getAuth('login'),
                 'api_key' => $this->parameters->getAuth('apikey'),
-            ]), null, '&');
+            ]), arg_separator: '&');
         }
 
         return sprintf('https://%s%s?%s', $this->parameters->getAuth('domain'), $url, $query);
@@ -219,7 +219,7 @@ class Request
         if ($this->parameters->hasPost()) {
             $fields = json_encode([
                 'request' => $this->parameters->getPost(),
-            ]);
+            ], JSON_THROW_ON_ERROR);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
             $this->printDebug('post params', $fields);

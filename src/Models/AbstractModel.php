@@ -30,7 +30,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
     /**
      * @var array Список значений полей для модели
      */
-    protected $values = [];
+    protected array $values = [];
 
     /**
      * Возвращает называние Модели
@@ -49,7 +49,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
      * @param mixed $offset Название поля для проверки
      * @return boolean Возвращает true или false
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->values[$offset]);
     }
@@ -61,7 +61,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
      * @param mixed $offset Название поля для возврата
      * @return mixed Значение поля
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (isset($this->values[$offset])) {
             return $this->values[$offset];
@@ -79,12 +79,12 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
      * @param mixed $offset Название поля, которому будет присваиваться значение
      * @param mixed $value Значение для присвоения
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $setter = 'set' . Format::camelCase($offset);
 
         if (method_exists($this, $setter)) {
-            return $this->$setter($value);
+            $this->$setter($value);
         } elseif (in_array($offset, $this->fields)) {
             $this->values[$offset] = $value;
         }
@@ -96,7 +96,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param mixed $offset Название поля для удаления
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         if (isset($this->values[$offset])) {
             unset($this->values[$offset]);
@@ -108,7 +108,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
      *
      * @return array Список значений полей модели
      */
-    public function getValues()
+    public function getValues(): array
     {
         return $this->values;
     }
@@ -192,7 +192,7 @@ abstract class AbstractModel extends Request implements ArrayAccess, ModelInterf
      */
     protected function checkId($id)
     {
-        if (intval($id) != $id || $id < 1) {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false || $id < 1) {
             throw new Exception('Id must be integer and positive');
         }
 

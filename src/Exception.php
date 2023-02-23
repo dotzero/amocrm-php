@@ -20,7 +20,7 @@ class Exception extends \Exception
     /**
      * @var array Справочник ошибок и ответов amoCRM API
      */
-    protected $errors = [
+    protected array $errors = [
         '101' => 'Аккаунт не найден',
         '102' => 'POST-параметры должны передаваться в формате JSON',
         '103' => 'Параметры не переданы',

@@ -28,7 +28,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $name Название поля
      * @param mixed $value Значение поля
      */
-    public function __set($name, $value)
+    public function __set($name, $value): void
     {
         $this->offsetSet($name, $value);
     }
@@ -39,7 +39,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $name Название поля
      * @return mixed Значение поля
      */
-    public function __get($name)
+    public function __get($name): mixed
     {
         return $this->offsetGet($name);
     }
@@ -50,7 +50,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $key Название поля
      * @param mixed $value Значение поля
      */
-    public function add($key, $value = null)
+    public function add($key, $value = null): void
     {
         $this->offsetSet($key, $value);
     }
@@ -61,7 +61,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $key Название поля
      * @return mixed Значение поля
      */
-    public function get($key)
+    public function get($key): mixed
     {
         return $this->offsetGet($key);
     }
@@ -73,7 +73,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $offset Смещение (ключ) для проверки
      * @return boolean Возвращает true или false
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->fields[$offset]);
     }
@@ -85,7 +85,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $offset Смещение (ключ) для возврата
      * @return mixed Значение смещения (ключа)
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (isset($this->fields[$offset])) {
             return $this->fields[$offset];
@@ -101,7 +101,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @param mixed $offset Смещение (ключ), которому будет присваиваться значение
      * @param mixed $value Значение для присвоения
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->fields[$offset] = $value;
     }
@@ -112,7 +112,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param mixed $offset Смещение для удаления
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         if (isset($this->fields[$offset])) {
             unset($this->fields[$offset]);
@@ -125,7 +125,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
      * @return \Traversable Экземпляр объекта, использующего Iterator или Traversable
      */
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->fields);
     }
@@ -136,7 +136,7 @@ class Fields implements \IteratorAggregate, \ArrayAccess, \Countable
      * @link http://php.net/manual/en/countable.count.php
      * @return int Количество элементов объекта
      */
-    public function count()
+    public function count(): int
     {
         return count($this->fields);
     }
