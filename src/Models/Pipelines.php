@@ -132,7 +132,7 @@ class Pipelines extends AbstractModel
         $pipeline = $this->getValues();
         $pipeline['id'] = $id;
 
-        $parameters['pipelines']['update'][] = $pipeline;
+        $parameters['pipelines']['update'][$id] = $pipeline;
 
         $response = $this->postRequest('/private/api/v2/json/pipelines/set', $parameters);
 

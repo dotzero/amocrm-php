@@ -177,8 +177,8 @@ class PipelinesTest extends TestCase
 
         $this->assertTrue($this->model->apiUpdate(1));
         $this->assertEquals('/private/api/v2/json/pipelines/set', $this->model->mockUrl);
-        $this->assertEquals(1, $this->model->mockParameters['pipelines']['update'][0]['id']);
-        $this->assertEquals('Воронка', $this->model->mockParameters['pipelines']['update'][0]['name']);
+        $this->assertEquals(1, $this->model->mockParameters['pipelines']['update'][1]['id']);
+        $this->assertEquals('Воронка', $this->model->mockParameters['pipelines']['update'][1]['name']);
     }
 
     public function testApiDelete()

@@ -42,6 +42,7 @@ class Lead extends AbstractModel
         'visitor_uid',
         'notes',
         'modified_user_id',
+        'loss_reason_id',
     ];
 
     /**
