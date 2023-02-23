@@ -92,7 +92,7 @@ class Client
      * @return ModelInterface
      * @throws ModelException
      */
-    public function __get($name)
+    public function __get($name): ModelInterface
     {
         $classname = '\\AmoCRM\\Models\\' . Format::camelCase($name);
 

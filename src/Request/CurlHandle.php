@@ -22,7 +22,7 @@ class CurlHandle
     /**
      * @var resource Повторно используемый обработчик cURL
      */
-    private $handle;
+    private ?\CurlHandle $handle = null;
 
     /**
      * Закрывает обработчик cURL
@@ -49,6 +49,7 @@ class CurlHandle
         if (!function_exists('curl_init')) {
             throw new NetworkException('The cURL PHP extension was not loaded.');
         }
+        
         $this->handle = curl_init();
 
         return $this->handle;
